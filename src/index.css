@@ -10,6 +10,10 @@
   /* color-scheme: light dark; */
   color: #ffffff;
   background-color: #000000;
+  /* opacity: 1;
+  background-image:  radial-gradient(#484848 1.1500000000000001px, transparent 1.1500000000000001px), radial-gradient(#484848 1.1500000000000001px, #000000 1.1500000000000001px);
+  background-size: 46px 46px;
+  background-position: 0 0,23px 23px; */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

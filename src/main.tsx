@@ -19,6 +19,7 @@ import UserPurchases from './pages/user.purchases.tsx'
 import HostJoin from './pages/host.join.tsx'
 import HostDashboard from './pages/host.dashboard.tsx'
 import HostCreate from './pages/host.create.tsx'
+import NotFound from './pages/404.tsx'
 
 const isAuthenticated = true;
 const isHost = true; 
@@ -53,7 +54,7 @@ const router = createBrowserRouter(
       </Route>
 
       {/* Catch-all route */}
-      <Route path='*' element={<Navigate to='/' replace />} />
+      <Route path='*' element={<NotFound />} />
 
     </Route>
   )
