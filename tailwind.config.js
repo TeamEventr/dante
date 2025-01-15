@@ -5,8 +5,19 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "primary": "#3A2A7A",
+        "secondary": "#FFD300",
+      },
+      fontFamily: {
+      gothic: ["League Gothic", "sans-serif"],
+      sans: ["Pontano Sans", "sans-serif"],
+      },
+    },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+  ],
 }
 
