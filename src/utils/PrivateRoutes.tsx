@@ -10,7 +10,7 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ isAuthenticated, isHost }) 
   if (!isAuthenticated) {
     return <Navigate to="/login" />;
   }
-  if (!isAuthenticated && !isHost) {
+  if (isAuthenticated && !isHost) {
     return <Navigate to="/host/join" />;
   }
   return <Outlet />;
