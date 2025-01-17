@@ -6,7 +6,14 @@ interface PrivateRouteProps {
   isHost?: boolean;
 }
 
-const PrivateRoute: React.FC<PrivateRouteProps> = ({ isAuthenticated, isHost }) => {
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ isAuthenticated }) => {
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
+  return <Outlet />;
+};
+
+const HostRoute: React.FC<PrivateRouteProps> = ({ isAuthenticated, isHost }) => {
   if (!isAuthenticated) {
     return <Navigate to="/login" />;
   }
@@ -14,6 +21,6 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ isAuthenticated, isHost }) 
     return <Navigate to="/host/join" />;
   }
   return <Outlet />;
-};
+}
 
-export default PrivateRoute;
+export { PrivateRoute, HostRoute };

@@ -3,8 +3,10 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import { Route, Navigate, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
-import PrivateRoute from './utils/PrivateRoutes.tsx'
+import { HostRoute, PrivateRoute } from './utils/PrivateRoutes.tsx'
 
+import Home from './pages/home.tsx'
+import Explore from './pages/explore.tsx'
 import About from './pages/about.tsx'
 import Support from './pages/support.tsx'
 import Event from './pages/event.tsx'
@@ -29,6 +31,8 @@ const router = createBrowserRouter(
     <Route path='/' element={<App />}>
 
       {/* Public Routes */}
+      <Route path='/' element={<Home />} />
+      <Route path='/explore' element={<Explore />} />
       <Route path='/about' element={<About />} />
       <Route path='/support' element={<Support />} />
       <Route path='/event/:id' element={<Event />} />
@@ -45,12 +49,12 @@ const router = createBrowserRouter(
       </Route>
 
       {/* Protected Host Routes */}
-      <Route element={<PrivateRoute isAuthenticated={isAuthenticated} isHost={isHost} />}>
+      <Route element={<HostRoute isAuthenticated={isAuthenticated} isHost={isHost} />}>
         <Route path='/host/dashboard' element={<HostDashboard />} />
         <Route path='/host/create' element={<HostCreate />} />
 
         {/* Catch-all route */}
-        <Route path='*' element={<Navigate to='/host/dashboard' replace />} />
+        <Route path='/host/*' element={<Navigate to='/host/dashboard' replace />} />
       </Route>
 
       {/* Catch-all route */}

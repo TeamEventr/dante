@@ -1,61 +1,107 @@
-import axios, { AxiosRequestConfig, AxiosError, AxiosResponse } from 'axios';
-import { useNavigate } from 'react-router-dom'; // For navigation
+import axios, {
+  AxiosRequestConfig,
+  AxiosError,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from 'axios';
 
-const API_URL = import.meta.env.API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
+// Axios instance
 const api = axios.create({
   baseURL: API_URL,
   timeout: 16000,
   withCredentials: true,
 });
 
+// Custom navigation using history
+const history = createBrowserHistory();
 
-// Intercept requests to attach tokens
-api.interceptors.request.use(async (config) => {
-  const { accessToken, expiry } = useAuthStore.getState();
-  const csrfToken = "getCookie('csrftoken');" // Change this later
-  
-  if (accessToken && new Date(expiry) > new Date()) {
-    config.headers.set('Authorization', `Bearer ${accessToken}`);
-  }
+// Zustand store for managing authentication
+interface AuthState {
+  accessToken: string | null;
+  expiry: string | null;
+  setAccessToken: (token: string) => void;
+  setExpiry: (expiry: string) => void;
+  clearAuth: () => void;
+}
 
-  if (csrfToken) {
-    config.headers.set('X-CSRFToken', csrfToken as string);
-  }
-
-  return config;
-  },
-  (error) => {
-    return Promise.reject(error)
-  }
+export const useAuthStore = create<AuthState>()(
+  persist(
+    (set) => ({
+      accessToken: null,
+      expiry: null,
+      setAccessToken: (token: string) => set({ accessToken: token }),
+      setExpiry: (expiry: string) => set({ expiry }),
+      clearAuth: () => set({ accessToken: null, expiry: null }),
+    }),
+    { name: 'auth-store' }
+  )
 );
 
-// Handle response errors, refresh token logic, and authentication failures
+// Retry logic configuration
+const MAX_RETRIES = 3;
+
+// Attach tokens to requests
+api.interceptors.request.use(
+  async (config: InternalAxiosRequestConfig) => {
+    const { accessToken, expiry } = useAuthStore.getState();
+    const csrfToken = getCookie('csrftoken') as string;
+
+    if (accessToken && expiry && new Date(expiry) > new Date()) {
+      config.headers.set('Authorization', `Bearer ${accessToken}`);
+    }
+
+    if (csrfToken) {
+      config.headers.set('X-CSRFToken', csrfToken);
+    }
+
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+// Refresh token and handle errors with retry logic
 api.interceptors.response.use(
   (response: AxiosResponse) => response,
   async (error: AxiosError) => {
-    const originalRequest = error.config as AxiosRequestConfig & { _isRetry?: boolean };
-    const navigate = useNavigate();
+    const originalRequest = error.config as AxiosRequestConfig & {
+      _isRetry?: boolean;
+      _retryCount?: number;
+    };
 
-    if (error.response?.status === 401 && originalRequest && !originalRequest._isRetry) {
+    if (error.response?.status === 401 && originalRequest) {
+      originalRequest._isRetry = originalRequest._isRetry || false;
+      originalRequest._retryCount = originalRequest._retryCount || 0;
+
+      if (originalRequest._isRetry || originalRequest._retryCount >= MAX_RETRIES) {
+        useAuthStore.getState().clearAuth();
+        history.push('/login');
+        return Promise.reject(error);
+      }
+
       originalRequest._isRetry = true;
+      originalRequest._retryCount += 1;
 
       try {
-        const csrfToken = getCookie('csrftoken');
+        const csrfToken = getCookie('csrftoken') as string;
+
         const response = await axios.post(
           `${API_URL}/auth/jwt/refresh/`,
           {},
           {
             withCredentials: true,
             headers: {
-              'X-CSRFToken': csrfToken as string,
+              'X-CSRFToken': csrfToken,
             },
           }
         );
 
-        const newAccessToken = response.data?.access;
-        if (newAccessToken) {
+        const { access: newAccessToken, expiry: newExpiry } = response.data;
+
+        if (newAccessToken && newExpiry) {
           useAuthStore.getState().setAccessToken(newAccessToken);
+          useAuthStore.getState().setExpiry(newExpiry);
 
           // Retry original request with the new access token
           originalRequest.headers = {
@@ -65,52 +111,20 @@ api.interceptors.response.use(
           return api.request(originalRequest);
         }
       } catch (refreshError) {
-        console.error('Error refreshing access token:', refreshError);
-        useAuthStore.getState().clearAuth();
-        navigate('/login'); // Redirect to login on failure
+        console.error(
+          `Error refreshing token (attempt ${originalRequest._retryCount}):`,
+          refreshError
+        );
+
+        if (originalRequest._retryCount >= MAX_RETRIES) {
+          useAuthStore.getState().clearAuth();
+          history.push('/login');
+        }
       }
     }
 
     return Promise.reject(error);
   }
 );
-
-// Authentication functions
-export const authAPI = {
-  login: async (email: string, password: string) => {
-    const csrfToken = getCookie('csrftoken');
-    const response = await api.post(
-      '/auth/login/',
-      { email, password },
-      {
-        headers: { 'X-CSRFToken': csrfToken as string },
-      }
-    );
-    const { access } = response.data;
-    useAuthStore.getState().setAccessToken(access);
-  },
-
-  logout: async () => {
-    const csrfToken = getCookie('csrftoken');
-    await api.post(
-      '/auth/logout/',
-      {},
-      {
-        headers: { 'X-CSRFToken': csrfToken as string },
-      }
-    );
-    useAuthStore.getState().clearAuth();
-  },
-
-  createAccount: async (email: string, password: string) => {
-    const response = await api.post('/auth/register/', { email, password });
-    return response.data;
-  },
-
-  fetchData: async (endpoint: string) => {
-    const response = await api.get(endpoint);
-    return response.data;
-  },
-};
 
 export default api;

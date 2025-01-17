@@ -1,6 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
+@import url('https://fonts.googleapis.com/css2?family=League+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pontano+Sans:wght@300..700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.box-shadow{
+  box-shadow: 
+    inset 0 0px 8px rgba(153, 153, 153, 0.1), /* Brighter inner shadow */
+    0 0px 6px rgba(0, 0, 0, 0.3); /* Black outer shadow */
+  outline: none;
+} 
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -9,7 +20,8 @@
 
   /* color-scheme: light dark; */
   color: #ffffff;
-  background-color: #000000;
+  background: linear-gradient(to bottom, #17002f, #070708);
+  height: 100vh;
   /* opacity: 1;
   background-image:  radial-gradient(#484848 1.1500000000000001px, transparent 1.1500000000000001px), radial-gradient(#484848 1.1500000000000001px, #000000 1.1500000000000001px);
   background-size: 46px 46px;
