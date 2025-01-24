@@ -1,36 +1,40 @@
-import { NavLink } from "react-router-dom";
-import Icon from "../ui/icon-wrapper";
-import { BookmarkIcon, ShareIcon } from "../ui/icons";
+import { createFileRoute } from '@tanstack/react-router';
+import Icon from "../../ui/icon-wrapper";
+import { BookmarkIcon, ShareIcon } from "../../ui/icons";
 import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
+
 
 const animationParams = {
-  hidden: {
-    y: "10%",
-    opacity: 0,
-    transition: {
-      duration: 0.15, // Faster transition
-      ease: "easeOut", // Smooth exit
+    hidden: {
+      y: "10%",
+      opacity: 0,
+      transition: {
+        duration: 0.15, // Faster transition
+        ease: "easeOut", // Smooth exit
+      },
     },
-  },
-  visible: {
-    y: "0%",
-    opacity: 1,
-    transition: {
-      type: "spring",
-      stiffness: 200, // Slightly snappier spring
-      damping: 20, // Reduced damping for quicker settling
+    visible: {
+      y: "0%",
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 200, // Slightly snappier spring
+        damping: 20, // Reduced damping for quicker settling
+      },
     },
-  },
-};
+  };
 
+export const Route = createFileRoute('/event/')({
+  component: RouteComponent,
+})
 
-export default function Event() {
+function RouteComponent() {
 
-  const [isBookingMenuOpen, setBookingMenuOpen] = useState(false);
+    const [isBookingMenuOpen, setBookingMenuOpen] = useState(false);
 
-
-  return (
+  return  (
     <div>
       <div className="fixed py-2 flex items-center gap-2 z-40 bottom-0 bg-eventr-gray-50 w-full h-20 p-4">
         <button className="bg-eventr-gray-200/20 p-5 rounded-xl">
@@ -93,10 +97,10 @@ export default function Event() {
           </div>
           <p className="mt-1">Hosted By</p>
           <div className="border-y-2 p-2 border-eventr-gray-100 w-full my-3">
-              <NavLink to={`/u/virat`} className="flex gap-3 items-center">
+              <Link to="/u/$uId" params={{uId: 'virat' }}>
                 <div className="w-16 h-16 bg-eventr-gray-500 rounded-full"/>
                 <p><span className="text-xl font-bold">Virat Kohli</span><br/><span>Indian Cricket Bench</span></p>
-              </NavLink>
+              </Link>
           </div>
           
           <div className="w-full my-1.5 bg-eventr-gray-100/20 rounded-xl p-2.5">

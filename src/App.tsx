@@ -1,5 +1,4 @@
-import { Outlet } from "react-router-dom";
-import Navbar from "./components/navbar"; // Ensure you have the correct path for Navbar
+import {Outlet} from "@tanstack/react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"; // Import the devtools
 
@@ -10,7 +9,6 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <div>
-        <Navbar />
         <main>
           <Outlet />
         </main>
