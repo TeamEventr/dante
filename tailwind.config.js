@@ -23,7 +23,7 @@ export default {
       },
       fontFamily: {
       gothic: ["League Gothic", "sans-serif"],
-      sans: ["Pontano Sans", "sans-serif"],
+      sans: ["DM Sans", "sans-serif"],
       },
     },
   },
