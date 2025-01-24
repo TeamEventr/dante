@@ -31,30 +31,30 @@ const router = createBrowserRouter(
     <Route path='/' element={<App />}>
 
       {/* Public Routes */}
-      <Route path='/' element={<Home />} />
-      <Route path='/explore' element={<Explore />} />
-      <Route path='/about' element={<About />} />
-      <Route path='/support' element={<Support />} />
-      <Route path='/event/:id' element={<Event />} />
-      <Route path='/register' element={<Register />} />
-      <Route path='/verify' element={<Verify />} />
-      <Route path='/host/join' element={<HostJoin />} />
+      <Route index element={<Home />} />
+      <Route path='explore' element={<Explore />} />
+      <Route path='about' element={<About />} />
+      <Route path='support' element={<Support />} />
+      <Route path='event/:id' element={<Event />} />
+      <Route path='register' element={<Register />} />
+      <Route path='verify' element={<Verify />} />
+      <Route path='host/join' element={<HostJoin />} />
 
       {/* Protected User Routes */}
       <Route element={<PrivateRoute isAuthenticated={isAuthenticated} />}>
-        <Route path='/profile' element={<UserProfile />} />
-        <Route path='/bookmarks' element={<UserBookmarks />} />
-        <Route path='/tickets' element={<UserTickets />} />
-        <Route path='/purchases' element={<UserPurchases />} />
+        <Route path='profile' element={<UserProfile />} />
+        <Route path='bookmarks' element={<UserBookmarks />} />
+        <Route path='tickets' element={<UserTickets />} />
+        <Route path='purchases' element={<UserPurchases />} />
       </Route>
 
       {/* Protected Host Routes */}
       <Route element={<HostRoute isAuthenticated={isAuthenticated} isHost={isHost} />}>
-        <Route path='/host/dashboard' element={<HostDashboard />} />
-        <Route path='/host/create' element={<HostCreate />} />
+        <Route path='host/dashboard' element={<HostDashboard />} />
+        <Route path='host/create' element={<HostCreate />} />
 
         {/* Catch-all route */}
-        <Route path='/host/*' element={<Navigate to='/host/dashboard' replace />} />
+        <Route path='host/*' element={<Navigate to='/host/dashboard' replace />} />
       </Route>
 
       {/* Catch-all route */}

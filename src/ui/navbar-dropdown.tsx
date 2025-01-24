@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { NavLink } from "react-router-dom";
 
 const animationParams = {
     hidden: {
@@ -68,15 +69,15 @@ export default function NavbarDropDown() {
                   initial="hidden" animate="visible" exit="exit" variants={animationParams} ref={menuRef}
                   className="absolute text-lg right-3 lg:right-6 w-36 p-2 flex flex-col gap-1.5 bg-eventr-gray-900 border-2 border-eventr-gray-800 rounded-md shadow-lg z-40"
               >
-                  <a href="/profile" onClick={() => setIsMenuOpen(false)} className="block px-2 py-1.5 rounded-md duration-200 hover:bg-eventr-gray-800">
+                  <NavLink to="/profile" onClick={() => setIsMenuOpen(false)} className="block px-2 py-1.5 rounded-md duration-200 hover:bg-eventr-gray-800">
                       Profile
-                  </a>
-                  <a href="/tickets" onClick={() => setIsMenuOpen(false)} className="block px-2 py-1.5 rounded-md duration-200 hover:bg-eventr-gray-800">
+                  </NavLink>
+                  <NavLink to="/tickets" onClick={() => setIsMenuOpen(false)} className="block px-2 py-1.5 rounded-md duration-200 hover:bg-eventr-gray-800">
                       My Tickets
-                  </a>
-                  <a href="/bookmarks" onClick={() => setIsMenuOpen(false)} className="block px-2 py-1.5 rounded-md duration-200 hover:bg-eventr-gray-800">
+                  </NavLink>
+                  <NavLink to="/bookmarks" onClick={() => setIsMenuOpen(false)} className="block px-2 py-1.5 rounded-md duration-200 hover:bg-eventr-gray-800">
                       Bookmarks
-                  </a>
+                  </NavLink>
                   <button onClick={() => setIsMenuOpen(false)} className="block w-full text-left px-2 py-1.5 rounded-md duration-200 hover:bg-eventr-gray-800 text-red-600">
                       Logout
                   </button>

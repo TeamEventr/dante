@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import Icon from "../ui/icon-wrapper";
 import { BookmarkIcon, ShareIcon } from "../ui/icons";
 import { motion, AnimatePresence } from "motion/react";
@@ -92,10 +93,10 @@ export default function Event() {
           </div>
           <p className="mt-1">Hosted By</p>
           <div className="border-y-2 p-2 border-eventr-gray-100 w-full my-3">
-              <a className="flex gap-3 items-center">
+              <NavLink to={`/u/virat`} className="flex gap-3 items-center">
                 <div className="w-16 h-16 bg-eventr-gray-500 rounded-full"/>
                 <p><span className="text-xl font-bold">Virat Kohli</span><br/><span>Indian Cricket Bench</span></p>
-              </a>
+              </NavLink>
           </div>
           
           <div className="w-full my-1.5 bg-eventr-gray-100/20 rounded-xl p-2.5">

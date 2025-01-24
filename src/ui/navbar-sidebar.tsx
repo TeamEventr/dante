@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import Icon from "./icon-wrapper";
-import { SearchIcon } from "./icons";
+import { HomeIcon, SearchIcon } from "./icons";
+import { NavLink } from "react-router-dom";
 
 const animationParams = {
     hidden: {
@@ -70,18 +71,21 @@ export default function NavbarSidebar() {
                     <button className="mb-4 ml-2" onClick={() => setIsSidebarOpen(false)}>
                         <Icon icon="close" size="32px" />
                     </button>
-                  <a href="/explore" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
+                <NavLink to="/" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
+                    <HomeIcon size={26}/> Home
+                  </NavLink>
+                  <NavLink to="/explore" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
                       <SearchIcon size={26}/> Explore
-                  </a>
-                  <a href="/host/join" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
+                  </NavLink>
+                  <NavLink to="/host/join" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
                       <Icon icon="person_play" size="26px"/> Become a Host
-                  </a>
-                  <a href="/help" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
+                  </NavLink>
+                  <NavLink to="/help" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
                       <Icon icon="help" size="26px" /> Help
-                  </a>
-                  <a href="/settings" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
+                  </NavLink>
+                  <NavLink to="/settings" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
                       <Icon icon="settings" size="26px" /> Settings
-                  </a>
+                  </NavLink>
               </motion.div>
           )}
         </AnimatePresence>
