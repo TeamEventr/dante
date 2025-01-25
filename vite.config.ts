@@ -5,13 +5,13 @@ import { TanStackRouterVite } from '@tanstack/router-vite-plugin';
 
 // https://vite.dev/config/
 export default defineConfig({
+  plugins: [
+    react(), 
+    TanStackRouterVite(), // Add TanStack Router plugin here
+  ],
   css: {
     postcss: {
       plugins: [tailwindcss()],
     },
   },
-  plugins: [
-    react(), 
-    TanStackRouterVite(), // Add TanStack Router plugin here
-  ],
 });
