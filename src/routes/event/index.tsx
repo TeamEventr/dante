@@ -11,8 +11,8 @@ const animationParams = {
       y: "10%",
       opacity: 0,
       transition: {
-        duration: 0.15, // Faster transition
-        ease: "easeOut", // Smooth exit
+        duration: 0.15,
+        ease: "easeOut",
       },
     },
     visible: {
@@ -20,8 +20,8 @@ const animationParams = {
       opacity: 1,
       transition: {
         type: "spring",
-        stiffness: 200, // Slightly snappier spring
-        damping: 20, // Reduced damping for quicker settling
+        stiffness: 200,
+        damping: 20,
       },
     },
   };
@@ -54,10 +54,11 @@ function RouteComponent() {
           <h1 className="font-bold text-2xl w-full">Big brown fox jumped</h1>
           <p className="flex items-center text w-full"><Icon icon="location_on" size="18px"/>Really long concert location</p>
           <div className="w-full my-3 flex items-center gap-1.5">
-            <span className="bg-primary px-2 py-1 rounded-md text-white text-sm">Concert</span>
-            <span className=" px-2 py-1 rounded-md border border-eventr-gray-500 text-sm">Music</span>
-            <span className=" px-2 py-1 rounded-md border border-eventr-gray-500 text-sm">Loud Noises</span>
-            <span className=" px-2 py-1 rounded-md border border-eventr-gray-500 text-sm">Alcohol</span>
+            <span className="bg-primary px-2 py-1 rounded-md text-white text-sm">Concerts</span>
+            {['tag1', 'tag2', 'tag3'].map((tag, index) => (
+                <span key={index} className="px-2 py-1 rounded-md border border-eventr-gray-500 text-sm">{tag}</span>
+            ))}
+
           </div>
           <div className="flex items-center justify-between px-2 my-1.5 gap-1.5 border-2 border-eventr-gray-100 rounded-xl h-12 w-full">
             <div className="flex gap-0.5">

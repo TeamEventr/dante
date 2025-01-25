@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
+import { Route as TicketsIndexImport } from './routes/tickets/index'
 import { Route as SupportIndexImport } from './routes/support/index'
 import { Route as RegisterIndexImport } from './routes/register/index'
 import { Route as LoginIndexImport } from './routes/login/index'
@@ -32,6 +33,12 @@ import { Route as HostDashboardIndexImport } from './routes/host/dashboard/index
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const TicketsIndexRoute = TicketsIndexImport.update({
+  id: '/tickets/',
+  path: '/tickets/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -186,6 +193,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SupportIndexImport
       parentRoute: typeof rootRoute
     }
+    '/tickets/': {
+      id: '/tickets/'
+      path: '/tickets'
+      fullPath: '/tickets'
+      preLoaderRoute: typeof TicketsIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/host/dashboard/': {
       id: '/host/dashboard/'
       path: '/host/dashboard'
@@ -243,6 +257,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginIndexRoute
   '/register': typeof RegisterIndexRoute
   '/support': typeof SupportIndexRoute
+  '/tickets': typeof TicketsIndexRoute
   '/host/dashboard': typeof HostDashboardIndexRoute
   '/host/join': typeof HostJoinIndexRoute
   '/u/favourites': typeof UFavouritesIndexRoute
@@ -261,6 +276,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginIndexRoute
   '/register': typeof RegisterIndexRoute
   '/support': typeof SupportIndexRoute
+  '/tickets': typeof TicketsIndexRoute
   '/host/dashboard': typeof HostDashboardIndexRoute
   '/host/join': typeof HostJoinIndexRoute
   '/u/favourites': typeof UFavouritesIndexRoute
@@ -280,6 +296,7 @@ export interface FileRoutesById {
   '/login/': typeof LoginIndexRoute
   '/register/': typeof RegisterIndexRoute
   '/support/': typeof SupportIndexRoute
+  '/tickets/': typeof TicketsIndexRoute
   '/host/dashboard/': typeof HostDashboardIndexRoute
   '/host/join/': typeof HostJoinIndexRoute
   '/u/favourites/': typeof UFavouritesIndexRoute
@@ -300,6 +317,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/support'
+    | '/tickets'
     | '/host/dashboard'
     | '/host/join'
     | '/u/favourites'
@@ -317,6 +335,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/support'
+    | '/tickets'
     | '/host/dashboard'
     | '/host/join'
     | '/u/favourites'
@@ -334,6 +353,7 @@ export interface FileRouteTypes {
     | '/login/'
     | '/register/'
     | '/support/'
+    | '/tickets/'
     | '/host/dashboard/'
     | '/host/join/'
     | '/u/favourites/'
@@ -353,6 +373,7 @@ export interface RootRouteChildren {
   LoginIndexRoute: typeof LoginIndexRoute
   RegisterIndexRoute: typeof RegisterIndexRoute
   SupportIndexRoute: typeof SupportIndexRoute
+  TicketsIndexRoute: typeof TicketsIndexRoute
   HostDashboardIndexRoute: typeof HostDashboardIndexRoute
   HostJoinIndexRoute: typeof HostJoinIndexRoute
   UFavouritesIndexRoute: typeof UFavouritesIndexRoute
@@ -371,6 +392,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginIndexRoute: LoginIndexRoute,
   RegisterIndexRoute: RegisterIndexRoute,
   SupportIndexRoute: SupportIndexRoute,
+  TicketsIndexRoute: TicketsIndexRoute,
   HostDashboardIndexRoute: HostDashboardIndexRoute,
   HostJoinIndexRoute: HostJoinIndexRoute,
   UFavouritesIndexRoute: UFavouritesIndexRoute,
@@ -398,6 +420,7 @@ export const routeTree = rootRoute
         "/login/",
         "/register/",
         "/support/",
+        "/tickets/",
         "/host/dashboard/",
         "/host/join/",
         "/u/favourites/",
@@ -432,6 +455,9 @@ export const routeTree = rootRoute
     },
     "/support/": {
       "filePath": "support/index.tsx"
+    },
+    "/tickets/": {
+      "filePath": "tickets/index.tsx"
     },
     "/host/dashboard/": {
       "filePath": "host/dashboard/index.tsx"
