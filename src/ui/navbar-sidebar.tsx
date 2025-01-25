@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import Icon from "./icon-wrapper";
 import { HomeIcon, SearchIcon } from "./icons";
-import { NavLink } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 
 const animationParams = {
     hidden: {
@@ -71,23 +71,23 @@ export default function NavbarSidebar() {
                     <button className="mb-4 ml-2" onClick={() => setIsSidebarOpen(false)}>
                         <Icon icon="close" size="32px" />
                     </button>
-                <NavLink to="/" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
+                <Link to="/" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
                     <HomeIcon size={26}/> Home
-                  </NavLink>
-                  <NavLink to="/explore" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
+                  </Link>
+                  <Link to="/explore" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
                       <SearchIcon size={26}/> Explore
-                  </NavLink>
+                  </Link>
 
-                  <NavLink to="/help" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
+                  <Link to="/help" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
                       <Icon icon="help" size="26px" /> Help
-                  </NavLink>
-                  <NavLink to="/settings" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
+                  </Link>
+                  <Link to="/settings" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
                       <Icon icon="settings" size="26px" /> Settings
-                  </NavLink>
+                  </Link>
                   <div className="h-0.5 bg-eventr-gray-800 rounded-full m-4"/>
-                  <NavLink to="/host/join" onClick={() => setIsSidebarOpen(false)} className="flex  bg-gradient-to-br from-purple-600 via-purple-800 to-purple-900 gap-2 text-lg p-2 h-24 rounded-md duration-200">
+                  <Link to="/host/join" onClick={() => setIsSidebarOpen(false)} className="flex  bg-gradient-to-br from-purple-600 via-purple-800 to-purple-900 gap-2 text-lg p-2 h-24 rounded-md duration-200">
                       <Icon icon="person_play" size="26px"/> Become a Host
-                  </NavLink>
+                  </Link>
               </motion.div>
           )}
         </AnimatePresence>

@@ -16,7 +16,7 @@ export default function Carousel() {
   // Calculate scroll amount to avoid recalculating it each time
   const scrollAmount = useMemo(() => {
     return scrollRef.current ? scrollRef.current.offsetWidth * 0.2 : 0;
-  }, [scrollRef.current?.offsetWidth]);
+  },[]);
 
   // Scroll carousel
   const handleScroll = useCallback(

@@ -14,19 +14,21 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as TicketsIndexImport } from './routes/tickets/index'
 import { Route as SupportIndexImport } from './routes/support/index'
+import { Route as SettingsIndexImport } from './routes/settings/index'
 import { Route as RegisterIndexImport } from './routes/register/index'
 import { Route as LoginIndexImport } from './routes/login/index'
+import { Route as HelpIndexImport } from './routes/help/index'
 import { Route as ExploreIndexImport } from './routes/explore/index'
 import { Route as EventIndexImport } from './routes/event/index'
 import { Route as AboutIndexImport } from './routes/about/index'
-import { Route as UUIdImport } from './routes/u/$uId'
 import { Route as ExploreCategoryImport } from './routes/explore/$category'
 import { Route as UTicketsIndexImport } from './routes/u/tickets/index'
 import { Route as UPurchasesIndexImport } from './routes/u/purchases/index'
-import { Route as UProfileIndexImport } from './routes/u/profile/index'
 import { Route as UFavouritesIndexImport } from './routes/u/favourites/index'
+import { Route as UUIdIndexImport } from './routes/u/$uId/index'
 import { Route as HostJoinIndexImport } from './routes/host/join/index'
 import { Route as HostDashboardIndexImport } from './routes/host/dashboard/index'
+import { Route as ExploreEventIdIndexImport } from './routes/explore/$eventId/index'
 
 // Create/Update Routes
 
@@ -48,6 +50,12 @@ const SupportIndexRoute = SupportIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const SettingsIndexRoute = SettingsIndexImport.update({
+  id: '/settings/',
+  path: '/settings/',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const RegisterIndexRoute = RegisterIndexImport.update({
   id: '/register/',
   path: '/register/',
@@ -57,6 +65,12 @@ const RegisterIndexRoute = RegisterIndexImport.update({
 const LoginIndexRoute = LoginIndexImport.update({
   id: '/login/',
   path: '/login/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const HelpIndexRoute = HelpIndexImport.update({
+  id: '/help/',
+  path: '/help/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -78,12 +92,6 @@ const AboutIndexRoute = AboutIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const UUIdRoute = UUIdImport.update({
-  id: '/u/$uId',
-  path: '/u/$uId',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const ExploreCategoryRoute = ExploreCategoryImport.update({
   id: '/explore/$category',
   path: '/explore/$category',
@@ -102,15 +110,15 @@ const UPurchasesIndexRoute = UPurchasesIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const UProfileIndexRoute = UProfileIndexImport.update({
-  id: '/u/profile/',
-  path: '/u/profile/',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const UFavouritesIndexRoute = UFavouritesIndexImport.update({
   id: '/u/favourites/',
   path: '/u/favourites/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const UUIdIndexRoute = UUIdIndexImport.update({
+  id: '/u/$uId/',
+  path: '/u/$uId/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -123,6 +131,12 @@ const HostJoinIndexRoute = HostJoinIndexImport.update({
 const HostDashboardIndexRoute = HostDashboardIndexImport.update({
   id: '/host/dashboard/',
   path: '/host/dashboard/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ExploreEventIdIndexRoute = ExploreEventIdIndexImport.update({
+  id: '/explore/$eventId/',
+  path: '/explore/$eventId/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -142,13 +156,6 @@ declare module '@tanstack/react-router' {
       path: '/explore/$category'
       fullPath: '/explore/$category'
       preLoaderRoute: typeof ExploreCategoryImport
-      parentRoute: typeof rootRoute
-    }
-    '/u/$uId': {
-      id: '/u/$uId'
-      path: '/u/$uId'
-      fullPath: '/u/$uId'
-      preLoaderRoute: typeof UUIdImport
       parentRoute: typeof rootRoute
     }
     '/about/': {
@@ -172,6 +179,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreIndexImport
       parentRoute: typeof rootRoute
     }
+    '/help/': {
+      id: '/help/'
+      path: '/help'
+      fullPath: '/help'
+      preLoaderRoute: typeof HelpIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/login/': {
       id: '/login/'
       path: '/login'
@@ -184,6 +198,13 @@ declare module '@tanstack/react-router' {
       path: '/register'
       fullPath: '/register'
       preLoaderRoute: typeof RegisterIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/settings/': {
+      id: '/settings/'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsIndexImport
       parentRoute: typeof rootRoute
     }
     '/support/': {
@@ -200,6 +221,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TicketsIndexImport
       parentRoute: typeof rootRoute
     }
+    '/explore/$eventId/': {
+      id: '/explore/$eventId/'
+      path: '/explore/$eventId'
+      fullPath: '/explore/$eventId'
+      preLoaderRoute: typeof ExploreEventIdIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/host/dashboard/': {
       id: '/host/dashboard/'
       path: '/host/dashboard'
@@ -214,18 +242,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HostJoinIndexImport
       parentRoute: typeof rootRoute
     }
+    '/u/$uId/': {
+      id: '/u/$uId/'
+      path: '/u/$uId'
+      fullPath: '/u/$uId'
+      preLoaderRoute: typeof UUIdIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/u/favourites/': {
       id: '/u/favourites/'
       path: '/u/favourites'
       fullPath: '/u/favourites'
       preLoaderRoute: typeof UFavouritesIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/u/profile/': {
-      id: '/u/profile/'
-      path: '/u/profile'
-      fullPath: '/u/profile'
-      preLoaderRoute: typeof UProfileIndexImport
       parentRoute: typeof rootRoute
     }
     '/u/purchases/': {
@@ -250,18 +278,20 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/explore/$category': typeof ExploreCategoryRoute
-  '/u/$uId': typeof UUIdRoute
   '/about': typeof AboutIndexRoute
   '/event': typeof EventIndexRoute
   '/explore': typeof ExploreIndexRoute
+  '/help': typeof HelpIndexRoute
   '/login': typeof LoginIndexRoute
   '/register': typeof RegisterIndexRoute
+  '/settings': typeof SettingsIndexRoute
   '/support': typeof SupportIndexRoute
   '/tickets': typeof TicketsIndexRoute
+  '/explore/$eventId': typeof ExploreEventIdIndexRoute
   '/host/dashboard': typeof HostDashboardIndexRoute
   '/host/join': typeof HostJoinIndexRoute
+  '/u/$uId': typeof UUIdIndexRoute
   '/u/favourites': typeof UFavouritesIndexRoute
-  '/u/profile': typeof UProfileIndexRoute
   '/u/purchases': typeof UPurchasesIndexRoute
   '/u/tickets': typeof UTicketsIndexRoute
 }
@@ -269,18 +299,20 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/explore/$category': typeof ExploreCategoryRoute
-  '/u/$uId': typeof UUIdRoute
   '/about': typeof AboutIndexRoute
   '/event': typeof EventIndexRoute
   '/explore': typeof ExploreIndexRoute
+  '/help': typeof HelpIndexRoute
   '/login': typeof LoginIndexRoute
   '/register': typeof RegisterIndexRoute
+  '/settings': typeof SettingsIndexRoute
   '/support': typeof SupportIndexRoute
   '/tickets': typeof TicketsIndexRoute
+  '/explore/$eventId': typeof ExploreEventIdIndexRoute
   '/host/dashboard': typeof HostDashboardIndexRoute
   '/host/join': typeof HostJoinIndexRoute
+  '/u/$uId': typeof UUIdIndexRoute
   '/u/favourites': typeof UFavouritesIndexRoute
-  '/u/profile': typeof UProfileIndexRoute
   '/u/purchases': typeof UPurchasesIndexRoute
   '/u/tickets': typeof UTicketsIndexRoute
 }
@@ -289,18 +321,20 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/explore/$category': typeof ExploreCategoryRoute
-  '/u/$uId': typeof UUIdRoute
   '/about/': typeof AboutIndexRoute
   '/event/': typeof EventIndexRoute
   '/explore/': typeof ExploreIndexRoute
+  '/help/': typeof HelpIndexRoute
   '/login/': typeof LoginIndexRoute
   '/register/': typeof RegisterIndexRoute
+  '/settings/': typeof SettingsIndexRoute
   '/support/': typeof SupportIndexRoute
   '/tickets/': typeof TicketsIndexRoute
+  '/explore/$eventId/': typeof ExploreEventIdIndexRoute
   '/host/dashboard/': typeof HostDashboardIndexRoute
   '/host/join/': typeof HostJoinIndexRoute
+  '/u/$uId/': typeof UUIdIndexRoute
   '/u/favourites/': typeof UFavouritesIndexRoute
-  '/u/profile/': typeof UProfileIndexRoute
   '/u/purchases/': typeof UPurchasesIndexRoute
   '/u/tickets/': typeof UTicketsIndexRoute
 }
@@ -310,54 +344,60 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/explore/$category'
-    | '/u/$uId'
     | '/about'
     | '/event'
     | '/explore'
+    | '/help'
     | '/login'
     | '/register'
+    | '/settings'
     | '/support'
     | '/tickets'
+    | '/explore/$eventId'
     | '/host/dashboard'
     | '/host/join'
+    | '/u/$uId'
     | '/u/favourites'
-    | '/u/profile'
     | '/u/purchases'
     | '/u/tickets'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/explore/$category'
-    | '/u/$uId'
     | '/about'
     | '/event'
     | '/explore'
+    | '/help'
     | '/login'
     | '/register'
+    | '/settings'
     | '/support'
     | '/tickets'
+    | '/explore/$eventId'
     | '/host/dashboard'
     | '/host/join'
+    | '/u/$uId'
     | '/u/favourites'
-    | '/u/profile'
     | '/u/purchases'
     | '/u/tickets'
   id:
     | '__root__'
     | '/'
     | '/explore/$category'
-    | '/u/$uId'
     | '/about/'
     | '/event/'
     | '/explore/'
+    | '/help/'
     | '/login/'
     | '/register/'
+    | '/settings/'
     | '/support/'
     | '/tickets/'
+    | '/explore/$eventId/'
     | '/host/dashboard/'
     | '/host/join/'
+    | '/u/$uId/'
     | '/u/favourites/'
-    | '/u/profile/'
     | '/u/purchases/'
     | '/u/tickets/'
   fileRoutesById: FileRoutesById
@@ -366,18 +406,20 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ExploreCategoryRoute: typeof ExploreCategoryRoute
-  UUIdRoute: typeof UUIdRoute
   AboutIndexRoute: typeof AboutIndexRoute
   EventIndexRoute: typeof EventIndexRoute
   ExploreIndexRoute: typeof ExploreIndexRoute
+  HelpIndexRoute: typeof HelpIndexRoute
   LoginIndexRoute: typeof LoginIndexRoute
   RegisterIndexRoute: typeof RegisterIndexRoute
+  SettingsIndexRoute: typeof SettingsIndexRoute
   SupportIndexRoute: typeof SupportIndexRoute
   TicketsIndexRoute: typeof TicketsIndexRoute
+  ExploreEventIdIndexRoute: typeof ExploreEventIdIndexRoute
   HostDashboardIndexRoute: typeof HostDashboardIndexRoute
   HostJoinIndexRoute: typeof HostJoinIndexRoute
+  UUIdIndexRoute: typeof UUIdIndexRoute
   UFavouritesIndexRoute: typeof UFavouritesIndexRoute
-  UProfileIndexRoute: typeof UProfileIndexRoute
   UPurchasesIndexRoute: typeof UPurchasesIndexRoute
   UTicketsIndexRoute: typeof UTicketsIndexRoute
 }
@@ -385,18 +427,20 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ExploreCategoryRoute: ExploreCategoryRoute,
-  UUIdRoute: UUIdRoute,
   AboutIndexRoute: AboutIndexRoute,
   EventIndexRoute: EventIndexRoute,
   ExploreIndexRoute: ExploreIndexRoute,
+  HelpIndexRoute: HelpIndexRoute,
   LoginIndexRoute: LoginIndexRoute,
   RegisterIndexRoute: RegisterIndexRoute,
+  SettingsIndexRoute: SettingsIndexRoute,
   SupportIndexRoute: SupportIndexRoute,
   TicketsIndexRoute: TicketsIndexRoute,
+  ExploreEventIdIndexRoute: ExploreEventIdIndexRoute,
   HostDashboardIndexRoute: HostDashboardIndexRoute,
   HostJoinIndexRoute: HostJoinIndexRoute,
+  UUIdIndexRoute: UUIdIndexRoute,
   UFavouritesIndexRoute: UFavouritesIndexRoute,
-  UProfileIndexRoute: UProfileIndexRoute,
   UPurchasesIndexRoute: UPurchasesIndexRoute,
   UTicketsIndexRoute: UTicketsIndexRoute,
 }
@@ -413,18 +457,20 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/explore/$category",
-        "/u/$uId",
         "/about/",
         "/event/",
         "/explore/",
+        "/help/",
         "/login/",
         "/register/",
+        "/settings/",
         "/support/",
         "/tickets/",
+        "/explore/$eventId/",
         "/host/dashboard/",
         "/host/join/",
+        "/u/$uId/",
         "/u/favourites/",
-        "/u/profile/",
         "/u/purchases/",
         "/u/tickets/"
       ]
@@ -435,9 +481,6 @@ export const routeTree = rootRoute
     "/explore/$category": {
       "filePath": "explore/$category.tsx"
     },
-    "/u/$uId": {
-      "filePath": "u/$uId.tsx"
-    },
     "/about/": {
       "filePath": "about/index.tsx"
     },
@@ -447,11 +490,17 @@ export const routeTree = rootRoute
     "/explore/": {
       "filePath": "explore/index.tsx"
     },
+    "/help/": {
+      "filePath": "help/index.tsx"
+    },
     "/login/": {
       "filePath": "login/index.tsx"
     },
     "/register/": {
       "filePath": "register/index.tsx"
+    },
+    "/settings/": {
+      "filePath": "settings/index.tsx"
     },
     "/support/": {
       "filePath": "support/index.tsx"
@@ -459,17 +508,20 @@ export const routeTree = rootRoute
     "/tickets/": {
       "filePath": "tickets/index.tsx"
     },
+    "/explore/$eventId/": {
+      "filePath": "explore/$eventId/index.tsx"
+    },
     "/host/dashboard/": {
       "filePath": "host/dashboard/index.tsx"
     },
     "/host/join/": {
       "filePath": "host/join/index.tsx"
     },
+    "/u/$uId/": {
+      "filePath": "u/$uId/index.tsx"
+    },
     "/u/favourites/": {
       "filePath": "u/favourites/index.tsx"
-    },
-    "/u/profile/": {
-      "filePath": "u/profile/index.tsx"
     },
     "/u/purchases/": {
       "filePath": "u/purchases/index.tsx"

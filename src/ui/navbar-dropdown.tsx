@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { NavLink } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 
 const animationParams = {
     hidden: {
@@ -69,15 +69,15 @@ export default function NavbarDropDown() {
                   initial="hidden" animate="visible" exit="exit" variants={animationParams} ref={menuRef}
                   className="absolute text-lg right-3 lg:right-6 w-36 p-2 flex flex-col gap-1.5 bg-eventr-gray-900 border-2 border-eventr-gray-800 rounded-md shadow-lg z-40"
               >
-                  <NavLink to="/profile" onClick={() => setIsMenuOpen(false)} className="block px-2 py-1.5 rounded-md duration-200 hover:bg-eventr-gray-800">
+                  <Link to="/u/$uId" params={{uId:'virat'}} onClick={() => setIsMenuOpen(false)} className="block px-2 py-1.5 rounded-md duration-200 hover:bg-eventr-gray-800">
                       Profile
-                  </NavLink>
-                  <NavLink to="/tickets" onClick={() => setIsMenuOpen(false)} className="block px-2 py-1.5 rounded-md duration-200 hover:bg-eventr-gray-800">
+                  </Link>
+                  <Link to="/tickets" onClick={() => setIsMenuOpen(false)} className="block px-2 py-1.5 rounded-md duration-200 hover:bg-eventr-gray-800">
                       My Tickets
-                  </NavLink>
-                  <NavLink to="/bookmarks" onClick={() => setIsMenuOpen(false)} className="block px-2 py-1.5 rounded-md duration-200 hover:bg-eventr-gray-800">
+                  </Link>
+                  <Link to="/u/favourites" onClick={() => setIsMenuOpen(false)} className="block px-2 py-1.5 rounded-md duration-200 hover:bg-eventr-gray-800">
                       Bookmarks
-                  </NavLink>
+                  </Link>
                   <button onClick={() => setIsMenuOpen(false)} className="block w-full text-left px-2 py-1.5 rounded-md duration-200 hover:bg-eventr-gray-800 text-red-600">
                       Logout
                   </button>

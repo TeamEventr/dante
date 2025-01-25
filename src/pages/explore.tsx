@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { categories } from "../lib/Categories";
 import { SearchIcon } from "../ui/icons";
 
@@ -12,9 +12,12 @@ export default function Explore() {
             </div>
             <div className="flex gap-2 overflow-scroll hide-scrollbar">
                 {categories.map((category, index) => (
-                    <NavLink key={index} to={`/explore/${category}`} className="h-10 flex items-center px-5 bg-eventr-gray-200/20 text-eventr-gray-50 outline-none rounded-xl">
+                    <Link 
+                    key={index} 
+                    to="/explore/${category}" params={e}
+                    className="h-10 flex items-center px-5 bg-eventr-gray-200/20 text-eventr-gray-50 outline-none rounded-xl">
                         {category}
-                    </NavLink>
+                    </Link>
                 ))}
             </div>
             <div className="relative flex flex-col gap-3">
