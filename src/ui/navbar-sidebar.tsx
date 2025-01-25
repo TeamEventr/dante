@@ -77,14 +77,16 @@ export default function NavbarSidebar() {
                   <NavLink to="/explore" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
                       <SearchIcon size={26}/> Explore
                   </NavLink>
-                  <NavLink to="/host/join" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
-                      <Icon icon="person_play" size="26px"/> Become a Host
-                  </NavLink>
+
                   <NavLink to="/help" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
                       <Icon icon="help" size="26px" /> Help
                   </NavLink>
                   <NavLink to="/settings" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
                       <Icon icon="settings" size="26px" /> Settings
+                  </NavLink>
+                  <div className="h-0.5 bg-eventr-gray-800 rounded-full m-4"/>
+                  <NavLink to="/host/join" onClick={() => setIsSidebarOpen(false)} className="flex  bg-gradient-to-br from-purple-600 via-purple-800 to-purple-900 gap-2 text-lg p-2 h-24 rounded-md duration-200">
+                      <Icon icon="person_play" size="26px"/> Become a Host
                   </NavLink>
               </motion.div>
           )}

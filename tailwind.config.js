@@ -19,6 +19,7 @@ export default {
           950: "#070708", //3%
         },
         "primary": "#301b82",
+        "primary-dark": "#17002f",
         "secondary": "#FFD300",
       },
       fontFamily: {

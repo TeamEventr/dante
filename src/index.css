@@ -13,6 +13,53 @@
   outline: none;
 } 
 
+.ticket {
+    background-size: 100% 51%; /* Ensures the gradient covers the top and bottom edges */
+    background-repeat: no-repeat;
+    background-position: top left, bottom left; /* Positions gradients on top and bottom, aligned left */
+    background-image: 
+      radial-gradient(circle at 40% 0, rgba(255,255,224,0) 0.6em, #fff 0.61em),
+      radial-gradient(circle at 40% 100%, rgba(255,255,224,0) 0.6em, #fff 0.61em);
+}
+
+
+
+.truncate-text{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.hide-scrollbar {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;  /* Safari and Chrome */
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+input:-moz-autofill {
+    background-color: rgb(24, 24, 27) !important;
+    color: #fff !important;
+}
+
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -20,7 +67,7 @@
 
   /* color-scheme: light dark; */
   color: #ffffff;
-  background: linear-gradient(to bottom, #17002f, #070708);
+  background: linear-gradient(to bottom, #130027, #070708);
   height: 100vh;
   /* opacity: 1;
   background-image:  radial-gradient(#484848 1.1500000000000001px, transparent 1.1500000000000001px), radial-gradient(#484848 1.1500000000000001px, #000000 1.1500000000000001px);
