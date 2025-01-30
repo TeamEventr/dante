@@ -11,23 +11,43 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as SupportImport } from './routes/support'
+import { Route as HelpImport } from './routes/help'
+import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 import { Route as TicketsIndexImport } from './routes/tickets/index'
-import { Route as SupportIndexImport } from './routes/support/index'
 import { Route as RegisterIndexImport } from './routes/register/index'
 import { Route as PurchasesIndexImport } from './routes/purchases/index'
 import { Route as LoginIndexImport } from './routes/login/index'
-import { Route as HelpIndexImport } from './routes/help/index'
 import { Route as FavouritesIndexImport } from './routes/favourites/index'
 import { Route as ExploreIndexImport } from './routes/explore/index'
-import { Route as AboutIndexImport } from './routes/about/index'
+import { Route as UUIdImport } from './routes/u/$uId'
+import { Route as TicketsTIdImport } from './routes/tickets/$tId'
+import { Route as PurchasesPIdImport } from './routes/purchases/$pId'
 import { Route as ExploreCategoryImport } from './routes/explore/$category'
-import { Route as UUIdIndexImport } from './routes/u/$uId/index'
 import { Route as HostJoinIndexImport } from './routes/host/join/index'
 import { Route as HostDashboardIndexImport } from './routes/host/dashboard/index'
 import { Route as EventEventIdIndexImport } from './routes/event/$eventId/index'
 
 // Create/Update Routes
+
+const SupportRoute = SupportImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const HelpRoute = HelpImport.update({
+  id: '/help',
+  path: '/help',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AboutRoute = AboutImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
@@ -38,12 +58,6 @@ const IndexRoute = IndexImport.update({
 const TicketsIndexRoute = TicketsIndexImport.update({
   id: '/tickets/',
   path: '/tickets/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const SupportIndexRoute = SupportIndexImport.update({
-  id: '/support/',
-  path: '/support/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -65,12 +79,6 @@ const LoginIndexRoute = LoginIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const HelpIndexRoute = HelpIndexImport.update({
-  id: '/help/',
-  path: '/help/',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const FavouritesIndexRoute = FavouritesIndexImport.update({
   id: '/favourites/',
   path: '/favourites/',
@@ -83,21 +91,27 @@ const ExploreIndexRoute = ExploreIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const AboutIndexRoute = AboutIndexImport.update({
-  id: '/about/',
-  path: '/about/',
+const UUIdRoute = UUIdImport.update({
+  id: '/u/$uId',
+  path: '/u/$uId',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const TicketsTIdRoute = TicketsTIdImport.update({
+  id: '/tickets/$tId',
+  path: '/tickets/$tId',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PurchasesPIdRoute = PurchasesPIdImport.update({
+  id: '/purchases/$pId',
+  path: '/purchases/$pId',
   getParentRoute: () => rootRoute,
 } as any)
 
 const ExploreCategoryRoute = ExploreCategoryImport.update({
   id: '/explore/$category',
   path: '/explore/$category',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const UUIdIndexRoute = UUIdIndexImport.update({
-  id: '/u/$uId/',
-  path: '/u/$uId/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -130,6 +144,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutImport
+      parentRoute: typeof rootRoute
+    }
+    '/help': {
+      id: '/help'
+      path: '/help'
+      fullPath: '/help'
+      preLoaderRoute: typeof HelpImport
+      parentRoute: typeof rootRoute
+    }
+    '/support': {
+      id: '/support'
+      path: '/support'
+      fullPath: '/support'
+      preLoaderRoute: typeof SupportImport
+      parentRoute: typeof rootRoute
+    }
     '/explore/$category': {
       id: '/explore/$category'
       path: '/explore/$category'
@@ -137,11 +172,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreCategoryImport
       parentRoute: typeof rootRoute
     }
-    '/about/': {
-      id: '/about/'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutIndexImport
+    '/purchases/$pId': {
+      id: '/purchases/$pId'
+      path: '/purchases/$pId'
+      fullPath: '/purchases/$pId'
+      preLoaderRoute: typeof PurchasesPIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/tickets/$tId': {
+      id: '/tickets/$tId'
+      path: '/tickets/$tId'
+      fullPath: '/tickets/$tId'
+      preLoaderRoute: typeof TicketsTIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/u/$uId': {
+      id: '/u/$uId'
+      path: '/u/$uId'
+      fullPath: '/u/$uId'
+      preLoaderRoute: typeof UUIdImport
       parentRoute: typeof rootRoute
     }
     '/explore/': {
@@ -156,13 +205,6 @@ declare module '@tanstack/react-router' {
       path: '/favourites'
       fullPath: '/favourites'
       preLoaderRoute: typeof FavouritesIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/help/': {
-      id: '/help/'
-      path: '/help'
-      fullPath: '/help'
-      preLoaderRoute: typeof HelpIndexImport
       parentRoute: typeof rootRoute
     }
     '/login/': {
@@ -184,13 +226,6 @@ declare module '@tanstack/react-router' {
       path: '/register'
       fullPath: '/register'
       preLoaderRoute: typeof RegisterIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/support/': {
-      id: '/support/'
-      path: '/support'
-      fullPath: '/support'
-      preLoaderRoute: typeof SupportIndexImport
       parentRoute: typeof rootRoute
     }
     '/tickets/': {
@@ -221,13 +256,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HostJoinIndexImport
       parentRoute: typeof rootRoute
     }
-    '/u/$uId/': {
-      id: '/u/$uId/'
-      path: '/u/$uId'
-      fullPath: '/u/$uId'
-      preLoaderRoute: typeof UUIdIndexImport
-      parentRoute: typeof rootRoute
-    }
   }
 }
 
@@ -235,148 +263,164 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/help': typeof HelpRoute
+  '/support': typeof SupportRoute
   '/explore/$category': typeof ExploreCategoryRoute
-  '/about': typeof AboutIndexRoute
+  '/purchases/$pId': typeof PurchasesPIdRoute
+  '/tickets/$tId': typeof TicketsTIdRoute
+  '/u/$uId': typeof UUIdRoute
   '/explore': typeof ExploreIndexRoute
   '/favourites': typeof FavouritesIndexRoute
-  '/help': typeof HelpIndexRoute
   '/login': typeof LoginIndexRoute
   '/purchases': typeof PurchasesIndexRoute
   '/register': typeof RegisterIndexRoute
-  '/support': typeof SupportIndexRoute
   '/tickets': typeof TicketsIndexRoute
   '/event/$eventId': typeof EventEventIdIndexRoute
   '/host/dashboard': typeof HostDashboardIndexRoute
   '/host/join': typeof HostJoinIndexRoute
-  '/u/$uId': typeof UUIdIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/help': typeof HelpRoute
+  '/support': typeof SupportRoute
   '/explore/$category': typeof ExploreCategoryRoute
-  '/about': typeof AboutIndexRoute
+  '/purchases/$pId': typeof PurchasesPIdRoute
+  '/tickets/$tId': typeof TicketsTIdRoute
+  '/u/$uId': typeof UUIdRoute
   '/explore': typeof ExploreIndexRoute
   '/favourites': typeof FavouritesIndexRoute
-  '/help': typeof HelpIndexRoute
   '/login': typeof LoginIndexRoute
   '/purchases': typeof PurchasesIndexRoute
   '/register': typeof RegisterIndexRoute
-  '/support': typeof SupportIndexRoute
   '/tickets': typeof TicketsIndexRoute
   '/event/$eventId': typeof EventEventIdIndexRoute
   '/host/dashboard': typeof HostDashboardIndexRoute
   '/host/join': typeof HostJoinIndexRoute
-  '/u/$uId': typeof UUIdIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/help': typeof HelpRoute
+  '/support': typeof SupportRoute
   '/explore/$category': typeof ExploreCategoryRoute
-  '/about/': typeof AboutIndexRoute
+  '/purchases/$pId': typeof PurchasesPIdRoute
+  '/tickets/$tId': typeof TicketsTIdRoute
+  '/u/$uId': typeof UUIdRoute
   '/explore/': typeof ExploreIndexRoute
   '/favourites/': typeof FavouritesIndexRoute
-  '/help/': typeof HelpIndexRoute
   '/login/': typeof LoginIndexRoute
   '/purchases/': typeof PurchasesIndexRoute
   '/register/': typeof RegisterIndexRoute
-  '/support/': typeof SupportIndexRoute
   '/tickets/': typeof TicketsIndexRoute
   '/event/$eventId/': typeof EventEventIdIndexRoute
   '/host/dashboard/': typeof HostDashboardIndexRoute
   '/host/join/': typeof HostJoinIndexRoute
-  '/u/$uId/': typeof UUIdIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/explore/$category'
     | '/about'
+    | '/help'
+    | '/support'
+    | '/explore/$category'
+    | '/purchases/$pId'
+    | '/tickets/$tId'
+    | '/u/$uId'
     | '/explore'
     | '/favourites'
-    | '/help'
     | '/login'
     | '/purchases'
     | '/register'
-    | '/support'
     | '/tickets'
     | '/event/$eventId'
     | '/host/dashboard'
     | '/host/join'
-    | '/u/$uId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/explore/$category'
     | '/about'
+    | '/help'
+    | '/support'
+    | '/explore/$category'
+    | '/purchases/$pId'
+    | '/tickets/$tId'
+    | '/u/$uId'
     | '/explore'
     | '/favourites'
-    | '/help'
     | '/login'
     | '/purchases'
     | '/register'
-    | '/support'
     | '/tickets'
     | '/event/$eventId'
     | '/host/dashboard'
     | '/host/join'
-    | '/u/$uId'
   id:
     | '__root__'
     | '/'
+    | '/about'
+    | '/help'
+    | '/support'
     | '/explore/$category'
-    | '/about/'
+    | '/purchases/$pId'
+    | '/tickets/$tId'
+    | '/u/$uId'
     | '/explore/'
     | '/favourites/'
-    | '/help/'
     | '/login/'
     | '/purchases/'
     | '/register/'
-    | '/support/'
     | '/tickets/'
     | '/event/$eventId/'
     | '/host/dashboard/'
     | '/host/join/'
-    | '/u/$uId/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  HelpRoute: typeof HelpRoute
+  SupportRoute: typeof SupportRoute
   ExploreCategoryRoute: typeof ExploreCategoryRoute
-  AboutIndexRoute: typeof AboutIndexRoute
+  PurchasesPIdRoute: typeof PurchasesPIdRoute
+  TicketsTIdRoute: typeof TicketsTIdRoute
+  UUIdRoute: typeof UUIdRoute
   ExploreIndexRoute: typeof ExploreIndexRoute
   FavouritesIndexRoute: typeof FavouritesIndexRoute
-  HelpIndexRoute: typeof HelpIndexRoute
   LoginIndexRoute: typeof LoginIndexRoute
   PurchasesIndexRoute: typeof PurchasesIndexRoute
   RegisterIndexRoute: typeof RegisterIndexRoute
-  SupportIndexRoute: typeof SupportIndexRoute
   TicketsIndexRoute: typeof TicketsIndexRoute
   EventEventIdIndexRoute: typeof EventEventIdIndexRoute
   HostDashboardIndexRoute: typeof HostDashboardIndexRoute
   HostJoinIndexRoute: typeof HostJoinIndexRoute
-  UUIdIndexRoute: typeof UUIdIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  HelpRoute: HelpRoute,
+  SupportRoute: SupportRoute,
   ExploreCategoryRoute: ExploreCategoryRoute,
-  AboutIndexRoute: AboutIndexRoute,
+  PurchasesPIdRoute: PurchasesPIdRoute,
+  TicketsTIdRoute: TicketsTIdRoute,
+  UUIdRoute: UUIdRoute,
   ExploreIndexRoute: ExploreIndexRoute,
   FavouritesIndexRoute: FavouritesIndexRoute,
-  HelpIndexRoute: HelpIndexRoute,
   LoginIndexRoute: LoginIndexRoute,
   PurchasesIndexRoute: PurchasesIndexRoute,
   RegisterIndexRoute: RegisterIndexRoute,
-  SupportIndexRoute: SupportIndexRoute,
   TicketsIndexRoute: TicketsIndexRoute,
   EventEventIdIndexRoute: EventEventIdIndexRoute,
   HostDashboardIndexRoute: HostDashboardIndexRoute,
   HostJoinIndexRoute: HostJoinIndexRoute,
-  UUIdIndexRoute: UUIdIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -390,39 +434,53 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/about",
+        "/help",
+        "/support",
         "/explore/$category",
-        "/about/",
+        "/purchases/$pId",
+        "/tickets/$tId",
+        "/u/$uId",
         "/explore/",
         "/favourites/",
-        "/help/",
         "/login/",
         "/purchases/",
         "/register/",
-        "/support/",
         "/tickets/",
         "/event/$eventId/",
         "/host/dashboard/",
-        "/host/join/",
-        "/u/$uId/"
+        "/host/join/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
+    "/about": {
+      "filePath": "about.tsx"
+    },
+    "/help": {
+      "filePath": "help.tsx"
+    },
+    "/support": {
+      "filePath": "support.tsx"
+    },
     "/explore/$category": {
       "filePath": "explore/$category.tsx"
     },
-    "/about/": {
-      "filePath": "about/index.tsx"
+    "/purchases/$pId": {
+      "filePath": "purchases/$pId.tsx"
+    },
+    "/tickets/$tId": {
+      "filePath": "tickets/$tId.tsx"
+    },
+    "/u/$uId": {
+      "filePath": "u/$uId.tsx"
     },
     "/explore/": {
       "filePath": "explore/index.tsx"
     },
     "/favourites/": {
       "filePath": "favourites/index.tsx"
-    },
-    "/help/": {
-      "filePath": "help/index.tsx"
     },
     "/login/": {
       "filePath": "login/index.tsx"
@@ -432,9 +490,6 @@ export const routeTree = rootRoute
     },
     "/register/": {
       "filePath": "register/index.tsx"
-    },
-    "/support/": {
-      "filePath": "support/index.tsx"
     },
     "/tickets/": {
       "filePath": "tickets/index.tsx"
@@ -447,9 +502,6 @@ export const routeTree = rootRoute
     },
     "/host/join/": {
       "filePath": "host/join/index.tsx"
-    },
-    "/u/$uId/": {
-      "filePath": "u/$uId/index.tsx"
     }
   }
 }

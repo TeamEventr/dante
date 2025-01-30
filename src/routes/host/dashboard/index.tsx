@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Outlet } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/host/dashboard/')({
   component: RouteComponent,
@@ -7,8 +7,8 @@ export const Route = createFileRoute('/host/dashboard/')({
 function RouteComponent() {
   return (
     <div>
-      <h1>Host Dashboard</h1>
-      <p>This is the host dashboard page.</p>
+        <h1>Host Dashboard</h1>
+        <Outlet />
     </div>
   );
 }
