@@ -53,7 +53,7 @@ export default function NavbarSidebar() {
 
     return (
     <div>
-        <button className="active:scale-90 font-bold duration-200">
+        <button className="active:scale-90 text-eventr-gray-50 bg-eventr-gray-800 rounded-full p-1 duration-200">
             <span
                 ref={menuButtonRef}
                 className="flex items-center material-symbols-rounded"
@@ -66,7 +66,7 @@ export default function NavbarSidebar() {
           {isSidebarOpen && (
               <motion.div
                   initial="hidden" animate="visible" exit="exit" variants={animationParams} ref={sidebarRef}
-                  className="absolute top-0 z-50 left-0 w-52 h-screen p-2 flex flex-col gap-1.5 bg-eventr-gray-900 border-r-2 border-eventr-gray-800 shadow-lg"
+                  className="absolute top-0 z-50 left-0 w-52 h-screen p-2 flex flex-col gap-1.5 shadow-xl bg-eventr-gray-900 border-r-2 border-eventr-gray-800"
               >
                     <button className="mb-4 ml-2" onClick={() => setIsSidebarOpen(false)}>
                         <Icon icon="close" size="32px" />

@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import Icon from "../../ui/icon-wrapper";
-import { BookmarkIcon, ShareIcon } from "../../ui/icons";
+import { FavouritesIcon, ShareIcon } from "../../ui/icons";
 import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
@@ -36,14 +36,34 @@ function RouteComponent() {
 
   return  (
     <div>
-      <div className="fixed py-2 flex items-center gap-2 z-40 bottom-0 bg-eventr-gray-50 w-full h-20 p-4">
-        <button className="bg-eventr-gray-200/20 p-5 rounded-xl">
-          <BookmarkIcon size={24} color="black"/>  
-        </button>
-        <button onClick={() => setBookingMenuOpen(true)} className="text-3xl font-gothic tracking-widest bg-eventr-gray-900 text-secondary px-6 py-3 flex-grow rounded-xl">
-          Book Now
-        </button>
-      </div>
+        
+        {/* Considering this section done with UI and animation */}
+        <div aria-label="Booking and Favorites Bottom Bar" className="fixed inset-x-0 bottom-2 px-2 z-40">
+            <motion.div 
+                className="p-3 flex items-center gap-2 bg-eventr-gray-700 h-20"
+                initial={{ y: 100, borderRadius: "1em" }}
+                animate={{ y: 0, borderRadius: "16em" }}
+                transition={{
+                    y: { type: "spring", stiffness: 120, damping: 15 },
+                    borderRadius: { duration: 0.8, delay: 0.2, ease: "easeInOut" },
+                }}>
+                <div className="flex flex-col flex-grow">
+                    <p id="tier-info" className="text-sm text-eventr-gray-200">General</p>
+                    <p id="tier-price" className="text-xl font-semibold text-eventr-gray-50 -mt-1">₹499 <span className='text-sm text-eventr-gray-200'>Onwards</span></p>
+                </div>
+                <button aria-label="Add to Favorites" 
+                    className="bg-eventr-gray-200/20 h-full aspect-1 flex items-center justify-center rounded-full"
+                    >
+                    <FavouritesIcon size={28} color="white" />
+                </button>
+                <button aria-label="Open Booking Menu" onClick={() => setBookingMenuOpen(true)}
+                    className="text-lg font-semibold bg-eventr-gray-50 text-eventr-gray-700 px-6 py-3 h-full rounded-full"
+                    >
+                    Book Now
+                </button>
+            </motion.div>
+        </div>
+
       <div className="relative">
         <img src="/concert.jpg" alt="event" className="w-full -mt-2 z-0 aspect-h-9 object-cover" />
         <button className="absolute right-2 bottom-6 p-2 bg-eventr-gray-100/20 rounded-full"><ShareIcon /></button>
