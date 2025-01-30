@@ -61,7 +61,7 @@ function RouteComponent() {
                         </div>
                         <div className='flex justify-between px-2 pt-1 pb-2'>
                             <span className='flex text-xs text-eventr-gray-300'><LocationIcon size={15}/>DY Patel Stadium, Mumbai</span>
-                            <Link to={`/event`}><ArrowRight size={18}/></Link>
+                            <Link params={{ eventId: 'eventid' }} to={`/event/$eventId`}><ArrowRight size={18}/></Link>
                         </div>
                         <img src="/concert.jpg" alt="Concert" className="w-full aspect-[16/9] object-cover rounded-3xl" />
                     </div>
