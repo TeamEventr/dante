@@ -15,16 +15,20 @@ export default {
           500: "#3b3b45", //25%
           700: "#232329", //15%
           800: "#17171c", //10%
-          900: "#0c0c0e", //5%
+          900: "#0d0d0f", //5%
           950: "#070708", //3%
         },
-        "primary": "#301b82",
+        // "primary": "#301b82",
+        "primary": "#27005D",
         "primary-dark": "#17002f",
-        "secondary": "#FFD300",
+        // "secondary": "#FFD300",
+        "secondary": "#FF9A00",
+        "secondary-light": "#ffcd80",
       },
       fontFamily: {
-      gothic: ["League Gothic", "sans-serif"],
-      sans: ["DM Sans", "sans-serif"],
+        bebas: ["Bebas Neue", "sans-serif"],
+        gothic: ["League Gothic", "sans-serif"],
+        sans: ["DM Sans", "sans-serif"],
       },
     },
   },

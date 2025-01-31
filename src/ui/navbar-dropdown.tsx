@@ -54,7 +54,7 @@ export default function NavbarDropDown() {
 
     return (
     <div>
-        <button className="active:scale-90 font-bold duration-200">
+        <button className="active:scale-90 text-eventr-gray-50 bg-eventr-gray-800 rounded-full p-1 duration-200">
             <span
                 ref={profileButtonRef}
                 className="flex items-center material-symbols-rounded"
