@@ -22,7 +22,6 @@ import { Route as ExploreIndexImport } from './routes/explore/index'
 import { Route as EventIndexImport } from './routes/event/index'
 import { Route as AboutIndexImport } from './routes/about/index'
 import { Route as ExploreCategoryImport } from './routes/explore/$category'
-import { Route as UTicketsIndexImport } from './routes/u/tickets/index'
 import { Route as UPurchasesIndexImport } from './routes/u/purchases/index'
 import { Route as UFavouritesIndexImport } from './routes/u/favourites/index'
 import { Route as UUIdIndexImport } from './routes/u/$uId/index'
@@ -95,12 +94,6 @@ const AboutIndexRoute = AboutIndexImport.update({
 const ExploreCategoryRoute = ExploreCategoryImport.update({
   id: '/explore/$category',
   path: '/explore/$category',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const UTicketsIndexRoute = UTicketsIndexImport.update({
-  id: '/u/tickets/',
-  path: '/u/tickets/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -263,13 +256,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UPurchasesIndexImport
       parentRoute: typeof rootRoute
     }
-    '/u/tickets/': {
-      id: '/u/tickets/'
-      path: '/u/tickets'
-      fullPath: '/u/tickets'
-      preLoaderRoute: typeof UTicketsIndexImport
-      parentRoute: typeof rootRoute
-    }
   }
 }
 
@@ -293,7 +279,6 @@ export interface FileRoutesByFullPath {
   '/u/$uId': typeof UUIdIndexRoute
   '/u/favourites': typeof UFavouritesIndexRoute
   '/u/purchases': typeof UPurchasesIndexRoute
-  '/u/tickets': typeof UTicketsIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -314,7 +299,6 @@ export interface FileRoutesByTo {
   '/u/$uId': typeof UUIdIndexRoute
   '/u/favourites': typeof UFavouritesIndexRoute
   '/u/purchases': typeof UPurchasesIndexRoute
-  '/u/tickets': typeof UTicketsIndexRoute
 }
 
 export interface FileRoutesById {
@@ -336,7 +320,6 @@ export interface FileRoutesById {
   '/u/$uId/': typeof UUIdIndexRoute
   '/u/favourites/': typeof UFavouritesIndexRoute
   '/u/purchases/': typeof UPurchasesIndexRoute
-  '/u/tickets/': typeof UTicketsIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -359,7 +342,6 @@ export interface FileRouteTypes {
     | '/u/$uId'
     | '/u/favourites'
     | '/u/purchases'
-    | '/u/tickets'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -379,7 +361,6 @@ export interface FileRouteTypes {
     | '/u/$uId'
     | '/u/favourites'
     | '/u/purchases'
-    | '/u/tickets'
   id:
     | '__root__'
     | '/'
@@ -399,7 +380,6 @@ export interface FileRouteTypes {
     | '/u/$uId/'
     | '/u/favourites/'
     | '/u/purchases/'
-    | '/u/tickets/'
   fileRoutesById: FileRoutesById
 }
 
@@ -421,7 +401,6 @@ export interface RootRouteChildren {
   UUIdIndexRoute: typeof UUIdIndexRoute
   UFavouritesIndexRoute: typeof UFavouritesIndexRoute
   UPurchasesIndexRoute: typeof UPurchasesIndexRoute
-  UTicketsIndexRoute: typeof UTicketsIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -442,7 +421,6 @@ const rootRouteChildren: RootRouteChildren = {
   UUIdIndexRoute: UUIdIndexRoute,
   UFavouritesIndexRoute: UFavouritesIndexRoute,
   UPurchasesIndexRoute: UPurchasesIndexRoute,
-  UTicketsIndexRoute: UTicketsIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -471,8 +449,7 @@ export const routeTree = rootRoute
         "/host/join/",
         "/u/$uId/",
         "/u/favourites/",
-        "/u/purchases/",
-        "/u/tickets/"
+        "/u/purchases/"
       ]
     },
     "/": {
@@ -525,9 +502,6 @@ export const routeTree = rootRoute
     },
     "/u/purchases/": {
       "filePath": "u/purchases/index.tsx"
-    },
-    "/u/tickets/": {
-      "filePath": "u/tickets/index.tsx"
     }
   }
 }
