@@ -108,6 +108,12 @@ const PurchasesPIdRoute = PurchasesPIdImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const ExploreCategoryRoute = ExploreCategoryImport.update({
+  id: '/explore/$category',
+  path: '/explore/$category',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const HostJoinIndexRoute = HostJoinIndexImport.update({
   id: '/host/join/',
   path: '/host/join/',
@@ -242,6 +248,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HostJoinIndexImport
       parentRoute: typeof rootRoute
     }
+    '/u/$uId/': {
+      id: '/u/$uId/'
+      path: '/u/$uId'
+      fullPath: '/u/$uId'
+      preLoaderRoute: typeof UUIdIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/u/favourites/': {
+      id: '/u/favourites/'
+      path: '/u/favourites'
+      fullPath: '/u/favourites'
+      preLoaderRoute: typeof UFavouritesIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/u/purchases/': {
+      id: '/u/purchases/'
+      path: '/u/purchases'
+      fullPath: '/u/purchases'
+      preLoaderRoute: typeof UPurchasesIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -264,6 +291,9 @@ export interface FileRoutesByFullPath {
   '/event/$eventId': typeof EventEventIdIndexRoute
   '/host/dashboard': typeof HostDashboardIndexRoute
   '/host/join': typeof HostJoinIndexRoute
+  '/u/$uId': typeof UUIdIndexRoute
+  '/u/favourites': typeof UFavouritesIndexRoute
+  '/u/purchases': typeof UPurchasesIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -283,6 +313,9 @@ export interface FileRoutesByTo {
   '/event/$eventId': typeof EventEventIdIndexRoute
   '/host/dashboard': typeof HostDashboardIndexRoute
   '/host/join': typeof HostJoinIndexRoute
+  '/u/$uId': typeof UUIdIndexRoute
+  '/u/favourites': typeof UFavouritesIndexRoute
+  '/u/purchases': typeof UPurchasesIndexRoute
 }
 
 export interface FileRoutesById {
@@ -303,6 +336,9 @@ export interface FileRoutesById {
   '/event/$eventId/': typeof EventEventIdIndexRoute
   '/host/dashboard/': typeof HostDashboardIndexRoute
   '/host/join/': typeof HostJoinIndexRoute
+  '/u/$uId/': typeof UUIdIndexRoute
+  '/u/favourites/': typeof UFavouritesIndexRoute
+  '/u/purchases/': typeof UPurchasesIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -324,6 +360,9 @@ export interface FileRouteTypes {
     | '/event/$eventId'
     | '/host/dashboard'
     | '/host/join'
+    | '/u/$uId'
+    | '/u/favourites'
+    | '/u/purchases'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -342,6 +381,9 @@ export interface FileRouteTypes {
     | '/event/$eventId'
     | '/host/dashboard'
     | '/host/join'
+    | '/u/$uId'
+    | '/u/favourites'
+    | '/u/purchases'
   id:
     | '__root__'
     | '/'
@@ -360,6 +402,9 @@ export interface FileRouteTypes {
     | '/event/$eventId/'
     | '/host/dashboard/'
     | '/host/join/'
+    | '/u/$uId/'
+    | '/u/favourites/'
+    | '/u/purchases/'
   fileRoutesById: FileRoutesById
 }
 
@@ -380,6 +425,9 @@ export interface RootRouteChildren {
   EventEventIdIndexRoute: typeof EventEventIdIndexRoute
   HostDashboardIndexRoute: typeof HostDashboardIndexRoute
   HostJoinIndexRoute: typeof HostJoinIndexRoute
+  UUIdIndexRoute: typeof UUIdIndexRoute
+  UFavouritesIndexRoute: typeof UFavouritesIndexRoute
+  UPurchasesIndexRoute: typeof UPurchasesIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -399,6 +447,9 @@ const rootRouteChildren: RootRouteChildren = {
   EventEventIdIndexRoute: EventEventIdIndexRoute,
   HostDashboardIndexRoute: HostDashboardIndexRoute,
   HostJoinIndexRoute: HostJoinIndexRoute,
+  UUIdIndexRoute: UUIdIndexRoute,
+  UFavouritesIndexRoute: UFavouritesIndexRoute,
+  UPurchasesIndexRoute: UPurchasesIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -426,7 +477,10 @@ export const routeTree = rootRoute
         "/tickets/",
         "/event/$eventId/",
         "/host/dashboard/",
-        "/host/join/"
+        "/host/join/",
+        "/u/$uId/",
+        "/u/favourites/",
+        "/u/purchases/"
       ]
     },
     "/": {
@@ -476,6 +530,15 @@ export const routeTree = rootRoute
     },
     "/host/join/": {
       "filePath": "host/join/index.tsx"
+    },
+    "/u/$uId/": {
+      "filePath": "u/$uId/index.tsx"
+    },
+    "/u/favourites/": {
+      "filePath": "u/favourites/index.tsx"
+    },
+    "/u/purchases/": {
+      "filePath": "u/purchases/index.tsx"
     }
   }
 }
