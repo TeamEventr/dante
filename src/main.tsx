@@ -1,5 +1,6 @@
 import { StrictMode } from "react"
 import ReactDOM from "react-dom/client"
+
 import { RouterProvider, createRouter } from "@tanstack/react-router"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
@@ -15,7 +16,15 @@ declare module "@tanstack/react-router" {
   }
 }
 
-export const queryClient = new QueryClient()
+export const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 1000 * 60 * 5, // Cache data for 5 minutes
+        retry: 2, // Retry failed requests twice
+        refetchOnWindowFocus: false, // Avoid unnecessary re-fetching when switching tabs
+      },
+    },
+  })
 
 const rootElement = document.getElementById("root")!
 if (!rootElement.innerHTML) {

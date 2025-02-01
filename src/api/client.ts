@@ -1,17 +1,31 @@
-import { api } from "./api";
-import { EventList } from "@/lib/types";
-import { AxiosError } from "axios";
 import { API_ENDPOINTS } from "./endpoints";
+import { EventList } from "@/lib/types";
+import { Ky } from "./api";
+import { HTTPError,TimeoutError } from "ky";
 
 export const client = {
-    async getExploreEvents() {
+
+    //Explore
+    async getEventsExplore() {
         try {
-            const { data } = await api.get<EventList[]>(API_ENDPOINTS.GET_EVENTS_LIST_EXPLORE);
-            return data;
+            const response = await Ky.get(API_ENDPOINTS.GET_EVENTS_EXPLORE).json<EventList[]>();
+            return response;
         } catch (error) {
-            const err = error as AxiosError;
-            console.error("Error fetching events:", err.message);
-            throw new Error("Failed to fetch events");
+            if (error instanceof HTTPError) {
+                if (error.response.status === 403) {
+                    throw new Error("Forbidden");
+                } else if (error.response.status === 302) {
+                    throw new Error("Redirect");
+                } else {
+                    throw new Error(error.message || "Bad Request");
+                }
+            } else if (error instanceof TimeoutError) {
+                throw new Error('Request timed out.');
+            } else {
+            throw new Error("An unexpected error occurred.");
+            }
         }
-    }
-};
+    },
+
+}
+

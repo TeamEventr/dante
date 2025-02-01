@@ -1,4 +1,4 @@
-const API_SERVER = import.meta.env.API_SERVER
+const API_SERVER = "asdas"
 
 export const API_ENDPOINTS = {
     REFRESH: `${API_SERVER}/auth/jwt/refresh`,
@@ -16,6 +16,6 @@ export const API_ENDPOINTS = {
     USER_LOGOUT: `${API_SERVER}/user/logout`,
 
     USERNAME_UPDATE: `${API_SERVER}/user/update/username`,
-    GET_EVENTS_LIST_EXPLORE: '',
+    GET_EVENTS_EXPLORE: '',
     GET_TOP_TWO_TICKETS: ''
 };

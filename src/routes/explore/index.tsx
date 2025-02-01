@@ -6,7 +6,7 @@ import EventCard from '@/ui/event-card-wrapper';
 
 // import { queryClient } from "@/main";
 // import { exploreEventsQuery } from "@/api/hooks";
-import { useExploreEvents } from '@/api/hooks';
+import { useEventsExplore } from '@/api/hooks';
 
 export const Route = createFileRoute('/explore/')({
     component: RouteComponent,
@@ -18,8 +18,8 @@ export const Route = createFileRoute('/explore/')({
 
 function RouteComponent() {
 
-    const { data: eventList, error, isError, isPending } = useExploreEvents();
-
+    const { data: eventList, error, isError, isPending } = useEventsExplore();
+    console.log("Fetched events:", eventList);
     return (
     
     <div className="flex flex-col p-4 pt-16 gap-4">
@@ -84,13 +84,11 @@ function RouteComponent() {
                     </div>
                 )
             }
-            { eventList && 
-                <div className="relative flex flex-col gap-3">
-                    {eventList?.map((eventItem) => (
-                        <EventCard key={eventItem.id} event={eventItem} />
-                    ))}
-                </div>
-            }
+            <div className="relative flex flex-col gap-3">
+                {eventList?.map((eventItem) => (
+                    <EventCard key={eventItem.id} event={eventItem} />
+                ))}
+            </div>
         </div>
     </div>
   )

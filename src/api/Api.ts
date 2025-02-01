@@ -1,60 +1,29 @@
-import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from "axios";
-import { useAuthStore } from "../utils/Store";
-import { API_ENDPOINTS } from "./endpoints";
+import ky, { HTTPError, TimeoutError } from "ky";
 
-const API_URL = import.meta.env.VITE_API_URL; // Changed to VITE_API_URL for Vite projects
-
-export const api = axios.create({
-    baseURL: API_URL,
-    timeout: 16000,
-    withCredentials: true,
+export const Ky = ky.extend({
+    credentials: 'include',
+    hooks: {
+        beforeRequest: [],
+        beforeError: [],
+    },
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    timeout: 6000,
 });
 
-const MAX_RETRIES = 3;
-
-api.interceptors.response.use(
-    (response: AxiosResponse) => response,
-    async (error: AxiosError) => {
-        const originalRequest = error.config as InternalAxiosRequestConfig & {
-            _isRetry?: boolean;
-            _retryCount?: number;
-        };
-
-        if (error.response?.status === 401 && originalRequest) {
-            originalRequest._retryCount = (originalRequest._retryCount || 0) + 1;
-
-            if (originalRequest._retryCount > MAX_RETRIES) {
-                useAuthStore.getState().clearAuth();
-                window.location.href = "/login";
-                return Promise.reject(error);
-            }
-
-            if (!originalRequest._isRetry) {
-                originalRequest._isRetry = true;
-                
-                try {
-                    const response = await axios.post(
-                        API_ENDPOINTS.REFRESH,
-                        {},
-                        { withCredentials: true }
-                    );
-
-                    // Handle the refresh token response
-                    const { accessToken, expiry } = response.data;
-                    if (accessToken && expiry) {
-                        // useAuthStore.getState().setAccessToken(accessToken);
-                        // useAuthStore.getState().setExpiry(expiry);
-                        originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-                        return api.request(originalRequest);
-                    }
-                } catch (refreshError) {
-                    console.error("Failed to refresh token:", refreshError);
-                    useAuthStore.getState().clearAuth();
-                    window.location.href = "/login";
-                    return Promise.reject(refreshError);
-                }
-            }
+export const handleError = (error: unknown): never => {
+    if (error instanceof HTTPError) {
+        if (error.response.status === 403) {
+            throw new Error("Forbidden");
+        } else if (error.response.status === 302) {
+            throw new Error("Redirect");
+        } else {
+            throw new Error(error.message || "Bad Request");
         }
-        return Promise.reject(error);
+    } else if (error instanceof TimeoutError) {
+        throw new Error('Request timed out.');
+    } else {
+    throw new Error("An unexpected error occurred.");
     }
-);
+};
