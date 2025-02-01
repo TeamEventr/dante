@@ -2,38 +2,47 @@ import { createFileRoute } from '@tanstack/react-router';
 import { Link } from "@tanstack/react-router";
 import { categories } from "../../store/category";
 import { SearchIcon } from "../../ui/icons";
-import EventCard from '../../ui/event-card-wrapper';
+import EventCard from '@/ui/event-card-wrapper';
+
+// import { queryClient } from "@/main";
+// import { exploreEventsQuery } from "@/api/hooks";
+import { useExploreEvents } from '@/api/hooks';
 
 export const Route = createFileRoute('/explore/')({
-  component: RouteComponent,
-})
+    component: RouteComponent,
+    // Prefetches the data to make sure it is available in the cache when the route is rendered
+    // loader: async () => {
+    //     return queryClient.ensureQueryData(exploreEventsQuery);
+    // },
+});
 
 function RouteComponent() {
-  return (
+
+    const { data: eventList, error, isError, isPending } = useExploreEvents();
+
+    return (
     
     <div className="flex flex-col p-4 pt-16 gap-4">
-      <div className="relative flex items-center gap-2">
+    <div className="relative flex items-center gap-2">
         <input 
-          placeholder="Search events.." 
-          className="bg-eventr-gray-200/20 text-lg text-eventr-gray-50 outline-none pl-10 p-2 rounded-full w-full h-[56px]"
+        placeholder="Search events.." 
+        className="bg-eventr-gray-200/20 text-lg text-eventr-gray-50 outline-none pl-10 p-2 rounded-full w-full h-[56px]"
         />
         <button className="absolute left-2.5">
-          <SearchIcon />
+        <SearchIcon />
         </button>
-      </div>
-      <div className="flex gap-2 overflow-x-auto">
+    </div>
+    <div className="flex gap-2 overflow-x-auto">
         {categories.map((category) => (
-          <Link 
+        <Link 
             key={category.name} 
-            to="/explore/$category" 
-            params={{category: category.name}}
-            search={{category: category.name}}
+            to="/explore" 
             className="h-10 flex items-center px-5 bg-eventr-gray-200/20 text-eventr-gray-50 outline-none rounded-xl"
-          >
+        >
             {category.name}
-          </Link>
+        </Link>
         ))}
-      </div>
+    </div>
         <div className='flex gap-2'>
             <div className='flex flex-col font-bebas text-lg gap-2 flex-grow'>
                 
@@ -54,12 +63,34 @@ function RouteComponent() {
                     <span className='bg-eventr-gray-200 flex-shrink-0 text-eventr-gray-800 h-8 w-8 rounded-full p-1'>29</span>
                 </button>
             </div>
-            <div className="relative flex flex-col gap-3">
-                {/* Example events can be added here or fetched dynamically */}
-                <EventCard/>
-                <EventCard/>
-                <EventCard/>
-            </div>
+            {
+                isPending && (
+                    <div className="flex justify-center items-center w-full h-full">
+                        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-primary"></div>
+                    </div>
+                )
+            }
+            {
+                isError && (
+                    <div className="flex justify-center items-center w-full h-full">
+                        <div className="text-lg text-center text-red-500">{error?.message}</div>
+                    </div>
+                )
+            }
+            {
+                eventList?.length === 0 && (
+                    <div className="flex justify-center items-center w-full h-full">
+                        <div className="text-lg text-center text-eventr-gray-800">No events found</div>
+                    </div>
+                )
+            }
+            { eventList && 
+                <div className="relative flex flex-col gap-3">
+                    {eventList?.map((eventItem) => (
+                        <EventCard key={eventItem.id} event={eventItem} />
+                    ))}
+                </div>
+            }
         </div>
     </div>
   )

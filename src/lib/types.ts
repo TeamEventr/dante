@@ -97,3 +97,12 @@ export namespace AuthTypes {
         expiryAt: string;
     };
 }
+
+export type EventList = {
+    id: string;
+    title: string;
+    coverPictureUrl: string;
+    bannerUrl: string;
+    venue: string;
+    startTime: string;
+};

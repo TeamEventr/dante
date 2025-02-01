@@ -81,9 +81,9 @@ export default function NavbarSidebar() {
                   <Link to="/help" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
                       <Icon icon="help" size="26px" /> Help
                   </Link>
-                  <Link to="/settings" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
+                  {/* <Link to="/settings" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
                       <Icon icon="settings" size="26px" /> Settings
-                  </Link>
+                  </Link> */}
                   <div className="h-0.5 bg-eventr-gray-800 rounded-full m-4"/>
                   <Link to="/host/join" onClick={() => setIsSidebarOpen(false)} className="flex  bg-gradient-to-br from-purple-600 via-purple-800 to-purple-900 gap-2 text-lg p-2 h-24 rounded-md duration-200">
                       <Icon icon="person_play" size="26px"/> Become a Host

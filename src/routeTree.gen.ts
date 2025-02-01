@@ -24,7 +24,6 @@ import { Route as ExploreIndexImport } from './routes/explore/index'
 import { Route as UUIdImport } from './routes/u/$uId'
 import { Route as TicketsTIdImport } from './routes/tickets/$tId'
 import { Route as PurchasesPIdImport } from './routes/purchases/$pId'
-import { Route as ExploreCategoryImport } from './routes/explore/$category'
 import { Route as HostJoinIndexImport } from './routes/host/join/index'
 import { Route as HostDashboardIndexImport } from './routes/host/dashboard/index'
 import { Route as EventEventIdIndexImport } from './routes/event/$eventId/index'
@@ -109,12 +108,6 @@ const PurchasesPIdRoute = PurchasesPIdImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const ExploreCategoryRoute = ExploreCategoryImport.update({
-  id: '/explore/$category',
-  path: '/explore/$category',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const HostJoinIndexRoute = HostJoinIndexImport.update({
   id: '/host/join/',
   path: '/host/join/',
@@ -163,13 +156,6 @@ declare module '@tanstack/react-router' {
       path: '/support'
       fullPath: '/support'
       preLoaderRoute: typeof SupportImport
-      parentRoute: typeof rootRoute
-    }
-    '/explore/$category': {
-      id: '/explore/$category'
-      path: '/explore/$category'
-      fullPath: '/explore/$category'
-      preLoaderRoute: typeof ExploreCategoryImport
       parentRoute: typeof rootRoute
     }
     '/purchases/$pId': {
@@ -266,7 +252,6 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/help': typeof HelpRoute
   '/support': typeof SupportRoute
-  '/explore/$category': typeof ExploreCategoryRoute
   '/purchases/$pId': typeof PurchasesPIdRoute
   '/tickets/$tId': typeof TicketsTIdRoute
   '/u/$uId': typeof UUIdRoute
@@ -286,7 +271,6 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/help': typeof HelpRoute
   '/support': typeof SupportRoute
-  '/explore/$category': typeof ExploreCategoryRoute
   '/purchases/$pId': typeof PurchasesPIdRoute
   '/tickets/$tId': typeof TicketsTIdRoute
   '/u/$uId': typeof UUIdRoute
@@ -307,7 +291,6 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/help': typeof HelpRoute
   '/support': typeof SupportRoute
-  '/explore/$category': typeof ExploreCategoryRoute
   '/purchases/$pId': typeof PurchasesPIdRoute
   '/tickets/$tId': typeof TicketsTIdRoute
   '/u/$uId': typeof UUIdRoute
@@ -329,7 +312,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/help'
     | '/support'
-    | '/explore/$category'
     | '/purchases/$pId'
     | '/tickets/$tId'
     | '/u/$uId'
@@ -348,7 +330,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/help'
     | '/support'
-    | '/explore/$category'
     | '/purchases/$pId'
     | '/tickets/$tId'
     | '/u/$uId'
@@ -367,7 +348,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/help'
     | '/support'
-    | '/explore/$category'
     | '/purchases/$pId'
     | '/tickets/$tId'
     | '/u/$uId'
@@ -388,7 +368,6 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   HelpRoute: typeof HelpRoute
   SupportRoute: typeof SupportRoute
-  ExploreCategoryRoute: typeof ExploreCategoryRoute
   PurchasesPIdRoute: typeof PurchasesPIdRoute
   TicketsTIdRoute: typeof TicketsTIdRoute
   UUIdRoute: typeof UUIdRoute
@@ -408,7 +387,6 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   HelpRoute: HelpRoute,
   SupportRoute: SupportRoute,
-  ExploreCategoryRoute: ExploreCategoryRoute,
   PurchasesPIdRoute: PurchasesPIdRoute,
   TicketsTIdRoute: TicketsTIdRoute,
   UUIdRoute: UUIdRoute,
@@ -437,7 +415,6 @@ export const routeTree = rootRoute
         "/about",
         "/help",
         "/support",
-        "/explore/$category",
         "/purchases/$pId",
         "/tickets/$tId",
         "/u/$uId",
@@ -463,9 +440,6 @@ export const routeTree = rootRoute
     },
     "/support": {
       "filePath": "support.tsx"
-    },
-    "/explore/$category": {
-      "filePath": "explore/$category.tsx"
     },
     "/purchases/$pId": {
       "filePath": "purchases/$pId.tsx"

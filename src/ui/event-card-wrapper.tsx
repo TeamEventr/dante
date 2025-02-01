@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router"
 import { ArrowRight, LocationIcon } from "./icons"
+import { EventList } from "@/lib/types"
 
-export default function EventCard() {
+export default function EventCard({event}: {event: EventList}) {
     return (
          <div className='p-1 pt-3 flex-shrink-0 event w-80 text-eventr-gray-700 rounded-3xl flex flex-col shadow-xl'>
             <div className='px-2 flex gap-1'>
@@ -16,7 +17,7 @@ export default function EventCard() {
             </div>
             <div className='flex justify-between px-2 pb-2'>
                 <span className='flex text-sm items-center text-eventr-gray-300'><LocationIcon size={15}/> DY Patel Stadium, Mumbai</span>
-                <Link to={`/event`}><ArrowRight size={18}/></Link>
+                <Link to={`/event/$eventId`} params={{eventId: 'sadas'}}><ArrowRight size={18}/></Link>
             </div>
             <img src="/concert.jpg" alt="Concert" className="w-full aspect-[16/9] object-cover rounded-3xl" />
         </div>
