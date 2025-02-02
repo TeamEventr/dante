@@ -1,51 +1,41 @@
 import { API_ENDPOINTS } from "./endpoints";
 import { AuthTypes } from "@/lib/types";
-import { Ky, handleError } from "./api";
+import { Ky } from "./api";
+import { HTTPError, TimeoutError } from "ky";
 
 export const auth = {
 
     async login(userLogIn: AuthTypes.LogInRequest) {
-        try {
-            const response = await Ky.post(API_ENDPOINTS.USER_LOGIN, {
-                json: userLogIn,
-            }).json<AuthTypes.LogInResponse>();
-            return response;
-        } catch (error) {
-            handleError(error);
-        }
+        const response = await Ky.post(API_ENDPOINTS.USER_LOGIN, {
+            json: userLogIn,
+        }).json<AuthTypes.LogInResponse>();
+        return response;
+    },
+
+    async logout() {
+        await Ky.post(API_ENDPOINTS.USER_LOGOUT);
     },
 
     async register(userRegister: AuthTypes.RegisterRequest) {
-        try {
-            const response = await Ky.post(API_ENDPOINTS.USER_SIGNUP, {
-                json: userRegister,
-            }).json<AuthTypes.RegisterResponse>();
-            return response;
-        } catch (error) {
-            handleError(error);
-        }
+        const response = await Ky.post(API_ENDPOINTS.USER_SIGNUP, {
+            json: userRegister,
+        }).json<AuthTypes.RegisterResponse>();
+        return response;
+        
     },
 
     async verifyOTP(userOTPVerify: AuthTypes.OTPVerifyRequest) {
-        try {
-            const response = await Ky.post(API_ENDPOINTS.USER_OTP_VERIFY, {
-                json: userOTPVerify
-            }).json<AuthTypes.LogInResponse>();
-            return response;
-        } catch (error) {
-            handleError(error);
-        }
+        const response = await Ky.post(API_ENDPOINTS.USER_OTP_VERIFY, {
+            json: userOTPVerify
+        }).json<AuthTypes.LogInResponse>();
+        return response
     },
 
     async resendUserOTP(userOTPResend: AuthTypes.OTPResendRequest) {
-        try {
-            await Ky.post(API_ENDPOINTS.USER_OTP_RESEND, {
-                json: userOTPResend
-            }).json<AuthTypes.OTPResendResponse>();
-            return "Resend Successful";
-        } catch (error) {
-            handleError(error);
-        }
+        await Ky.post(API_ENDPOINTS.USER_OTP_RESEND, {
+            json: userOTPResend
+        }).json<AuthTypes.OTPResendResponse>();
+        return "Resend Successful";
     },
 
     async checkUserName(username: string) {
@@ -55,7 +45,19 @@ export const auth = {
             }).json<{ available: boolean, message: string }>();
             return response.available;
         } catch (error) {
-            handleError(error);
+            if (error instanceof HTTPError) {
+                if (error.response.status === 403) {
+                    throw new Error("Forbidden");
+                } else if (error.response.status === 302) {
+                    throw new Error("Redirect");
+                } else {
+                    throw new Error(error.message || "Bad Request");
+                }
+            } else if (error instanceof TimeoutError) {
+                throw new Error('Request timed out.');
+            } else {
+            throw new Error("An unexpected error occurred.");
+            }
         }
     },
                     
@@ -68,7 +70,19 @@ export const auth = {
             }
             return response;
         } catch (error) {
-            handleError(error);
+            if (error instanceof HTTPError) {
+                if (error.response.status === 403) {
+                    throw new Error("Forbidden");
+                } else if (error.response.status === 302) {
+                    throw new Error("Redirect");
+                } else {
+                    throw new Error(error.message || "Bad Request");
+                }
+            } else if (error instanceof TimeoutError) {
+                throw new Error('Request timed out.');
+            } else {
+            throw new Error("An unexpected error occurred.");
+            }
         }
     },
 
@@ -79,7 +93,19 @@ export const auth = {
                 json: hostRegister,
             }).json<AuthTypes.HostRegisterResponse>();
         } catch (error) {
-            handleError(error);
+            if (error instanceof HTTPError) {
+                if (error.response.status === 403) {
+                    throw new Error("Forbidden");
+                } else if (error.response.status === 302) {
+                    throw new Error("Redirect");
+                } else {
+                    throw new Error(error.message || "Bad Request");
+                }
+            } else if (error instanceof TimeoutError) {
+                throw new Error('Request timed out.');
+            } else {
+            throw new Error("An unexpected error occurred.");
+            }
         }
     },
 
@@ -90,7 +116,19 @@ export const auth = {
             }).json();
             return response;
         } catch (error) {
-            handleError(error);
+            if (error instanceof HTTPError) {
+                if (error.response.status === 403) {
+                    throw new Error("Forbidden");
+                } else if (error.response.status === 302) {
+                    throw new Error("Redirect");
+                } else {
+                    throw new Error(error.message || "Bad Request");
+                }
+            } else if (error instanceof TimeoutError) {
+                throw new Error('Request timed out.');
+            } else {
+            throw new Error("An unexpected error occurred.");
+            }
         }
     },
 
@@ -101,7 +139,19 @@ export const auth = {
             }).json<AuthTypes.HostOTPResendResponse>();
             return "Resend Successful";
         } catch (error) {
-            handleError(error);
+            if (error instanceof HTTPError) {
+                if (error.response.status === 403) {
+                    throw new Error("Forbidden");
+                } else if (error.response.status === 302) {
+                    throw new Error("Redirect");
+                } else {
+                    throw new Error(error.message || "Bad Request");
+                }
+            } else if (error instanceof TimeoutError) {
+                throw new Error('Request timed out.');
+            } else {
+            throw new Error("An unexpected error occurred.");
+            }
         }
     },
 }

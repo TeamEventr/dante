@@ -12,18 +12,12 @@ export const Ky = ky.extend({
     timeout: 6000,
 });
 
-export const handleError = (error: unknown): never => {
+export const handleError = (error: unknown) => {
     if (error instanceof HTTPError) {
-        if (error.response.status === 403) {
-            throw new Error("Forbidden");
-        } else if (error.response.status === 302) {
-            throw new Error("Redirect");
-        } else {
-            throw new Error(error.message || "Bad Request");
-        }
+        return { message: error.message || "Bad Request", statusCode: error.response.status };
     } else if (error instanceof TimeoutError) {
-        throw new Error('Request timed out.');
+        return { message: "Request timed out.", statusCode: 408 };
     } else {
-    throw new Error("An unexpected error occurred.");
+        return { message: "An unexpected error occurred.", statusCode: 500 };
     }
 };

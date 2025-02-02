@@ -1,4 +1,14 @@
 export namespace AuthTypes {
+    export type User = {
+        username: string;
+        email: string;
+        firstName: string;
+        middleName: string;
+        lastName: string;
+        profilePictureURL: string;
+    }
+
+    
     export type LogInRequest = {
         username: string;
         password: string;
@@ -6,13 +16,8 @@ export namespace AuthTypes {
 
     export type LogInResponse = {
         message: string;
-        token: string;
-        username: string;
-        email: string;
-        firstName: string;
-        middleName: string;
-        lastName: string;
-        profilePictureURL: string;
+        user: User;
+        isHost: boolean;
     };
     export type RegisterRequest = {
         email: string;
@@ -22,15 +27,11 @@ export namespace AuthTypes {
 
     export type RegisterResponse = {
         email: string;
-        expiryAt: string;
         message: string;
-        tempToken: string;
         username: string;
     };
 
     export type OTPVerifyRequest = {
-        username: string;
-        email: string;
         otp: string;
     };
 
@@ -40,11 +41,7 @@ export namespace AuthTypes {
     };
 
     export type OTPResendResponse = {
-        message: string;
-        username: string;
-        email: string;
-        tempToken: string;
-        expiryAt: string;
+        user: User;
     };
 
     export type GoogleAuthResponse = {

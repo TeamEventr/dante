@@ -12,20 +12,11 @@ export const client = {
             return response;
         } catch (error) {
             if (error instanceof HTTPError) {
-                if (error.response.status === 403) {
-                    throw new Error("Forbidden");
-                } else if (error.response.status === 302) {
-                    throw new Error("Redirect");
-                } else {
-                    throw new Error(error.message || "Bad Request");
-                }
+                throw new Error(error.message || "Bad Request");
             } else if (error instanceof TimeoutError) {
                 throw new Error('Request timed out.');
             } else {
-            throw new Error("An unexpected error occurred.");
-            }
-        }
-    },
-
+                throw new Error("An unexpected error occurred.");
+        }}},
 }
 
