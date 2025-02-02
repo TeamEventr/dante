@@ -8,7 +8,11 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { routeTree } from "./routeTree.gen"
 import "./index.css";
 
-const router = createRouter({ routeTree })
+export const router = createRouter({ 
+    routeTree,
+    defaultPreload: 'intent',
+    scrollRestoration: true 
+ })
 
 declare module "@tanstack/react-router" {
   interface Register {
@@ -18,13 +22,15 @@ declare module "@tanstack/react-router" {
 
 export const queryClient = new QueryClient({
     defaultOptions: {
-      queries: {
+    queries: {
         staleTime: 1000 * 60 * 5, // Cache data for 5 minutes
         retry: 2, // Retry failed requests twice
         refetchOnWindowFocus: false, // Avoid unnecessary re-fetching when switching tabs
-      },
     },
-  })
+    },
+})
+
+  
 
 const rootElement = document.getElementById("root")!
 if (!rootElement.innerHTML) {
@@ -32,8 +38,8 @@ if (!rootElement.innerHTML) {
     root.render(
         <StrictMode>
         <QueryClientProvider client={queryClient}>
-            <RouterProvider router={router} />
-            <ReactQueryDevtools initialIsOpen={false} />
+                <RouterProvider router={router} />
+                <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
         </StrictMode>,
     )

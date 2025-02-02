@@ -72,6 +72,7 @@ export const useAuthStore = createWithEqualityFn<AuthStore>((set) => ({
             set({ user: response.user, isAuthenticated: true, isHost: response.isHost });
         } catch (error) {
             set({ error: handleError(error) });
+            throw error;
         } finally { set({ loading: false }) }
     },
 }));

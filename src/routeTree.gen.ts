@@ -25,8 +25,8 @@ import { Route as ExploreIndexImport } from './routes/explore/index'
 import { Route as UUIdImport } from './routes/u/$uId'
 import { Route as TicketsTIdImport } from './routes/tickets/$tId'
 import { Route as PurchasesPIdImport } from './routes/purchases/$pId'
-import { Route as HostJoinIndexImport } from './routes/host/join/index'
-import { Route as HostDashboardIndexImport } from './routes/host/dashboard/index'
+import { Route as HostJoinImport } from './routes/host/join'
+import { Route as HostDashboardImport } from './routes/host/dashboard'
 import { Route as EventEventIdIndexImport } from './routes/event/$eventId/index'
 
 // Create/Update Routes
@@ -115,15 +115,15 @@ const PurchasesPIdRoute = PurchasesPIdImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const HostJoinIndexRoute = HostJoinIndexImport.update({
-  id: '/host/join/',
-  path: '/host/join/',
+const HostJoinRoute = HostJoinImport.update({
+  id: '/host/join',
+  path: '/host/join',
   getParentRoute: () => rootRoute,
 } as any)
 
-const HostDashboardIndexRoute = HostDashboardIndexImport.update({
-  id: '/host/dashboard/',
-  path: '/host/dashboard/',
+const HostDashboardRoute = HostDashboardImport.update({
+  id: '/host/dashboard',
+  path: '/host/dashboard',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -163,6 +163,20 @@ declare module '@tanstack/react-router' {
       path: '/support'
       fullPath: '/support'
       preLoaderRoute: typeof SupportImport
+      parentRoute: typeof rootRoute
+    }
+    '/host/dashboard': {
+      id: '/host/dashboard'
+      path: '/host/dashboard'
+      fullPath: '/host/dashboard'
+      preLoaderRoute: typeof HostDashboardImport
+      parentRoute: typeof rootRoute
+    }
+    '/host/join': {
+      id: '/host/join'
+      path: '/host/join'
+      fullPath: '/host/join'
+      preLoaderRoute: typeof HostJoinImport
       parentRoute: typeof rootRoute
     }
     '/purchases/$pId': {
@@ -242,20 +256,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EventEventIdIndexImport
       parentRoute: typeof rootRoute
     }
-    '/host/dashboard/': {
-      id: '/host/dashboard/'
-      path: '/host/dashboard'
-      fullPath: '/host/dashboard'
-      preLoaderRoute: typeof HostDashboardIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/host/join/': {
-      id: '/host/join/'
-      path: '/host/join'
-      fullPath: '/host/join'
-      preLoaderRoute: typeof HostJoinIndexImport
-      parentRoute: typeof rootRoute
-    }
   }
 }
 
@@ -266,6 +266,8 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/help': typeof HelpRoute
   '/support': typeof SupportRoute
+  '/host/dashboard': typeof HostDashboardRoute
+  '/host/join': typeof HostJoinRoute
   '/purchases/$pId': typeof PurchasesPIdRoute
   '/tickets/$tId': typeof TicketsTIdRoute
   '/u/$uId': typeof UUIdRoute
@@ -277,8 +279,6 @@ export interface FileRoutesByFullPath {
   '/register': typeof RegisterIndexRoute
   '/tickets': typeof TicketsIndexRoute
   '/event/$eventId': typeof EventEventIdIndexRoute
-  '/host/dashboard': typeof HostDashboardIndexRoute
-  '/host/join': typeof HostJoinIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -286,6 +286,8 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/help': typeof HelpRoute
   '/support': typeof SupportRoute
+  '/host/dashboard': typeof HostDashboardRoute
+  '/host/join': typeof HostJoinRoute
   '/purchases/$pId': typeof PurchasesPIdRoute
   '/tickets/$tId': typeof TicketsTIdRoute
   '/u/$uId': typeof UUIdRoute
@@ -297,8 +299,6 @@ export interface FileRoutesByTo {
   '/register': typeof RegisterIndexRoute
   '/tickets': typeof TicketsIndexRoute
   '/event/$eventId': typeof EventEventIdIndexRoute
-  '/host/dashboard': typeof HostDashboardIndexRoute
-  '/host/join': typeof HostJoinIndexRoute
 }
 
 export interface FileRoutesById {
@@ -307,6 +307,8 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/help': typeof HelpRoute
   '/support': typeof SupportRoute
+  '/host/dashboard': typeof HostDashboardRoute
+  '/host/join': typeof HostJoinRoute
   '/purchases/$pId': typeof PurchasesPIdRoute
   '/tickets/$tId': typeof TicketsTIdRoute
   '/u/$uId': typeof UUIdRoute
@@ -318,8 +320,6 @@ export interface FileRoutesById {
   '/register/': typeof RegisterIndexRoute
   '/tickets/': typeof TicketsIndexRoute
   '/event/$eventId/': typeof EventEventIdIndexRoute
-  '/host/dashboard/': typeof HostDashboardIndexRoute
-  '/host/join/': typeof HostJoinIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -329,6 +329,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/help'
     | '/support'
+    | '/host/dashboard'
+    | '/host/join'
     | '/purchases/$pId'
     | '/tickets/$tId'
     | '/u/$uId'
@@ -340,14 +342,14 @@ export interface FileRouteTypes {
     | '/register'
     | '/tickets'
     | '/event/$eventId'
-    | '/host/dashboard'
-    | '/host/join'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/help'
     | '/support'
+    | '/host/dashboard'
+    | '/host/join'
     | '/purchases/$pId'
     | '/tickets/$tId'
     | '/u/$uId'
@@ -359,14 +361,14 @@ export interface FileRouteTypes {
     | '/register'
     | '/tickets'
     | '/event/$eventId'
-    | '/host/dashboard'
-    | '/host/join'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/help'
     | '/support'
+    | '/host/dashboard'
+    | '/host/join'
     | '/purchases/$pId'
     | '/tickets/$tId'
     | '/u/$uId'
@@ -378,8 +380,6 @@ export interface FileRouteTypes {
     | '/register/'
     | '/tickets/'
     | '/event/$eventId/'
-    | '/host/dashboard/'
-    | '/host/join/'
   fileRoutesById: FileRoutesById
 }
 
@@ -388,6 +388,8 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   HelpRoute: typeof HelpRoute
   SupportRoute: typeof SupportRoute
+  HostDashboardRoute: typeof HostDashboardRoute
+  HostJoinRoute: typeof HostJoinRoute
   PurchasesPIdRoute: typeof PurchasesPIdRoute
   TicketsTIdRoute: typeof TicketsTIdRoute
   UUIdRoute: typeof UUIdRoute
@@ -399,8 +401,6 @@ export interface RootRouteChildren {
   RegisterIndexRoute: typeof RegisterIndexRoute
   TicketsIndexRoute: typeof TicketsIndexRoute
   EventEventIdIndexRoute: typeof EventEventIdIndexRoute
-  HostDashboardIndexRoute: typeof HostDashboardIndexRoute
-  HostJoinIndexRoute: typeof HostJoinIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -408,6 +408,8 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   HelpRoute: HelpRoute,
   SupportRoute: SupportRoute,
+  HostDashboardRoute: HostDashboardRoute,
+  HostJoinRoute: HostJoinRoute,
   PurchasesPIdRoute: PurchasesPIdRoute,
   TicketsTIdRoute: TicketsTIdRoute,
   UUIdRoute: UUIdRoute,
@@ -419,8 +421,6 @@ const rootRouteChildren: RootRouteChildren = {
   RegisterIndexRoute: RegisterIndexRoute,
   TicketsIndexRoute: TicketsIndexRoute,
   EventEventIdIndexRoute: EventEventIdIndexRoute,
-  HostDashboardIndexRoute: HostDashboardIndexRoute,
-  HostJoinIndexRoute: HostJoinIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -437,6 +437,8 @@ export const routeTree = rootRoute
         "/about",
         "/help",
         "/support",
+        "/host/dashboard",
+        "/host/join",
         "/purchases/$pId",
         "/tickets/$tId",
         "/u/$uId",
@@ -447,9 +449,7 @@ export const routeTree = rootRoute
         "/purchases/",
         "/register/",
         "/tickets/",
-        "/event/$eventId/",
-        "/host/dashboard/",
-        "/host/join/"
+        "/event/$eventId/"
       ]
     },
     "/": {
@@ -463,6 +463,12 @@ export const routeTree = rootRoute
     },
     "/support": {
       "filePath": "support.tsx"
+    },
+    "/host/dashboard": {
+      "filePath": "host/dashboard.tsx"
+    },
+    "/host/join": {
+      "filePath": "host/join.tsx"
     },
     "/purchases/$pId": {
       "filePath": "purchases/$pId.tsx"
@@ -496,12 +502,6 @@ export const routeTree = rootRoute
     },
     "/event/$eventId/": {
       "filePath": "event/$eventId/index.tsx"
-    },
-    "/host/dashboard/": {
-      "filePath": "host/dashboard/index.tsx"
-    },
-    "/host/join/": {
-      "filePath": "host/join/index.tsx"
     }
   }
 }
