@@ -5,26 +5,37 @@ import { handleError } from "@/api/api";
 
 type AuthStore = {
     user: AuthTypes.User | null;
-    isAuthenticated: boolean;
+    isAuthenticated: boolean | null;
     isHost: boolean;
     loading: boolean;
     error: { message: string; statusCode: number } | null;
     info: string;
 
     register: (userRegister: AuthTypes.RegisterRequest) => Promise<void>;
+    verifyOTP: (userOTPVerify: AuthTypes.OTPVerifyRequest) => Promise<void>;
     login: (userLogIn: AuthTypes.LogInRequest) => Promise<void>;
     logout: () => void;
-    verifyOTP: (userOTPVerify: AuthTypes.OTPVerifyRequest) => Promise<void>;
+    session: () => Promise<void>;
 };
 
-export const useAuthStore = createWithEqualityFn<AuthStore>((set, get) => ({
+export const useAuthStore = createWithEqualityFn<AuthStore>((set) => ({
 
-    user: null, isAuthenticated: false, isHost: false, loading: false, error: null, info: "",
+    user: null, isAuthenticated: null, isHost: false, loading: false, error: null, info: "",
 
     register: async (userRegister) => {
         set({ loading: true, error: null });
         try {
             await auth.register(userRegister);
+        } catch (error) {
+            set({ error: handleError(error) });
+        } finally { set({ loading: false }) }
+    },
+
+    verifyOTP: async (userOTPVerify) => {
+        set({ loading: true, error: null });
+        try {
+            const response = await auth.verifyOTP(userOTPVerify);
+            set({ user: response.user, isAuthenticated: true, isHost: response.isHost });
         } catch (error) {
             set({ error: handleError(error) });
         } finally { set({ loading: false }) }
@@ -54,15 +65,13 @@ export const useAuthStore = createWithEqualityFn<AuthStore>((set, get) => ({
         } finally { set({ isAuthenticated: false, isHost: false, loading: false, user: null }) }
     },
 
-    verifyOTP: async (userOTPVerify) => {
+    session: async () => {
         set({ loading: true, error: null });
         try {
-            const response = await auth.verifyOTP(userOTPVerify);
+            const response = await auth.session();
             set({ user: response.user, isAuthenticated: true, isHost: response.isHost });
         } catch (error) {
             set({ error: handleError(error) });
         } finally { set({ loading: false }) }
     },
-
-
 }));

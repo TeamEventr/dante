@@ -13,7 +13,12 @@ export const auth = {
     },
 
     async logout() {
-        await Ky.post(API_ENDPOINTS.USER_LOGOUT);
+        await Ky.get(API_ENDPOINTS.USER_LOGOUT);
+    },
+
+    async session() {
+        const response = await Ky.get(API_ENDPOINTS.USER_SESSION).json<AuthTypes.LogInResponse>();
+        return response;
     },
 
     async register(userRegister: AuthTypes.RegisterRequest) {
@@ -31,12 +36,16 @@ export const auth = {
         return response
     },
 
+    
+
     async resendUserOTP(userOTPResend: AuthTypes.OTPResendRequest) {
         await Ky.post(API_ENDPOINTS.USER_OTP_RESEND, {
             json: userOTPResend
         }).json<AuthTypes.OTPResendResponse>();
         return "Resend Successful";
     },
+
+
 
     async checkUserName(username: string) {
         try {

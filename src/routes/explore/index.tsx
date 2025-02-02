@@ -1,8 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { Link } from "@tanstack/react-router";
-import { categories } from "../../store/category";
 import { SearchIcon } from "../../ui/icons";
 import EventCard from '@/ui/event-card-wrapper';
+import { categories } from '@/lib/data';
 
 // import { queryClient } from "@/main";
 // import { exploreEventsQuery } from "@/api/hooks";
@@ -35,11 +35,11 @@ function RouteComponent() {
     <div className="flex gap-2 overflow-x-auto">
         {categories.map((category) => (
         <Link 
-            key={category.name} 
+            key={category} 
             to="/explore" 
             className="h-10 flex items-center px-5 bg-eventr-gray-200/20 text-eventr-gray-50 outline-none rounded-xl"
         >
-            {category.name}
+            {category}
         </Link>
         ))}
     </div>

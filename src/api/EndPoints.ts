@@ -1,7 +1,7 @@
 const API_SERVER = "asdas"
 
 export const API_ENDPOINTS = {
-    REFRESH: `${API_SERVER}/auth/jwt/refresh`,
+    USER_SESSION: `${API_SERVER}/auth/jwt/refresh`,
 
     USERNAME_CHECK: `${API_SERVER}/user/check/username`,
     USER_SIGNUP: `${API_SERVER}/user/register`,

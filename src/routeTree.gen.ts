@@ -18,6 +18,7 @@ import { Route as IndexImport } from './routes/index'
 import { Route as TicketsIndexImport } from './routes/tickets/index'
 import { Route as RegisterIndexImport } from './routes/register/index'
 import { Route as PurchasesIndexImport } from './routes/purchases/index'
+import { Route as ProfileIndexImport } from './routes/profile/index'
 import { Route as LoginIndexImport } from './routes/login/index'
 import { Route as FavouritesIndexImport } from './routes/favourites/index'
 import { Route as ExploreIndexImport } from './routes/explore/index'
@@ -69,6 +70,12 @@ const RegisterIndexRoute = RegisterIndexImport.update({
 const PurchasesIndexRoute = PurchasesIndexImport.update({
   id: '/purchases/',
   path: '/purchases/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ProfileIndexRoute = ProfileIndexImport.update({
+  id: '/profile/',
+  path: '/profile/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -200,6 +207,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginIndexImport
       parentRoute: typeof rootRoute
     }
+    '/profile/': {
+      id: '/profile/'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/purchases/': {
       id: '/purchases/'
       path: '/purchases'
@@ -258,6 +272,7 @@ export interface FileRoutesByFullPath {
   '/explore': typeof ExploreIndexRoute
   '/favourites': typeof FavouritesIndexRoute
   '/login': typeof LoginIndexRoute
+  '/profile': typeof ProfileIndexRoute
   '/purchases': typeof PurchasesIndexRoute
   '/register': typeof RegisterIndexRoute
   '/tickets': typeof TicketsIndexRoute
@@ -277,6 +292,7 @@ export interface FileRoutesByTo {
   '/explore': typeof ExploreIndexRoute
   '/favourites': typeof FavouritesIndexRoute
   '/login': typeof LoginIndexRoute
+  '/profile': typeof ProfileIndexRoute
   '/purchases': typeof PurchasesIndexRoute
   '/register': typeof RegisterIndexRoute
   '/tickets': typeof TicketsIndexRoute
@@ -297,6 +313,7 @@ export interface FileRoutesById {
   '/explore/': typeof ExploreIndexRoute
   '/favourites/': typeof FavouritesIndexRoute
   '/login/': typeof LoginIndexRoute
+  '/profile/': typeof ProfileIndexRoute
   '/purchases/': typeof PurchasesIndexRoute
   '/register/': typeof RegisterIndexRoute
   '/tickets/': typeof TicketsIndexRoute
@@ -318,6 +335,7 @@ export interface FileRouteTypes {
     | '/explore'
     | '/favourites'
     | '/login'
+    | '/profile'
     | '/purchases'
     | '/register'
     | '/tickets'
@@ -336,6 +354,7 @@ export interface FileRouteTypes {
     | '/explore'
     | '/favourites'
     | '/login'
+    | '/profile'
     | '/purchases'
     | '/register'
     | '/tickets'
@@ -354,6 +373,7 @@ export interface FileRouteTypes {
     | '/explore/'
     | '/favourites/'
     | '/login/'
+    | '/profile/'
     | '/purchases/'
     | '/register/'
     | '/tickets/'
@@ -374,6 +394,7 @@ export interface RootRouteChildren {
   ExploreIndexRoute: typeof ExploreIndexRoute
   FavouritesIndexRoute: typeof FavouritesIndexRoute
   LoginIndexRoute: typeof LoginIndexRoute
+  ProfileIndexRoute: typeof ProfileIndexRoute
   PurchasesIndexRoute: typeof PurchasesIndexRoute
   RegisterIndexRoute: typeof RegisterIndexRoute
   TicketsIndexRoute: typeof TicketsIndexRoute
@@ -393,6 +414,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreIndexRoute: ExploreIndexRoute,
   FavouritesIndexRoute: FavouritesIndexRoute,
   LoginIndexRoute: LoginIndexRoute,
+  ProfileIndexRoute: ProfileIndexRoute,
   PurchasesIndexRoute: PurchasesIndexRoute,
   RegisterIndexRoute: RegisterIndexRoute,
   TicketsIndexRoute: TicketsIndexRoute,
@@ -421,6 +443,7 @@ export const routeTree = rootRoute
         "/explore/",
         "/favourites/",
         "/login/",
+        "/profile/",
         "/purchases/",
         "/register/",
         "/tickets/",
@@ -458,6 +481,9 @@ export const routeTree = rootRoute
     },
     "/login/": {
       "filePath": "login/index.tsx"
+    },
+    "/profile/": {
+      "filePath": "profile/index.tsx"
     },
     "/purchases/": {
       "filePath": "purchases/index.tsx"
