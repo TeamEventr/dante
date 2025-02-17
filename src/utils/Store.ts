@@ -2,17 +2,18 @@ import { auth } from "@/api/auth";
 import { AuthTypes } from "@/lib/types";
 import { createWithEqualityFn } from "zustand/traditional";
 import { handleError } from "@/api/api";
+import { create } from "zustand";
+
 
 type AuthStore = {
     user: AuthTypes.User | null;
-    OTP: boolean | null;
     isAuthenticated: boolean | null;
     isHost: boolean;
     loading: boolean;
     error: { message: string; statusCode: number } | null;
     info: string;
 
-    register: (userRegister: AuthTypes.RegisterRequest) => Promise<void>;
+    register: (userRegister: AuthTypes.RegisterRequest) => Promise<boolean>;
     verifyOTP: (userOTPVerify: AuthTypes.OTPVerifyRequest) => Promise<void>;
     login: (userLogIn: AuthTypes.LogInRequest) => Promise<void>;
     logout: () => void;
@@ -21,15 +22,16 @@ type AuthStore = {
 
 export const useAuthStore = createWithEqualityFn<AuthStore>((set) => ({
 
-    user: null, OTP: null, isAuthenticated: null, isHost: false, loading: false, error: null, info: "",
+    user: null, isAuthenticated: null, isHost: false, loading: false, error: null, info: "",
 
     register: async (userRegister) => {
-        set({ loading: true, OTP: false, error: null });
+        set({ loading: true, error: null });
         try {
-            await auth.register(userRegister);
-            set({ OTP: true });
+            auth.register(userRegister);
+            return true;
         } catch (error) {
             set({ error: handleError(error) });
+            return false;
         } finally { set({ loading: false }) }
     },
 
@@ -40,7 +42,7 @@ export const useAuthStore = createWithEqualityFn<AuthStore>((set) => ({
             set({ user: response.user, isAuthenticated: true, isHost: response.isHost });
         } catch (error) {
             set({ error: handleError(error) });
-        } finally { set({ loading: false, OTP: false }) }
+        } finally { set({ loading: false }) }
     },
 
     login: async (userLogIn) => {
@@ -77,4 +79,31 @@ export const useAuthStore = createWithEqualityFn<AuthStore>((set) => ({
             throw error;
         } finally { set({ loading: false }) }
     },
+}));
+
+type RegisterPageStore = {
+    step: "register" | "otp" | "success";
+    err: string | null;
+    password: string;
+    email: string;
+    confirmPassword: string;
+
+    setStep: (step: "register" | "otp" | "success") => void;
+    setErr: (err: string | null) => void;
+    setPassword: (password: string) => void;
+    setEmail: (email: string) => void;
+    setConfirmPassword: (confirmPassword: string) => void;
+};
+
+export const useRegisterPageStore = create<RegisterPageStore>((set) => ({
+    step: "register",
+    err: null,
+    password: "",
+    email: "",
+    confirmPassword: "",
+    setStep: (step) => set((state) => (state.step !== step ? { step } : state)),
+    setErr: (err: string | null) => set({ err }),
+    setPassword: (password: string) => set({ password }),
+    setEmail: (email: string) => set({ email }),
+    setConfirmPassword: (confirmPassword: string) => set({ confirmPassword }),
 }));

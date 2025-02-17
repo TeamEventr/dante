@@ -45,9 +45,9 @@ export const Input: React.FC<InputWrapperProps> = ({
         onChange={onChange}
         placeholder={placeholder}
         className={`${width} ${type == 'number' && 'indent-[36px]'} 
-        bg-transparent border-b border-eventr-gray-500 outline-none py-1.b`}
+        bg-transparent border-b border-eventr-gray-500 outline-none`}
       />
-    {type == 'number' && <span className={`absolute left-1.5 top-1.5 text-lg text-eventr-gray-500`}>+91</span>}
+    {type == 'number' && <span className={`absolute left-1.5 top-5 text-eventr-gray-500`}>+91</span>}
     </div>
   );
 };

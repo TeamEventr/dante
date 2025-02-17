@@ -66,6 +66,11 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
+input[type="number"] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,

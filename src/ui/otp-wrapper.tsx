@@ -8,7 +8,8 @@ export default function InputOTP() {
     const [values, setValues] = useState<string[]>(Array(6).fill(""));
     const loading = useAuthStore(state => state.loading);
     const verifyOTP = useAuthStore(state => state.verifyOTP);
-
+    
+    
     const handleInputChange = (index: number) => (e: ChangeEvent<HTMLInputElement>) => {
         const newValue = e.target.value;
         setValues(prevValues => {
@@ -30,6 +31,7 @@ export default function InputOTP() {
 
     const handlePaste = (index: number) => (e: ClipboardEvent<HTMLInputElement>) => {
         e.preventDefault();
+        console.log(`Pasting at index: ${index}`);
         const pasteData = e.clipboardData.getData("text");
         if (/^\d{6}$/.test(pasteData)) {
             const newValues = pasteData.split("");
@@ -73,7 +75,7 @@ export default function InputOTP() {
                 />
             ))}
             </div>
-            <button disabled={loading} type="submit" className="bg-eventr-gray-800 font-semibold text-white rounded-lg px-6 py-3">
+            <button disabled={loading} type="submit" className="bg-eventr-gray-800 flex items-center justify-center font-semibold text-white rounded-lg px-6 py-3">
                 {loading ? <Icon icon='progress_activity' spin/> : "Verify"}</button>
         </form>
     )
