@@ -18,8 +18,7 @@ export default {
           900: "#0d0d0f", //5%
           950: "#070708", //3%
         },
-        // "primary": "#301b82",
-        "primary": "#27005D",
+        "primary": "#301b82",
         "primary-dark": "#17002f",
         // "secondary": "#FFD300",
         "secondary": "#FF9A00",

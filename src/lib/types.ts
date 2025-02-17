@@ -22,7 +22,6 @@ export namespace AuthTypes {
     export type RegisterRequest = {
         email: string;
         password: string;
-        username: string;
     };
 
     export type RegisterResponse = {

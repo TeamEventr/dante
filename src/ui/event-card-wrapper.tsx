@@ -2,9 +2,9 @@ import { Link } from "@tanstack/react-router"
 import { ArrowRight, LocationIcon } from "./icons"
 import { EventList } from "@/lib/types"
 
-export default function EventCard({event}: {event: EventList}) {
+export default function EventCard({event}: {event: EventList | null}) {
     return (
-         <div className='p-1 pt-3 flex-shrink-0 event w-80 text-eventr-gray-700 rounded-3xl flex flex-col shadow-xl'>
+         <div className='p-1 pt-3 h-fit flex-shrink-0 event w-80 text-eventr-gray-700 rounded-3xl flex flex-col shadow-xl'>
             <div className='px-2 flex gap-1'>
                 <div className="flex-grow">
                     <p className='text-sm font-semibold text-eventr-gray-300'>24th Jan, 8PM</p>

@@ -53,11 +53,11 @@ export default function NavbarSidebar() {
 
     return (
     <div>
-        <button className="active:scale-90 text-eventr-gray-50 bg-eventr-gray-800 rounded-full p-1 duration-200">
+        <button className=" active:scale-90 border border-eventr-gray-200 bg-eventr-gray-800 rounded-full p-1 duration-200">
             <span
                 ref={menuButtonRef}
                 className="flex items-center material-symbols-rounded"
-                style={{fontSize: "32px", fontVariationSettings: `'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24`,}}
+                style={{fontSize: "28px", fontVariationSettings: `'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24`,}}
             >
                 menu
             </span>

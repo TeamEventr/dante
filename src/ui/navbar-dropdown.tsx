@@ -54,11 +54,11 @@ export default function NavbarDropDown() {
 
     return (
     <div>
-        <button className="active:scale-90 text-eventr-gray-50 bg-eventr-gray-800 rounded-full p-1 duration-200">
+        <button className="active:scale-90 text-white border border-eventr-gray-200 bg-eventr-gray-800 rounded-full p-1 duration-200">
             <span
                 ref={profileButtonRef}
                 className="flex items-center material-symbols-rounded"
-                style={{fontSize: "32px", fontVariationSettings: `'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24`,}}
+                style={{fontSize: "36px", fontVariationSettings: `'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24`,}}
             >
                 account_circle
             </span>
@@ -76,7 +76,7 @@ export default function NavbarDropDown() {
                       My Tickets
                   </Link>
                   <Link to="/favourites" onClick={() => setIsMenuOpen(false)} className="block px-2 py-1.5 rounded-md duration-200 hover:bg-eventr-gray-800">
-                      Bookmarks
+                      Favourites
                   </Link>
                   <button onClick={() => setIsMenuOpen(false)} className="block w-full text-left px-2 py-1.5 rounded-md duration-200 hover:bg-eventr-gray-800 text-red-600">
                       Logout

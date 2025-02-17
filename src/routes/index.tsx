@@ -27,13 +27,13 @@ const textVariants = {
 function RouteComponent() {
     return (
         <div className="flex flex-col gap-3">
-            <div className='relative h-min'>
-                <img src="/concert-2.jpg" alt="Concert" className="relative w-full aspect-[4/3] rounded-b-[2em] shadow-xl" />
+            <div className='relative w-full aspect-none md:aspect-[28/9] rounded-b-[2em] shadow-xl'>
+                <img src="/concert-2.jpg" alt="Concert" className="relative aspect-[4/3] md:aspect-none md:absolute md:top-0 object-cover rounded-b-[2em]" />
                 <motion.h1 
                     variants={containerVariants}
                     initial="hidden"
                     animate="visible"
-                    className='absolute w-full text-center bottom-10 text-lg shadow-lg font-semibold'
+                    className='absolute w-full md:w-[500px] left-1/2 -translate-x-1/2 md:translate-x-0 md:left-8 bottom-8 md:bottom-1/2 text-center md:text-left text-lg md:text-4xl shadow-lg font-semibold'
                 >
                     <motion.span variants={textVariants}>Your Events, </motion.span>
                     <motion.span variants={textVariants}>Your Network, </motion.span>

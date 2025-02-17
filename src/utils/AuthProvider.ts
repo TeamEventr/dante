@@ -1,5 +1,4 @@
 import { useAuthStore } from "./Store";
-import { redirect } from "@tanstack/react-router";
 
 export async function checkAuth() {
   const { isAuthenticated, session } = useAuthStore.getState();
@@ -8,13 +7,9 @@ export async function checkAuth() {
     try {
         await session();
     } catch (error) {
-      console.log("Session failed. Redirecting to login...");
+      console.log("Session failed. Please login again.");
       useAuthStore.setState({ isAuthenticated: false });
     }
-  }
-  const currentAuthState = useAuthStore.getState().isAuthenticated;
-  if (currentAuthState === false) {
-    redirect({ to: '/login' }); // Redirect if not authenticated
   }
 }
 

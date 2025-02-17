@@ -1,3 +1,6 @@
+import React from "react";
+import Icon from "./icon-wrapper";
+
 interface InputWrapperProps {
   label?: string;
   type: string;
@@ -10,7 +13,18 @@ interface InputWrapperProps {
   className?: string;
 }
 
-const Input: React.FC<InputWrapperProps> = ({
+
+interface PasswordWrapperProps {
+    label?: string;
+    name: string;
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    placeholder?: string;
+    width: string;
+    className?: string;
+}
+
+export const Input: React.FC<InputWrapperProps> = ({
   label,
   type,
   name,
@@ -19,12 +33,10 @@ const Input: React.FC<InputWrapperProps> = ({
   placeholder,
   width,
   grow,
-  className = "",
-
 }) => {
   return (
     <div className={`relative flex flex-col ${grow? 'flex-grow' : ''}`}>
-      {label && <label htmlFor={name} className={` text-eventr-gray-100`}>{label}</label>}
+      {label && <label htmlFor={name} className={`text-sm text-eventr-gray-800`}>{label}</label>}
       <input
         id={name}
         type={type}
@@ -32,12 +44,46 @@ const Input: React.FC<InputWrapperProps> = ({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className={`${width} ${type == 'number' && 'indent-[36px]'} text-lg bg-transparent border-b border-eventr-gray-500 outline-none 
-                    p-1.5 ${className}`}
+        className={`${width} ${type == 'number' && 'indent-[36px]'} 
+        bg-transparent border-b border-eventr-gray-500 outline-none py-1.b`}
       />
     {type == 'number' && <span className={`absolute left-1.5 top-1.5 text-lg text-eventr-gray-500`}>+91</span>}
     </div>
   );
 };
 
-export default Input;
+
+export const Password: React.FC<PasswordWrapperProps> = ({
+    label,
+    name,
+    value,
+    onChange,
+    placeholder,
+    width,
+}) => {
+    const [isPassVisible, setPassVisible] = React.useState(false);
+
+    return (
+        <div className="relative flex flex-col">
+            {label && <label htmlFor={name} className={`text-sm text-eventr-gray-800`}>{label}</label>}
+            <input
+                type={isPassVisible ? "text" : "password"}
+                id={name}
+                name={name}
+                value={value}
+                onChange={onChange}
+                placeholder={placeholder}
+                className={`${width} 
+                bg-transparent border-b border-eventr-gray-500 outline-none pb-1.5`}
+                />
+            <button
+                type="button"
+                onClick={() => setPassVisible(!isPassVisible)}
+                className={`absolute right-2 bottom-2 flex items-center text-eventr-gray-200`}
+            >
+                {isPassVisible ? <Icon icon='visibility' size="20px"/> : <Icon icon='visibility_off' size="20px"/>}
+            </button>
+        </div>
+    );
+};
+

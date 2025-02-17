@@ -98,7 +98,7 @@ export default function Carousel() {
     >
       <div
         ref={scrollRef}
-        className="relative w-full flex rounded-lg lg:rounded-xl aspect-[16/9] md:aspect-[32/9] bg-eventr-gray hide-scrollbar overflow-x-scroll snap-x snap-mandatory scroll-smooth"
+        className="relative w-full flex rounded-lg lg:rounded-xl aspect-[16/9] md:aspect-[21/9] bg-eventr-gray hide-scrollbar overflow-x-scroll snap-x snap-mandatory scroll-smooth"
       >
         {imageUrls.map((url, index) => (
           <div

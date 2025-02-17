@@ -5,6 +5,7 @@ import { handleError } from "@/api/api";
 
 type AuthStore = {
     user: AuthTypes.User | null;
+    OTP: boolean | null;
     isAuthenticated: boolean | null;
     isHost: boolean;
     loading: boolean;
@@ -20,12 +21,13 @@ type AuthStore = {
 
 export const useAuthStore = createWithEqualityFn<AuthStore>((set) => ({
 
-    user: null, isAuthenticated: null, isHost: false, loading: false, error: null, info: "",
+    user: null, OTP: null, isAuthenticated: null, isHost: false, loading: false, error: null, info: "",
 
     register: async (userRegister) => {
-        set({ loading: true, error: null });
+        set({ loading: true, OTP: false, error: null });
         try {
             await auth.register(userRegister);
+            set({ OTP: true });
         } catch (error) {
             set({ error: handleError(error) });
         } finally { set({ loading: false }) }
@@ -38,7 +40,7 @@ export const useAuthStore = createWithEqualityFn<AuthStore>((set) => ({
             set({ user: response.user, isAuthenticated: true, isHost: response.isHost });
         } catch (error) {
             set({ error: handleError(error) });
-        } finally { set({ loading: false }) }
+        } finally { set({ loading: false, OTP: false }) }
     },
 
     login: async (userLogIn) => {
