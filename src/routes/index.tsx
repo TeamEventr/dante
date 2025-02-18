@@ -1,84 +1,258 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
-import Carousel from '../ui/carousel-wrapper';
-import NotFound from '../components/404';
-import { motion } from 'motion/react';
-import { ArrowRight, LocationIcon } from '../ui/icons';
+import { createFileRoute, Link } from "@tanstack/react-router"
+import Carousel from "../ui/carousel-wrapper"
+import NotFound from "../components/404"
+import { motion } from "motion/react"
+import { ArrowRight, LocationIcon, Calendar, Clock } from "../ui/icons"
+import Navbar from "../ui/navbar" // Import the Navbar component
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute("/")({
   component: RouteComponent,
   notFoundComponent: NotFound,
-});
-
+})
 
 const containerVariants = {
-    visible: {
-        transition: {
-        staggerChildren: 0.5, 
-        },
+  visible: {
+    transition: {
+      staggerChildren: 0.4,
     },
-};
+  },
+}
 
 const textVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+}
 
 
 function RouteComponent() {
-    return (
-        <div className="flex flex-col gap-3">
-            <div className='relative w-full aspect-none md:aspect-[28/9] rounded-b-[2em] shadow-xl'>
-                <img src="/concert-2.jpg" alt="Concert" className="relative aspect-[4/3] md:aspect-none md:absolute md:top-0 object-cover rounded-b-[2em]" />
-                <motion.h1 
-                    variants={containerVariants}
-                    initial="hidden"
-                    animate="visible"
-                    className='absolute w-full md:w-[500px] left-1/2 -translate-x-1/2 md:translate-x-0 md:left-8 bottom-8 md:bottom-1/2 text-center md:text-left text-lg md:text-4xl shadow-lg font-semibold'
-                >
-                    <motion.span variants={textVariants}>Your Events, </motion.span>
-                    <motion.span variants={textVariants}>Your Network, </motion.span>
-                    <motion.span variants={textVariants}>Your moment.</motion.span>
-                </motion.h1> 
+  return (
+    <div className="flex flex-col bg-eventr-gray-50">
+      {/* Use the imported Navbar component */}
+      <Navbar />
+
+      {/* Hero Banner */}
+      <div className="relative w-full h-[60vh] md:h-[70vh] overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent z-10"></div>
+        <img src="/concert-2.jpg" alt="Concert" className="w-full h-full object-cover" />
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="absolute z-20 w-full px-4 md:px-0 md:w-[600px] left-1/2 -translate-x-1/2 md:translate-x-0 md:left-12 bottom-10 md:bottom-32 text-white"
+        >
+          <motion.h1 variants={textVariants} className="text-2xl md:text-3xl lg:text-5xl font-bold mb-4">
+            Your Events, Your Network, <span className="text-secondary">Your Moment</span>
+          </motion.h1>
+          <motion.p variants={textVariants} className="text-base md:text-lg mb-6 max-w-md">
+            Discover amazing events happening around you and make memories that last a lifetime.
+          </motion.p>
+          <motion.div variants={textVariants}>
+            <Link
+              to="/explore"
+              className="bg-secondary hover:bg-secondary-dark text-white px-4 md:px-6 py-2 md:py-3 rounded-full font-medium inline-flex items-center gap-2 transition-all text-sm md:text-base"
+            >
+              Explore Events <ArrowRight size={18} />
+            </Link>
+          </motion.div>
+        </motion.div>
+      </div>
+
+
+      {/* Recommended Events */}
+      <div className="px-4 py-6 md:py-8 max-w-7xl mx-auto">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 md:mb-6">
+  <h2 className="text-xl font-bold flex items-center gap-2 mb-2 md:mb-0 text-black">
+    Popular in <span className="text-secondary">Bengaluru</span>
+    <span className="text-eventr-gray-600 text-sm font-normal">(Change Location)</span>
+  </h2>
+  <Link to="/explore" className="text-secondary text-sm font-medium flex items-center gap-1">
+    See All <ArrowRight size={14} />
+  </Link>
+</div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          {/* Event Card 1 */}
+          <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
+            <div className="relative">
+              <img src="/concert.jpg" alt="Concert" className="w-full aspect-[16/9] object-cover" />
+              <div className="absolute top-3 left-3 bg-secondary text-white px-2 py-1 rounded-full text-xs">
+                Recommended
+              </div>
             </div>
-            <div className='flex flex-col gap-3 px-3'>
-                <h2 className='text-lg'>
-                    Popular in <span className="font-bold text-xl text-secondary">Bengaluru</span>
-                </h2>
-
-
-                <div className='flex gap-2'>
-                    
-                    <div className='p-1 pt-3 flex-shrink-0 ticket-horizontal w-64 text-eventr-gray-700 rounded-3xl flex flex-col shadow-xl'>
-                        <div className='px-2 flex gap-1'>
-                            <div>
-                                <p className='text-sm font-semibold text-eventr-gray-300'>24th Jan, 8PM</p>
-                                <h3 className='font-bebas text-2xl uppercase font-bold leading-6'>Really Long Concert Name</h3>
-                            </div>
-                            <div className='relative transform rotate-12 text-[1.2em] h-12 w-[56px] font-bebas text-white bg-secondary flex items-center justify-center rounded-full'>
-                                <div className='absolute top-1.5 mx-auto rounded-full h-1 w-1 bg-eventr-gray-50'/>
-                                ₹499
-                            </div>
-                        </div>
-                        <div className='flex justify-between px-2 pt-1 pb-2'>
-                            <span className='flex text-xs text-eventr-gray-300'><LocationIcon size={15}/>DY Patel Stadium, Mumbai</span>
-                            <Link params={{ eventId: 'eventid' }} to={`/event/$eventId`}><ArrowRight size={18}/></Link>
-                        </div>
-                        <img src="/concert.jpg" alt="Concert" className="w-full aspect-[16/9] object-cover rounded-3xl" />
-                    </div>
-
-                    <div className='relative bg-primary flex-grow rounded-tl-3xl rounded-br-3xl shadow-xl'>
-                        <img src="/tickets.png" alt="Concert" className="relateive object-cover h-full opacity-10" />
-                        <div className='absolute top-1/2 -translate-y-1/2 p-2 flex flex-col items-center gap-4'>
-                            <h3 className='font-semibold text-xl'>Explore All Events</h3>
-                            <Link to='/explore' className='border-2 border-eventr-gray-100 w-20 p-1 flex items-center justify-center rounded-full text-white'><ArrowRight size={24}/></Link>
-                        </div>
-                    </div>
+            <div className="p-4">
+              <div className="flex justify-between items-start">
+                <h3 className="font-bold text-lg mb-1 line-clamp-2">Really Long Concert Name</h3>
+                <span className="font-bebas text-lg text-secondary">₹499</span>
+              </div>
+              <div className="flex items-center gap-1 text-eventr-gray-500 text-sm mb-3">
+                <LocationIcon size={14} />
+                <span className="line-clamp-1">DY Patel Stadium, Mumbai</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <div className="flex items-center gap-1 text-eventr-gray-500 text-sm">
+                  <Calendar size={14} />
+                  <span>24th Jan</span>
+                  <Clock size={14} className="ml-2" />
+                  <span>8PM</span>
                 </div>
+                <Link
+                  params={{ eventId: "eventid" }}
+                  to={`/event/$eventId`}
+                  className="text-primary hover:text-secondary"
+                >
+                  <ArrowRight size={18} />
+                </Link>
+              </div>
+            </div>
+          </div>
 
+          {/* Event Card 2 */}
+          <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
+            <div className="relative">
+              <img src="/concert.jpg" alt="Concert" className="w-full aspect-[16/9] object-cover" />
+              <div className="absolute top-3 left-3 bg-primary text-white px-2 py-1 rounded-full text-xs">Trending</div>
             </div>
-            <div className='px-3'>
-                <Carousel />
+            <div className="p-4">
+              <div className="flex justify-between items-start">
+                <h3 className="font-bold text-lg mb-1 line-clamp-2">Jazz Night Live</h3>
+                <span className="font-bebas text-lg text-secondary">₹799</span>
+              </div>
+              <div className="flex items-center gap-1 text-eventr-gray-500 text-sm mb-3">
+                <LocationIcon size={14} />
+                <span className="line-clamp-1">Phoenix Marketcity, Bengaluru</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <div className="flex items-center gap-1 text-eventr-gray-500 text-sm">
+                  <Calendar size={14} />
+                  <span>30th Jan</span>
+                  <Clock size={14} className="ml-2" />
+                  <span>7PM</span>
+                </div>
+                <Link
+                  params={{ eventId: "eventid2" }}
+                  to={`/event/$eventId`}
+                  className="text-primary hover:text-secondary"
+                >
+                  <ArrowRight size={18} />
+                </Link>
+              </div>
             </div>
+          </div>
+
+          {/* Event Card 3 */}
+          <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
+            <div className="relative">
+              <img src="/concert.jpg" alt="Concert" className="w-full aspect-[16/9] object-cover" />
+              <div className="absolute top-3 left-3 bg-eventr-gray-800 text-white px-2 py-1 rounded-full text-xs">
+                Selling Fast
+              </div>
+            </div>
+            <div className="p-4">
+              <div className="flex justify-between items-start">
+                <h3 className="font-bold text-lg mb-1 line-clamp-2">Comedy Night Special</h3>
+                <span className="font-bebas text-lg text-secondary">₹299</span>
+              </div>
+              <div className="flex items-center gap-1 text-eventr-gray-500 text-sm mb-3">
+                <LocationIcon size={14} />
+                <span className="line-clamp-1">Canvas Laugh Club, Bengaluru</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <div className="flex items-center gap-1 text-eventr-gray-500 text-sm">
+                  <Calendar size={14} />
+                  <span>28th Jan</span>
+                  <Clock size={14} className="ml-2" />
+                  <span>8:30PM</span>
+                </div>
+                <Link
+                  params={{ eventId: "eventid3" }}
+                  to={`/event/$eventId`}
+                  className="text-primary hover:text-secondary"
+                >
+                  <ArrowRight size={18} />
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Explore Card */}
+          <div className="relative bg-gradient-to-br from-primary to-primary-dark rounded-2xl overflow-hidden flex items-center justify-center shadow-md hover:shadow-xl transition-shadow duration-300 aspect-[4/5]">
+            <img src="/tickets.png" alt="Concert" className="absolute inset-0 object-cover h-full opacity-10" />
+            <div className="p-6 flex flex-col items-center gap-6 z-10 text-white">
+              <h3 className="font-bold text-2xl text-center">Discover More Events</h3>
+              <p className="text-center text-sm text-eventr-gray-200">Explore hundreds of events happening near you</p>
+              <Link
+                to="/explore"
+                className="bg-white text-primary hover:bg-eventr-gray-100 px-6 py-3 rounded-full font-medium flex items-center gap-2 transition-colors"
+              >
+                Explore All
+                <ArrowRight size={18} />
+              </Link>
+            </div>
+          </div>
         </div>
-  );
+      </div>
+
+      {/* Banner Section */}
+      <div className="bg-eventr-gray-100 py-10">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-xl font-bold mb-6">Featured Collections</h2>
+          <div className="px-0 md:px-3">
+            <Carousel />
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="bg-eventr-gray-900 text-eventr-gray-400 py-8 md:py-10">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="text-white text-lg font-bold mb-4">eventr</h3>
+              <p className="text-sm mb-4">Your one-stop destination for all entertainment needs.</p>
+              <div className="flex space-x-4">
+                <span className="cursor-pointer">FB</span>
+                <span className="cursor-pointer">TW</span>
+                <span className="cursor-pointer">IG</span>
+                <span className="cursor-pointer">YT</span>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="text-white font-medium mb-4">Discover</h4>
+              <ul className="space-y-2 text-sm">
+                <li>Events</li>
+                <li>Movies</li>
+                <li>Plays</li>
+                <li>Sports</li>
+                <li>Activities</li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-white font-medium mb-4">Help & Support</h4>
+              <ul className="space-y-2 text-sm">
+                <li>Contact Us</li>
+                <li>FAQs</li>
+                <li>Terms & Conditions</li>
+                <li>Privacy Policy</li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-white font-medium mb-4">Download Our App</h4>
+              <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+                <div className="border border-eventr-gray-700 rounded p-2 cursor-pointer text-center">Google Play</div>
+                <div className="border border-eventr-gray-700 rounded p-2 cursor-pointer text-center">App Store</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-eventr-gray-800 mt-8 pt-8 text-xs text-center">
+            © 2025 eventr. All rights reserved.
+          </div>
+        </div>
+      </footer>
+    </div>
+  )
 }
+
