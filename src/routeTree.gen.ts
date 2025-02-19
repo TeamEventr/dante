@@ -27,6 +27,7 @@ import { Route as TicketsTIdImport } from './routes/tickets/$tId'
 import { Route as PurchasesPIdImport } from './routes/purchases/$pId'
 import { Route as HostJoinImport } from './routes/host/join'
 import { Route as HostDashboardImport } from './routes/host/dashboard'
+import { Route as HostCreateImport } from './routes/host/create'
 import { Route as EventEventIdIndexImport } from './routes/event/$eventId/index'
 import { Route as HostDashboardEventIdImport } from './routes/host/dashboard_.event.$id'
 
@@ -128,6 +129,12 @@ const HostDashboardRoute = HostDashboardImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const HostCreateRoute = HostCreateImport.update({
+  id: '/host/create',
+  path: '/host/create',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const EventEventIdIndexRoute = EventEventIdIndexImport.update({
   id: '/event/$eventId/',
   path: '/event/$eventId/',
@@ -170,6 +177,13 @@ declare module '@tanstack/react-router' {
       path: '/support'
       fullPath: '/support'
       preLoaderRoute: typeof SupportImport
+      parentRoute: typeof rootRoute
+    }
+    '/host/create': {
+      id: '/host/create'
+      path: '/host/create'
+      fullPath: '/host/create'
+      preLoaderRoute: typeof HostCreateImport
       parentRoute: typeof rootRoute
     }
     '/host/dashboard': {
@@ -280,6 +294,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/help': typeof HelpRoute
   '/support': typeof SupportRoute
+  '/host/create': typeof HostCreateRoute
   '/host/dashboard': typeof HostDashboardRoute
   '/host/join': typeof HostJoinRoute
   '/purchases/$pId': typeof PurchasesPIdRoute
@@ -301,6 +316,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/help': typeof HelpRoute
   '/support': typeof SupportRoute
+  '/host/create': typeof HostCreateRoute
   '/host/dashboard': typeof HostDashboardRoute
   '/host/join': typeof HostJoinRoute
   '/purchases/$pId': typeof PurchasesPIdRoute
@@ -323,6 +339,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/help': typeof HelpRoute
   '/support': typeof SupportRoute
+  '/host/create': typeof HostCreateRoute
   '/host/dashboard': typeof HostDashboardRoute
   '/host/join': typeof HostJoinRoute
   '/purchases/$pId': typeof PurchasesPIdRoute
@@ -346,6 +363,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/help'
     | '/support'
+    | '/host/create'
     | '/host/dashboard'
     | '/host/join'
     | '/purchases/$pId'
@@ -366,6 +384,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/help'
     | '/support'
+    | '/host/create'
     | '/host/dashboard'
     | '/host/join'
     | '/purchases/$pId'
@@ -386,6 +405,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/help'
     | '/support'
+    | '/host/create'
     | '/host/dashboard'
     | '/host/join'
     | '/purchases/$pId'
@@ -408,6 +428,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   HelpRoute: typeof HelpRoute
   SupportRoute: typeof SupportRoute
+  HostCreateRoute: typeof HostCreateRoute
   HostDashboardRoute: typeof HostDashboardRoute
   HostJoinRoute: typeof HostJoinRoute
   PurchasesPIdRoute: typeof PurchasesPIdRoute
@@ -429,6 +450,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   HelpRoute: HelpRoute,
   SupportRoute: SupportRoute,
+  HostCreateRoute: HostCreateRoute,
   HostDashboardRoute: HostDashboardRoute,
   HostJoinRoute: HostJoinRoute,
   PurchasesPIdRoute: PurchasesPIdRoute,
@@ -459,6 +481,7 @@ export const routeTree = rootRoute
         "/about",
         "/help",
         "/support",
+        "/host/create",
         "/host/dashboard",
         "/host/join",
         "/purchases/$pId",
@@ -486,6 +509,9 @@ export const routeTree = rootRoute
     },
     "/support": {
       "filePath": "support.tsx"
+    },
+    "/host/create": {
+      "filePath": "host/create.tsx"
     },
     "/host/dashboard": {
       "filePath": "host/dashboard.tsx"
