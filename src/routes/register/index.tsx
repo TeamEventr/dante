@@ -70,13 +70,13 @@ function RouteComponent() {
                         <input type="checkbox" className="opacity-75z" id="terms" name="terms" />
                         <label htmlFor="terms" className='text-xs text-eventr-gray-500'>I agree to the <u>Terms of Service</u> and <u>Privacy Policy</u></label>
                     </div>
-                    <button disabled={loading} type='submit' className='bg-eventr-gray-800 flex items-center justify-center font-semibold text-white rounded-lg px-6 py-3'>
+                    <button disabled={loading} type='submit' className='bg-eventr-gray-800 active:scale-90 duration-200 flex items-center justify-center font-semibold text-white rounded-lg px-6 py-3'>
                         {!loading ?
                             'Continue' :
                             <Icon icon='progress_activity' spin/>
                         }
                     </button>
-                    <button className='bg-eventr-gray-50 flex gap-2 items-center justify-center font-semibold rounded-lg px-6 py-3'>
+                    <button className='bg-eventr-gray-50 active:scale-90 duration-200 flex gap-2 items-center justify-center font-semibold rounded-lg px-6 py-3'>
                         <Google/>
                         Continue with Google
                     </button>

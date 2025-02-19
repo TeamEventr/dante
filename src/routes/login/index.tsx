@@ -27,7 +27,7 @@ function RouteComponent() {
                 <Google/>
                 Continue with Google
             </button>
-            <Link to='/register' className='text-center mt-2 text-sm text-eventr-gray-500'>Don't have an account? <u>Register</u></Link>
+            <Link to='/register' className='text-center active:scale-90 duration-200 mt-2 text-sm text-eventr-gray-500'>Don't have an account? <u>Register</u></Link>
         </div>
     </div>
   </div>

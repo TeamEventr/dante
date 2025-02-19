@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import { useState } from 'react'
 import secureLocalStorage from 'react-secure-storage'
 import Icon from '@/ui/icon-wrapper'
@@ -8,6 +8,7 @@ import { AuthTypes } from '@/lib/types'
 import { useAuthStore } from '@/utils/Store'
 import { AnimatePresence, motion } from 'motion/react'
 import InputOTP from '@/ui/otp-wrapper'
+import { ArrowRight } from 'lucide-react'
 
 export const Route = createFileRoute('/host/join')({
   component: RouteComponent,
@@ -74,7 +75,7 @@ function RouteComponent() {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault()
         setErrMsg(null)
-        setStep('otp')
+        setStep('success')
 
         //Conditions to check if inputs are correct
         const conditions = [
@@ -113,7 +114,7 @@ function RouteComponent() {
         <motion.div
             className="flex items-center w-[380px] p-8 rounded-lg h-min bg-white shadow-xl text-black flex-col gap-6"
             animate={{
-                height: step === "register" ? "560px" : "300px",
+                height: step === "register" ? "655px" : step === "otp" ? "300px" : "330px",
             }}
             transition={{ duration: 0.4, delay: 0.2, ease: "easeInOut" }}
         >    
@@ -201,7 +202,7 @@ function RouteComponent() {
                         </select>
                     </div>
 
-                    <button disabled={loading} type='submit' className='active:scale-90 bg-eventr-gray-800 flex items-center justify-center font-semibold text-white rounded-lg px-6 py-3'>
+                    <button disabled={loading} type='submit' className='active:scale-90 duration-200 bg-eventr-gray-800 flex items-center justify-center font-semibold text-white rounded-lg px-6 py-3'>
                         {!loading ?
                             'Continue' :
                             <Icon icon='progress_activity' spin/>
@@ -221,10 +222,33 @@ function RouteComponent() {
                     className="flex flex-col gap-6 w-full"
                 >
                     <div className='flex flex-col items-center py-4'>    
-                        <h1 className='text-3xl font-semibold'>OTP Verification</h1>
-                        <p className='text-sm font-thin'>An OTP has been sent to {formData.companyMail}.</p>
+                        <h1 className='text-3xl font-semibold'>Host OTP Verification</h1>
+                        <p className='text-sm font-thin'>An OTP has been sent to your company email, {formData.companyMail}.</p>
                     </div>
                     <InputOTP/>
+                </motion.div>
+            }
+            </AnimatePresence>
+
+            <AnimatePresence>
+            { step === "success" &&
+                <motion.div
+                    key="otp"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.3, ease: "easeInOut" }}
+                    className="flex flex-col gap-6 w-full"
+                >
+                    <div className='flex flex-col items-center py-4'>    
+                        <h1 className='text-3xl font-semibold'>Welcome onboard!</h1>
+                        <p className='text-sm font-thin'>Host registration complete.</p>
+                    </div>
+                    <h3>
+                    We're reviewing your request and will notify you via email once it's processed. Stay tuned! ✨    
+                    </h3>
+                    <Link to={'/'} className='bg-eventr-gray-800 active:scale-90 duration-200 flex items-center justify-center gap-2 font-semibold text-white rounded-lg px-6 py-3'>
+                        Explore Events <ArrowRight/>
+                    </Link>
                 </motion.div>
             }
             </AnimatePresence>

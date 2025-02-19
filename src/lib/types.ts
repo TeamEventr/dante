@@ -7,7 +7,6 @@ export namespace AuthTypes {
         lastName: string;
         profilePictureURL: string;
     }
-
     
     export type LogInRequest = {
         username: string;

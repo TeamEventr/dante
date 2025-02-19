@@ -13,7 +13,7 @@ type AuthStore = {
     error: { message: string; statusCode: number } | null;
     info: string;
 
-    register: (userRegister: AuthTypes.RegisterRequest) => Promise<boolean>;
+    register: (userRegister: AuthTypes.RegisterRequest) => Promise<void>;
     verifyOTP: (userOTPVerify: AuthTypes.OTPVerifyRequest) => Promise<void>;
     login: (userLogIn: AuthTypes.LogInRequest) => Promise<void>;
     logout: () => void;
@@ -28,10 +28,8 @@ export const useAuthStore = createWithEqualityFn<AuthStore>((set) => ({
         set({ loading: true, error: null });
         try {
             auth.register(userRegister);
-            return true;
         } catch (error) {
             set({ error: handleError(error) });
-            return false;
         } finally { set({ loading: false }) }
     },
 
