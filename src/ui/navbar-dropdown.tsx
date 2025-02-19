@@ -72,12 +72,12 @@ export default function NavbarDropDown() {
                   <Link to="/u/$uId" params={{uId:'virat'}} onClick={() => setIsMenuOpen(false)} className="block px-2 py-1.5 rounded-md duration-200 hover:bg-eventr-gray-800">
                       Profile
                   </Link>
-                  <Link to="/tickets" onClick={() => setIsMenuOpen(false)} className="block px-2 py-1.5 rounded-md duration-200 hover:bg-eventr-gray-800">
+                  {/* <Link to="/tickets" onClick={() => setIsMenuOpen(false)} className="block px-2 py-1.5 rounded-md duration-200 hover:bg-eventr-gray-800">
                       My Tickets
                   </Link>
                   <Link to="/favourites" onClick={() => setIsMenuOpen(false)} className="block px-2 py-1.5 rounded-md duration-200 hover:bg-eventr-gray-800">
                       Favourites
-                  </Link>
+                  </Link> */}
                   <button onClick={() => setIsMenuOpen(false)} className="block w-full text-left px-2 py-1.5 rounded-md duration-200 hover:bg-eventr-gray-800 text-red-600">
                       Logout
                   </button>

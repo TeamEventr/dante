@@ -25,7 +25,6 @@ import { Route as ExploreIndexImport } from './routes/explore/index'
 import { Route as UUIdImport } from './routes/u/$uId'
 import { Route as TicketsTIdImport } from './routes/tickets/$tId'
 import { Route as PurchasesPIdImport } from './routes/purchases/$pId'
-import { Route as HostStaffImport } from './routes/host/staff'
 import { Route as HostJoinImport } from './routes/host/join'
 import { Route as HostDashboardImport } from './routes/host/dashboard'
 import { Route as EventEventIdIndexImport } from './routes/event/$eventId/index'
@@ -117,12 +116,6 @@ const PurchasesPIdRoute = PurchasesPIdImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const HostStaffRoute = HostStaffImport.update({
-  id: '/host/staff',
-  path: '/host/staff',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const HostJoinRoute = HostJoinImport.update({
   id: '/host/join',
   path: '/host/join',
@@ -191,13 +184,6 @@ declare module '@tanstack/react-router' {
       path: '/host/join'
       fullPath: '/host/join'
       preLoaderRoute: typeof HostJoinImport
-      parentRoute: typeof rootRoute
-    }
-    '/host/staff': {
-      id: '/host/staff'
-      path: '/host/staff'
-      fullPath: '/host/staff'
-      preLoaderRoute: typeof HostStaffImport
       parentRoute: typeof rootRoute
     }
     '/purchases/$pId': {
@@ -296,7 +282,6 @@ export interface FileRoutesByFullPath {
   '/support': typeof SupportRoute
   '/host/dashboard': typeof HostDashboardRoute
   '/host/join': typeof HostJoinRoute
-  '/host/staff': typeof HostStaffRoute
   '/purchases/$pId': typeof PurchasesPIdRoute
   '/tickets/$tId': typeof TicketsTIdRoute
   '/u/$uId': typeof UUIdRoute
@@ -318,7 +303,6 @@ export interface FileRoutesByTo {
   '/support': typeof SupportRoute
   '/host/dashboard': typeof HostDashboardRoute
   '/host/join': typeof HostJoinRoute
-  '/host/staff': typeof HostStaffRoute
   '/purchases/$pId': typeof PurchasesPIdRoute
   '/tickets/$tId': typeof TicketsTIdRoute
   '/u/$uId': typeof UUIdRoute
@@ -341,7 +325,6 @@ export interface FileRoutesById {
   '/support': typeof SupportRoute
   '/host/dashboard': typeof HostDashboardRoute
   '/host/join': typeof HostJoinRoute
-  '/host/staff': typeof HostStaffRoute
   '/purchases/$pId': typeof PurchasesPIdRoute
   '/tickets/$tId': typeof TicketsTIdRoute
   '/u/$uId': typeof UUIdRoute
@@ -365,7 +348,6 @@ export interface FileRouteTypes {
     | '/support'
     | '/host/dashboard'
     | '/host/join'
-    | '/host/staff'
     | '/purchases/$pId'
     | '/tickets/$tId'
     | '/u/$uId'
@@ -386,7 +368,6 @@ export interface FileRouteTypes {
     | '/support'
     | '/host/dashboard'
     | '/host/join'
-    | '/host/staff'
     | '/purchases/$pId'
     | '/tickets/$tId'
     | '/u/$uId'
@@ -407,7 +388,6 @@ export interface FileRouteTypes {
     | '/support'
     | '/host/dashboard'
     | '/host/join'
-    | '/host/staff'
     | '/purchases/$pId'
     | '/tickets/$tId'
     | '/u/$uId'
@@ -430,7 +410,6 @@ export interface RootRouteChildren {
   SupportRoute: typeof SupportRoute
   HostDashboardRoute: typeof HostDashboardRoute
   HostJoinRoute: typeof HostJoinRoute
-  HostStaffRoute: typeof HostStaffRoute
   PurchasesPIdRoute: typeof PurchasesPIdRoute
   TicketsTIdRoute: typeof TicketsTIdRoute
   UUIdRoute: typeof UUIdRoute
@@ -452,7 +431,6 @@ const rootRouteChildren: RootRouteChildren = {
   SupportRoute: SupportRoute,
   HostDashboardRoute: HostDashboardRoute,
   HostJoinRoute: HostJoinRoute,
-  HostStaffRoute: HostStaffRoute,
   PurchasesPIdRoute: PurchasesPIdRoute,
   TicketsTIdRoute: TicketsTIdRoute,
   UUIdRoute: UUIdRoute,
@@ -483,7 +461,6 @@ export const routeTree = rootRoute
         "/support",
         "/host/dashboard",
         "/host/join",
-        "/host/staff",
         "/purchases/$pId",
         "/tickets/$tId",
         "/u/$uId",
@@ -515,9 +492,6 @@ export const routeTree = rootRoute
     },
     "/host/join": {
       "filePath": "host/join.tsx"
-    },
-    "/host/staff": {
-      "filePath": "host/staff.tsx"
     },
     "/purchases/$pId": {
       "filePath": "purchases/$pId.tsx"

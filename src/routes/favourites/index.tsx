@@ -1,9 +1,11 @@
-import { useState } from 'react'
-import { createFileRoute } from '@tanstack/react-router'
-import Icon from '@/ui/icon-wrapper'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/favourites/')({
-  component: RouteComponent,
+    beforeLoad: () => {
+        console.log('This page is coming soon!')
+        throw redirect({to: '/'})
+    },
+    component: RouteComponent,
 })
 
 function RouteComponent() {

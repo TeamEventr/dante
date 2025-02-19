@@ -1,80 +1,156 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { Link } from '@tanstack/react-router'
 import Icon from '@/ui/icon-wrapper'
-
+import { dummyEvent } from '@/lib/data'
+import { AgeGroupChart, GenderRatioChart } from '@/ui/host-charts'
+import { useState } from 'react'
 
 export const Route = createFileRoute('/host/dashboard_/event/$id')({
   component: RouteComponent,
 })
 
-function RouteComponent() {
-  return <div>
-<div className="relative w-full flex flex-col gap-2 bg-eventr-gray rounded-md">
-    <div className="relative w-full aspect-w-7 aspect-h-3 bg-zinc-600 rounded-md">
-    </div>
-    <div className="p-4 flex flex-col">
-      <div className="flex w-full gap-2.5">
-        <div className="flex flex-col flex-grow">
-          <h2 className="text-2xl font-bold">Event Name Really long and informative</h2>
-          <div className="flex items-center gap-1"><Icon icon='location_on' size="18px"/> Blah blah square, Blah City</div>
-        </div>
-        <button className="flex items-center gap-1 font-bold text-lg px-4 h-10 rounded-md border border-zinc-700"><Icon icon="edit" size="18px"/> Edit Details</button>
-        <button className="flex items-center gap-1 font-bold text-lg px-4 h-10 rounded-md border border-zinc-700"><Icon icon="settings" size="18px"/> Manage</button>
-        <button className="flex items-center gap-1 font-bold text-lg px-4 h-10 rounded-md bg-eventr-main"><Icon icon="analytics" size="18px"/> View Analytics</button>
-      </div>
-      <div className="flex items-center gap-2.5 text-sm mt-2">
-        <p className="px-2 py-0.5 rounded-md bg-amber-600">Comedy</p>
-        <p className="px-2 py-0.5 rounded-md bg-eventr-main">18+</p>
-        <p className="px-2 py-0.5 rounded-md border text-zinc-300 border-zinc-700">Tag 1</p>
-        <p className="px-2 py-0.5 rounded-md border text-zinc-300 border-zinc-700">Tag 2</p>
-        <p className="px-2 py-0.5 rounded-md border text-zinc-300 border-zinc-700">Tag 3</p>
+const COLORS = ["#8884d8", "#82ca9d", "#ffc658", "#ff8042", "#ff6666"];
+
+interface Tier {
+  id: number;
+  name: string;
+  price: number;
+  seat_available: number;
+  total_seat: number;
+  booking_open_time: string;
+  booking_close_time: string;
+  booking_status: string;
+}
+
+interface ManageTiersProps {
+  tiers: Tier[];
+}
+
+export function ManageTiers({ tiers }: ManageTiersProps) {
+  const [tierData, setTierData] = useState(tiers);
+
+  const totalRevenue = tierData.reduce((acc: number, tier: { price: number; total_seat: number; seat_available: number }) => acc + (tier.price * (tier.total_seat - tier.seat_available)), 0);
+  const totalTicketsSold = tierData.reduce((acc: number, tier: { total_seat: number; seat_available: number }) => acc + (tier.total_seat - tier.seat_available), 0);
+  const avgTicketPrice = totalTicketsSold > 0 ? totalRevenue / totalTicketsSold : 0;
+  const allTiersOpen = tierData.every((tier: { booking_status: string }) => tier.booking_status === "open");
+
+  const toggleTierStatus = (id: number) => {
+    setTierData((prev) =>
+      prev.map((tier) =>
+        tier.id === id ? { ...tier, booking_status: tier.booking_status === "open" ? "closed" : "open" } : tier
+      )
+    );
+  };
+
+  const toggleAllTiers = () => {
+    const newStatus = allTiersOpen ? "closed" : "open";
+    setTierData((prev) => prev.map((tier) => ({ ...tier, booking_status: newStatus })));
+  };
+
+  return (
+    <div className="flex flex-col gap-3 bg-eventr-gray-800 border border-eventr-gray-500 p-4 rounded-xl">
+      <h1 className="text-xl font-semibold pl-2 pb-2 w-full border-b border-eventr-gray-500">Manage Tiers</h1>
+      
+
+      <div className="flex justify-between bg-eventr-gray-700 p-4 rounded-lg">
+        <p>Enable Event Ticketing</p>
       </div>
 
-      <div className="w-full h-[1px] bg-zinc-700 my-3"/>
-      <div className="flex gap-4">
-        
-        <div className="flex flex-col gap-3">
-          <h2 className="font-bold text-lg">About:</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget
-          justo nec justo facilisis fermentum. Curabitur et justo eget justo
-          facilisis fermentum. Curabitur et justo eget justo facilisis
-          fermentum. Curabitur et justo eget justo facilisis fermentum.
-          </p>
-          <h2 className="font-bold text-lg">Instructions:</h2>
-          <ul className="list-disc translate-x-4">
-            <li>Wear a mask</li>
-            <li>Carry your ID</li>
-            <li>Carry your ticket</li>
-          </ul>
-          <h2 className="font-bold text-lg">Performers:</h2>
-          <div className="border border-zinc-600 min-w-36 w-fit h-48 rounded-md">
-          </div>
-        </div>
+      {/* Overall Summary */}
+      <div className="flex justify-between bg-eventr-gray-700 p-4 rounded-lg">
+        <p>Total Revenue: <span className="font-semibold">₹{totalRevenue}</span></p>
+        <p>Avg Ticket Price: <span className="font-semibold">₹{avgTicketPrice.toFixed(2)}</span></p>
+        <p>Total Tickets Sold: <span className="font-semibold">{totalTicketsSold}</span></p>
 
-        <div className="flex flex-col gap-4">
-          <ul className="flex flex-col gap-2 h-fit bg-zinc-600 p-4 rounded-md w-80 flex-shrink-0">
-            <li className="flex items-center gap-2"><Icon icon='confirmation_number' size="18px"/>Tickets from ₹300</li>
-            <li className="flex items-center gap-2"><Icon icon='event' size="18px"/>21st Dec, 9:00 AM onwards</li>
-            <li className="flex items-center gap-2"><Icon icon='schedule' size="18px"/>4 Hours</li>
-            <li className="flex items-center gap-2"><Icon icon='stadium' size="18px"/>1200 attendees</li>
-          </ul>
-          <div className="bg-zinc-700 h-[1px] mt-1"/>
-          <div className="w-80">
-            <h2 className="text-lg font-bold mb-2">
-              About the host:
-            </h2>
-            <div className="flex gap-2">
-              <div className="h-24 w-24 flex-shrink-0 bg-zinc-600 rounded-full"></div>
+      </div>
+
+      {/* Tier List */}
+      {tierData.map((tier) => {
+        const sold = tier.total_seat - tier.seat_available;
+        const soldPercentage = (sold / tier.total_seat) * 100;
+        const revenue = tier.price * sold;
+
+        return (
+          <div key={tier.id} className="flex flex-col gap-2 bg-eventr-gray-700 p-3 rounded-lg">
+            <div className="flex justify-between items-center">
               <div>
-                <h3>Host Name</h3>
-                <h4 className="text-zinc-300 text-sm -translate-y-1">Company Name</h4>
-                <p className="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <p className="w-fit pr-2 font-semibold rounded bg-eventr-gray-500"><span className='bg-white text-black py-0.5 px-2 rounded'>{tier.name}</span> ₹{tier.price}</p>
+                <p className="text-sm text-eventr-gray-100">Booking from {new Date(tier.booking_open_time).toLocaleDateString()}, open till {new Date(tier.booking_close_time).toLocaleDateString()}</p>
               </div>
+              <button onClick={() => toggleTierStatus(tier.id)}>{tier.booking_status === "open" ? "disable" : "enable"} </button>
             </div>
+            <p className='text-sm'>Tickets Sold:</p>
+            <div className="flex -mt-3 items-center gap-2">
+                
+              <div className="w-full  h-3 bg-eventr-gray-500 rounded-full relative">
+                <div style={{ width: `${soldPercentage}%` }} className="h-full bg-secondary rounded-full" />
+              </div>
+              <p className="w-12 text-right">{sold}/{tier.total_seat}</p>
+            </div>
+
+            <p><span className='text-sm'>Revenue: </span><b> ₹{revenue}.00 INR </b></p>
           </div>
-        </div>
-      </div>  
+        );
+      })}
     </div>
-  </div>
+  );
+}
+
+function RouteComponent() {
+
+
+    const { male, female, ...ageGroups } = dummyEvent.statistics;
+    
+    const totalGender = male + female;
+    const genderData = [
+        { name: "Male", value: (male / totalGender) * 100, color: "#4A90E2" },
+        { name: "Female", value: (female / totalGender) * 100, color: "#FF6B81" }
+    ];
+
+    const ageData = Object.entries(ageGroups).map(([key, value], index) => ({
+        name: key,
+        value,
+        color: COLORS[index % COLORS.length]
+    }));
+  return <div>
+    <div className='flex p-4 gap-3'>
+        <section className='flex flex-col gap-3'>
+            <img className='w-full aspect-[16/9] object-cover rounded-xl border border-eventr-gray-500' src={dummyEvent.event.cover_picture_url} alt={dummyEvent.event.title}/>
+            <div className='flex flex-col gap-2 bg-eventr-gray-800 border border-eventr-gray-500 rounded-xl p-4'>
+                <h1 className='text-xl font-semibold pl-2 pb-2 w-full border-b border-eventr-gray-500'>Description</h1>
+                <p>
+                    {dummyEvent.event.description}
+                </p>
+                <div className='flex flex-wrap gap-2'>
+                    {dummyEvent.event.tags.map((tag, index) => (
+                        <span key={index} className='bg-eventr-gray-700 text-white py-1 px-3 rounded-lg'>
+                            {tag}
+                        </span>
+                    ))}
+                </div>
+            </div>
+        </section>
+        <section className='w-[500px] flex flex-col gap-3 flex-shrink-0'>
+            <div className='flex gap-3 items-center bg-eventr-gray-800 border border-eventr-gray-500 rounded-xl p-4'>
+                <div className='flex flex-col flex-grow'>
+                    <h1 className='text-2xl font-semibold'>{dummyEvent.event.title}</h1>
+                    <h3 className='flex text-eventr-gray-50 text-base'><Icon icon='location_on' size='18px'/>{dummyEvent.event.venue}</h3>
+                </div>
+                <div className='flex gap-2 h-10 px-3 items-center border-2 rounded-lg bg-green-900/50 border-green-600'>
+                    <p className='text-xl font-semibold'>Live</p>
+                    <div className='w-2 h-2 rounded-full bg-green-300 animate-pulse'/>
+                </div>
+            </div>
+            <ManageTiers tiers ={dummyEvent.price_tiers}/>
+            <div className='flex flex-col gap-2 bg-eventr-gray-800 border border-eventr-gray-500 p-4 rounded-xl'>
+                <h1 className='text-xl font-semibold pl-2 pb-2 w-full border-b border-eventr-gray-500'>Analytics</h1>
+                <div className='flex'>
+                    <AgeGroupChart data={ageData} /> 
+                    <div className='h-full w-[1px] bg-eventr-gray-500 flex-shrink-0'/>
+                    <GenderRatioChart data={genderData}/>
+                </div>
+            </div>
+        </section>
+    </div>    
 </div>
 }

@@ -1,20 +1,19 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, redirect } from '@tanstack/react-router';
 import { Link } from "@tanstack/react-router";
 import { SearchIcon } from "../../ui/icons";
 import EventCard from '@/ui/event-card-wrapper';
 import { categories } from '@/lib/data';
 
-// import { queryClient } from "@/main";
-// import { exploreEventsQuery } from "@/api/hooks";
 import { useEventsExplore } from '@/api/hooks';
 
 export const Route = createFileRoute('/explore/')({
+    beforeLoad: () => {
+        console.log('This page is coming soon!')
+        throw redirect({to: '/'})
+    },
     component: RouteComponent,
-    // Prefetches the data to make sure it is available in the cache when the route is rendered
-    // loader: async () => {
-    //     return queryClient.ensureQueryData(exploreEventsQuery);
-    // },
-});
+})
+
 
 function RouteComponent() {
 
