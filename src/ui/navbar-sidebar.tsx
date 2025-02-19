@@ -74,12 +74,12 @@ export default function NavbarSidebar() {
                 <Link to="/" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
                     <HomeIcon size={26}/> Home
                   </Link>
-                  <Link to="/explore" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
+                  {/* <Link to="/explore" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
                       <SearchIcon size={26}/> Explore
-                  </Link>
+                  </Link> */}
 
-                  <Link to="/help" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
-                      <Icon icon="help" size="26px" /> Help
+                  <Link to="/about" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
+                      <Icon icon="info" size="26px" /> About
                   </Link>
                   <Link to="/host/join" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
                       <Icon icon="settings" size="26px" /> Become a Host
