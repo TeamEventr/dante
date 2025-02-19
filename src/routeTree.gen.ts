@@ -8,8 +8,6 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createFileRoute } from '@tanstack/react-router'
-
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
@@ -29,16 +27,9 @@ import { Route as TicketsTIdImport } from './routes/tickets/$tId'
 import { Route as PurchasesPIdImport } from './routes/purchases/$pId'
 import { Route as HostStaffImport } from './routes/host/staff'
 import { Route as HostJoinImport } from './routes/host/join'
-import { Route as HostDashboardIndexImport } from './routes/host/dashboard/index'
+import { Route as HostDashboardImport } from './routes/host/dashboard'
 import { Route as EventEventIdIndexImport } from './routes/event/$eventId/index'
-import { Route as HostDashboardLayoutImport } from './routes/host/dashboard/_layout'
-import { Route as HostDashboardLayoutHomeImport } from './routes/host/dashboard/_layout.home'
-import { Route as HostDashboardLayoutEventsImport } from './routes/host/dashboard/_layout.events'
-import { Route as HostDashboardLayoutCreateImport } from './routes/host/dashboard/_layout.create'
-
-// Create Virtual Routes
-
-const HostDashboardImport = createFileRoute('/host/dashboard')()
+import { Route as HostDashboardEventIdImport } from './routes/host/dashboard_.event.$id'
 
 // Create/Update Routes
 
@@ -63,12 +54,6 @@ const AboutRoute = AboutImport.update({
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const HostDashboardRoute = HostDashboardImport.update({
-  id: '/host/dashboard',
-  path: '/host/dashboard',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -144,10 +129,10 @@ const HostJoinRoute = HostJoinImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const HostDashboardIndexRoute = HostDashboardIndexImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => HostDashboardRoute,
+const HostDashboardRoute = HostDashboardImport.update({
+  id: '/host/dashboard',
+  path: '/host/dashboard',
+  getParentRoute: () => rootRoute,
 } as any)
 
 const EventEventIdIndexRoute = EventEventIdIndexImport.update({
@@ -156,27 +141,10 @@ const EventEventIdIndexRoute = EventEventIdIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const HostDashboardLayoutRoute = HostDashboardLayoutImport.update({
-  id: '/_layout',
-  getParentRoute: () => HostDashboardRoute,
-} as any)
-
-const HostDashboardLayoutHomeRoute = HostDashboardLayoutHomeImport.update({
-  id: '/home',
-  path: '/home',
-  getParentRoute: () => HostDashboardLayoutRoute,
-} as any)
-
-const HostDashboardLayoutEventsRoute = HostDashboardLayoutEventsImport.update({
-  id: '/events',
-  path: '/events',
-  getParentRoute: () => HostDashboardLayoutRoute,
-} as any)
-
-const HostDashboardLayoutCreateRoute = HostDashboardLayoutCreateImport.update({
-  id: '/create',
-  path: '/create',
-  getParentRoute: () => HostDashboardLayoutRoute,
+const HostDashboardEventIdRoute = HostDashboardEventIdImport.update({
+  id: '/host/dashboard_/event/$id',
+  path: '/host/dashboard/event/$id',
+  getParentRoute: () => rootRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -209,6 +177,13 @@ declare module '@tanstack/react-router' {
       path: '/support'
       fullPath: '/support'
       preLoaderRoute: typeof SupportImport
+      parentRoute: typeof rootRoute
+    }
+    '/host/dashboard': {
+      id: '/host/dashboard'
+      path: '/host/dashboard'
+      fullPath: '/host/dashboard'
+      preLoaderRoute: typeof HostDashboardImport
       parentRoute: typeof rootRoute
     }
     '/host/join': {
@@ -295,20 +270,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TicketsIndexImport
       parentRoute: typeof rootRoute
     }
-    '/host/dashboard': {
-      id: '/host/dashboard'
-      path: '/host/dashboard'
-      fullPath: '/host/dashboard'
-      preLoaderRoute: typeof HostDashboardImport
-      parentRoute: typeof rootRoute
-    }
-    '/host/dashboard/_layout': {
-      id: '/host/dashboard/_layout'
-      path: '/host/dashboard'
-      fullPath: '/host/dashboard'
-      preLoaderRoute: typeof HostDashboardLayoutImport
-      parentRoute: typeof HostDashboardRoute
-    }
     '/event/$eventId/': {
       id: '/event/$eventId/'
       path: '/event/$eventId'
@@ -316,73 +277,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EventEventIdIndexImport
       parentRoute: typeof rootRoute
     }
-    '/host/dashboard/': {
-      id: '/host/dashboard/'
-      path: '/'
-      fullPath: '/host/dashboard/'
-      preLoaderRoute: typeof HostDashboardIndexImport
-      parentRoute: typeof HostDashboardImport
-    }
-    '/host/dashboard/_layout/create': {
-      id: '/host/dashboard/_layout/create'
-      path: '/create'
-      fullPath: '/host/dashboard/create'
-      preLoaderRoute: typeof HostDashboardLayoutCreateImport
-      parentRoute: typeof HostDashboardLayoutImport
-    }
-    '/host/dashboard/_layout/events': {
-      id: '/host/dashboard/_layout/events'
-      path: '/events'
-      fullPath: '/host/dashboard/events'
-      preLoaderRoute: typeof HostDashboardLayoutEventsImport
-      parentRoute: typeof HostDashboardLayoutImport
-    }
-    '/host/dashboard/_layout/home': {
-      id: '/host/dashboard/_layout/home'
-      path: '/home'
-      fullPath: '/host/dashboard/home'
-      preLoaderRoute: typeof HostDashboardLayoutHomeImport
-      parentRoute: typeof HostDashboardLayoutImport
+    '/host/dashboard_/event/$id': {
+      id: '/host/dashboard_/event/$id'
+      path: '/host/dashboard/event/$id'
+      fullPath: '/host/dashboard/event/$id'
+      preLoaderRoute: typeof HostDashboardEventIdImport
+      parentRoute: typeof rootRoute
     }
   }
 }
 
 // Create and export the route tree
 
-interface HostDashboardLayoutRouteChildren {
-  HostDashboardLayoutCreateRoute: typeof HostDashboardLayoutCreateRoute
-  HostDashboardLayoutEventsRoute: typeof HostDashboardLayoutEventsRoute
-  HostDashboardLayoutHomeRoute: typeof HostDashboardLayoutHomeRoute
-}
-
-const HostDashboardLayoutRouteChildren: HostDashboardLayoutRouteChildren = {
-  HostDashboardLayoutCreateRoute: HostDashboardLayoutCreateRoute,
-  HostDashboardLayoutEventsRoute: HostDashboardLayoutEventsRoute,
-  HostDashboardLayoutHomeRoute: HostDashboardLayoutHomeRoute,
-}
-
-const HostDashboardLayoutRouteWithChildren =
-  HostDashboardLayoutRoute._addFileChildren(HostDashboardLayoutRouteChildren)
-
-interface HostDashboardRouteChildren {
-  HostDashboardLayoutRoute: typeof HostDashboardLayoutRouteWithChildren
-  HostDashboardIndexRoute: typeof HostDashboardIndexRoute
-}
-
-const HostDashboardRouteChildren: HostDashboardRouteChildren = {
-  HostDashboardLayoutRoute: HostDashboardLayoutRouteWithChildren,
-  HostDashboardIndexRoute: HostDashboardIndexRoute,
-}
-
-const HostDashboardRouteWithChildren = HostDashboardRoute._addFileChildren(
-  HostDashboardRouteChildren,
-)
-
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/help': typeof HelpRoute
   '/support': typeof SupportRoute
+  '/host/dashboard': typeof HostDashboardRoute
   '/host/join': typeof HostJoinRoute
   '/host/staff': typeof HostStaffRoute
   '/purchases/$pId': typeof PurchasesPIdRoute
@@ -395,12 +307,8 @@ export interface FileRoutesByFullPath {
   '/purchases': typeof PurchasesIndexRoute
   '/register': typeof RegisterIndexRoute
   '/tickets': typeof TicketsIndexRoute
-  '/host/dashboard': typeof HostDashboardLayoutRouteWithChildren
   '/event/$eventId': typeof EventEventIdIndexRoute
-  '/host/dashboard/': typeof HostDashboardIndexRoute
-  '/host/dashboard/create': typeof HostDashboardLayoutCreateRoute
-  '/host/dashboard/events': typeof HostDashboardLayoutEventsRoute
-  '/host/dashboard/home': typeof HostDashboardLayoutHomeRoute
+  '/host/dashboard/event/$id': typeof HostDashboardEventIdRoute
 }
 
 export interface FileRoutesByTo {
@@ -408,6 +316,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/help': typeof HelpRoute
   '/support': typeof SupportRoute
+  '/host/dashboard': typeof HostDashboardRoute
   '/host/join': typeof HostJoinRoute
   '/host/staff': typeof HostStaffRoute
   '/purchases/$pId': typeof PurchasesPIdRoute
@@ -420,11 +329,8 @@ export interface FileRoutesByTo {
   '/purchases': typeof PurchasesIndexRoute
   '/register': typeof RegisterIndexRoute
   '/tickets': typeof TicketsIndexRoute
-  '/host/dashboard': typeof HostDashboardIndexRoute
   '/event/$eventId': typeof EventEventIdIndexRoute
-  '/host/dashboard/create': typeof HostDashboardLayoutCreateRoute
-  '/host/dashboard/events': typeof HostDashboardLayoutEventsRoute
-  '/host/dashboard/home': typeof HostDashboardLayoutHomeRoute
+  '/host/dashboard/event/$id': typeof HostDashboardEventIdRoute
 }
 
 export interface FileRoutesById {
@@ -433,6 +339,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/help': typeof HelpRoute
   '/support': typeof SupportRoute
+  '/host/dashboard': typeof HostDashboardRoute
   '/host/join': typeof HostJoinRoute
   '/host/staff': typeof HostStaffRoute
   '/purchases/$pId': typeof PurchasesPIdRoute
@@ -445,13 +352,8 @@ export interface FileRoutesById {
   '/purchases/': typeof PurchasesIndexRoute
   '/register/': typeof RegisterIndexRoute
   '/tickets/': typeof TicketsIndexRoute
-  '/host/dashboard': typeof HostDashboardRouteWithChildren
-  '/host/dashboard/_layout': typeof HostDashboardLayoutRouteWithChildren
   '/event/$eventId/': typeof EventEventIdIndexRoute
-  '/host/dashboard/': typeof HostDashboardIndexRoute
-  '/host/dashboard/_layout/create': typeof HostDashboardLayoutCreateRoute
-  '/host/dashboard/_layout/events': typeof HostDashboardLayoutEventsRoute
-  '/host/dashboard/_layout/home': typeof HostDashboardLayoutHomeRoute
+  '/host/dashboard_/event/$id': typeof HostDashboardEventIdRoute
 }
 
 export interface FileRouteTypes {
@@ -461,6 +363,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/help'
     | '/support'
+    | '/host/dashboard'
     | '/host/join'
     | '/host/staff'
     | '/purchases/$pId'
@@ -473,18 +376,15 @@ export interface FileRouteTypes {
     | '/purchases'
     | '/register'
     | '/tickets'
-    | '/host/dashboard'
     | '/event/$eventId'
-    | '/host/dashboard/'
-    | '/host/dashboard/create'
-    | '/host/dashboard/events'
-    | '/host/dashboard/home'
+    | '/host/dashboard/event/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/help'
     | '/support'
+    | '/host/dashboard'
     | '/host/join'
     | '/host/staff'
     | '/purchases/$pId'
@@ -497,17 +397,15 @@ export interface FileRouteTypes {
     | '/purchases'
     | '/register'
     | '/tickets'
-    | '/host/dashboard'
     | '/event/$eventId'
-    | '/host/dashboard/create'
-    | '/host/dashboard/events'
-    | '/host/dashboard/home'
+    | '/host/dashboard/event/$id'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/help'
     | '/support'
+    | '/host/dashboard'
     | '/host/join'
     | '/host/staff'
     | '/purchases/$pId'
@@ -520,13 +418,8 @@ export interface FileRouteTypes {
     | '/purchases/'
     | '/register/'
     | '/tickets/'
-    | '/host/dashboard'
-    | '/host/dashboard/_layout'
     | '/event/$eventId/'
-    | '/host/dashboard/'
-    | '/host/dashboard/_layout/create'
-    | '/host/dashboard/_layout/events'
-    | '/host/dashboard/_layout/home'
+    | '/host/dashboard_/event/$id'
   fileRoutesById: FileRoutesById
 }
 
@@ -535,6 +428,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   HelpRoute: typeof HelpRoute
   SupportRoute: typeof SupportRoute
+  HostDashboardRoute: typeof HostDashboardRoute
   HostJoinRoute: typeof HostJoinRoute
   HostStaffRoute: typeof HostStaffRoute
   PurchasesPIdRoute: typeof PurchasesPIdRoute
@@ -547,8 +441,8 @@ export interface RootRouteChildren {
   PurchasesIndexRoute: typeof PurchasesIndexRoute
   RegisterIndexRoute: typeof RegisterIndexRoute
   TicketsIndexRoute: typeof TicketsIndexRoute
-  HostDashboardRoute: typeof HostDashboardRouteWithChildren
   EventEventIdIndexRoute: typeof EventEventIdIndexRoute
+  HostDashboardEventIdRoute: typeof HostDashboardEventIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -556,6 +450,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   HelpRoute: HelpRoute,
   SupportRoute: SupportRoute,
+  HostDashboardRoute: HostDashboardRoute,
   HostJoinRoute: HostJoinRoute,
   HostStaffRoute: HostStaffRoute,
   PurchasesPIdRoute: PurchasesPIdRoute,
@@ -568,8 +463,8 @@ const rootRouteChildren: RootRouteChildren = {
   PurchasesIndexRoute: PurchasesIndexRoute,
   RegisterIndexRoute: RegisterIndexRoute,
   TicketsIndexRoute: TicketsIndexRoute,
-  HostDashboardRoute: HostDashboardRouteWithChildren,
   EventEventIdIndexRoute: EventEventIdIndexRoute,
+  HostDashboardEventIdRoute: HostDashboardEventIdRoute,
 }
 
 export const routeTree = rootRoute
@@ -586,6 +481,7 @@ export const routeTree = rootRoute
         "/about",
         "/help",
         "/support",
+        "/host/dashboard",
         "/host/join",
         "/host/staff",
         "/purchases/$pId",
@@ -598,8 +494,8 @@ export const routeTree = rootRoute
         "/purchases/",
         "/register/",
         "/tickets/",
-        "/host/dashboard",
-        "/event/$eventId/"
+        "/event/$eventId/",
+        "/host/dashboard_/event/$id"
       ]
     },
     "/": {
@@ -613,6 +509,9 @@ export const routeTree = rootRoute
     },
     "/support": {
       "filePath": "support.tsx"
+    },
+    "/host/dashboard": {
+      "filePath": "host/dashboard.tsx"
     },
     "/host/join": {
       "filePath": "host/join.tsx"
@@ -650,40 +549,11 @@ export const routeTree = rootRoute
     "/tickets/": {
       "filePath": "tickets/index.tsx"
     },
-    "/host/dashboard": {
-      "filePath": "host/dashboard",
-      "children": [
-        "/host/dashboard/_layout",
-        "/host/dashboard/"
-      ]
-    },
-    "/host/dashboard/_layout": {
-      "filePath": "host/dashboard/_layout.tsx",
-      "parent": "/host/dashboard",
-      "children": [
-        "/host/dashboard/_layout/create",
-        "/host/dashboard/_layout/events",
-        "/host/dashboard/_layout/home"
-      ]
-    },
     "/event/$eventId/": {
       "filePath": "event/$eventId/index.tsx"
     },
-    "/host/dashboard/": {
-      "filePath": "host/dashboard/index.tsx",
-      "parent": "/host/dashboard"
-    },
-    "/host/dashboard/_layout/create": {
-      "filePath": "host/dashboard/_layout.create.tsx",
-      "parent": "/host/dashboard/_layout"
-    },
-    "/host/dashboard/_layout/events": {
-      "filePath": "host/dashboard/_layout.events.tsx",
-      "parent": "/host/dashboard/_layout"
-    },
-    "/host/dashboard/_layout/home": {
-      "filePath": "host/dashboard/_layout.home.tsx",
-      "parent": "/host/dashboard/_layout"
+    "/host/dashboard_/event/$id": {
+      "filePath": "host/dashboard_.event.$id.tsx"
     }
   }
 }

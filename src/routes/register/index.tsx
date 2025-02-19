@@ -1,7 +1,7 @@
 import { Google } from '@/ui/logo-wrapper'
 import {Input, Password} from '@/ui/new-input-wrapper'
-import { createFileRoute, Link } from '@tanstack/react-router'
-import { useState } from 'react'
+import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
+import { useEffect, useState } from 'react'
 import { useAuthStore } from '@/utils/Store'
 import InputOTP from '@/ui/otp-wrapper'
 import { AnimatePresence, motion } from 'motion/react'
@@ -15,8 +15,9 @@ export const Route = createFileRoute('/register/')({
 function RouteComponent() {
     const register = useAuthStore(state => state.register)
     // const OTP = useAuthStore(state => state.OTP)
-
-    const [step, setStep] = useState<"register" | "otp" | "success">("register");
+    const [count, setCount] = useState(5)
+    const navigate = useNavigate()
+    const [step, setStep] = useState<"register" | "otp" | "success">("success");
 
     const loading = useAuthStore(state => state.loading)
     const user = useAuthStore(state => state.user)
@@ -39,12 +40,27 @@ function RouteComponent() {
             console.log(error);
         }
     } 
-
+    useEffect(() => {
+        if (step === "success") {
+            const interval = setInterval(() => {
+                setCount((prev) => prev - 1);
+            }, 1000);
+    
+            const timeout = setTimeout(() => {
+                navigate({ to: "/" });
+            }, 5000);
+    
+            return () => {
+                clearInterval(interval);
+                clearTimeout(timeout);
+            };
+        }
+    }, [step, navigate]);
 
     return (
     <div className='flex items-center justify-center h-screen p-2'>
         <motion.div
-            className="flex items-center w-[380px] p-8 rounded-lg h-min bg-white shadow-xl text-black flex-col gap-6"
+            className="flex items-center w-[380px] p-8 relative -translate-y-8 rounded-lg h-min bg-white shadow-xl text-black flex-col gap-6"
             animate={{
                 height: step === "register" ? "560px" : "300px",
             }}
@@ -114,8 +130,19 @@ function RouteComponent() {
                     <div className='flex flex-col items-center py-4'>    
                         <h1 className='text-3xl font-semibold'>Success</h1>
                         <p className='text-sm font-thin'>Your account has been created!</p>
+                        <div className='mt-2 flex flex-col gap-1 items-center justify-center'>
+                            <p>Redirecting in {count}</p>
+                            <div className='h-1.5 w-64 bg-eventr-gray-50 rounded-full'>
+                                <motion.div 
+                                    className='h-1.5 bg-gradient-to-r from-amber-600 to-secondary rounded-full' 
+                                    initial={{ width: "0%" }}
+                                    animate={{ width: "100%" }}
+                                    transition={{ duration: 5}}
+                                />
+                            </div>
+                        </div>
                     </div>
-                    <Link to='/' className='bg-eventr-gray-800 flex items-center justify-center gap-2 font-semibold text-white rounded-lg px-6 py-3'>
+                    <Link to='/' className='bg-eventr-gray-800 -mt-4 flex items-center justify-center gap-2 font-semibold text-white rounded-lg px-6 py-3'>
                         Explore Events <ArrowRight/>
                     </Link>
                     <Link to='/host/join' className='text-center mt-2 text-sm text-eventr-gray-500'>

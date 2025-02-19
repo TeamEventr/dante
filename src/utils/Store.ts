@@ -10,9 +10,12 @@ type AuthStore = {
     isAuthenticated: boolean | null;
     isHost: boolean;
     loading: boolean;
+    loginModal: boolean;
+    registerModal: boolean;
     error: { message: string; statusCode: number } | null;
     info: string;
-
+    setLoginModal: (open: boolean) => void;
+    setRegisterModal: (open: boolean) => void;
     register: (userRegister: AuthTypes.RegisterRequest) => Promise<void>;
     verifyOTP: (userOTPVerify: AuthTypes.OTPVerifyRequest) => Promise<void>;
     login: (userLogIn: AuthTypes.LogInRequest) => Promise<void>;
@@ -22,7 +25,10 @@ type AuthStore = {
 
 export const useAuthStore = createWithEqualityFn<AuthStore>((set) => ({
 
-    user: null, isAuthenticated: null, isHost: false, loading: false, error: null, info: "",
+    user: null,  loginModal:false, registerModal:false, isAuthenticated: null, isHost: false, loading: false, error: null, info: "",
+
+    setLoginModal: (open) => set({ loginModal: open }),
+    setRegisterModal: (open) => set({ registerModal: open }),
 
     register: async (userRegister) => {
         set({ loading: true, error: null });

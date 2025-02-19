@@ -110,7 +110,7 @@ function RouteComponent() {
     }
 
   return (
-    <div className="flex items-center justify-center h-screen p-2">
+    <div className="flex relative -translate-y-8 items-center justify-center h-screen p-2">
         <motion.div
             className="flex items-center w-[380px] p-8 rounded-lg h-min bg-white shadow-xl text-black flex-col gap-6"
             animate={{

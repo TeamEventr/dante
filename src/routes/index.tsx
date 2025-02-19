@@ -3,7 +3,6 @@ import Carousel from "../ui/carousel-wrapper"
 import NotFound from "../components/404"
 import { motion } from "motion/react"
 import { ArrowRight, LocationIcon, Calendar, Clock } from "../ui/icons"
-import Navbar from "../ui/navbar" // Import the Navbar component
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
@@ -27,8 +26,6 @@ const textVariants = {
 function RouteComponent() {
   return (
     <div className="flex flex-col bg-eventr-gray-50">
-      {/* Use the imported Navbar component */}
-      <Navbar />
 
       {/* Hero Banner */}
       <div className="relative w-full h-[60vh] md:h-[70vh] overflow-hidden">
