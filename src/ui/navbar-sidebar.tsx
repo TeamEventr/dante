@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import Icon from "./icon-wrapper";
-import { HomeIcon, SearchIcon } from "./icons";
+import { HomeIcon } from "./icons";
 import { Link } from "@tanstack/react-router";
 
 const animationParams = {

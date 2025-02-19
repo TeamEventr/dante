@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router"
-import Carousel from "../ui/carousel-wrapper"
 import NotFound from "../components/404"
 import { motion } from "motion/react"
 import { ArrowRight, LocationIcon, Calendar, Clock } from "../ui/icons"
+import Footer from "../ui/footer"
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
@@ -44,12 +44,6 @@ function RouteComponent() {
             Discover amazing events happening around you and make memories that last a lifetime.
           </motion.p>
           <motion.div variants={textVariants}>
-            <Link
-              to="/explore"
-              className="bg-secondary hover:bg-secondary-dark text-white px-4 md:px-6 py-2 md:py-3 rounded-full font-medium inline-flex items-center gap-2 transition-all text-sm md:text-base"
-            >
-              Explore Events <ArrowRight size={18} />
-            </Link>
           </motion.div>
         </motion.div>
       </div>
@@ -58,13 +52,6 @@ function RouteComponent() {
       {/* Recommended Events */}
       <div className="px-4 py-6 md:py-8 max-w-7xl mx-auto">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 md:mb-6">
-  <h2 className="text-xl font-bold flex items-center gap-2 mb-2 md:mb-0 text-black">
-    Popular in <span className="text-secondary">Bengaluru</span>
-    <span className="text-eventr-gray-600 text-sm font-normal">(Change Location)</span>
-  </h2>
-  <Link to="/explore" className="text-secondary text-sm font-medium flex items-center gap-1">
-    See All <ArrowRight size={14} />
-  </Link>
 </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
@@ -78,7 +65,7 @@ function RouteComponent() {
             </div>
             <div className="p-4">
               <div className="flex justify-between items-start">
-                <h3 className="font-bold text-lg mb-1 line-clamp-2">Really Long Concert Name</h3>
+              <h3 className="font-bold text-lg mb-1 line-clamp-2 text-black">Really Long Name</h3>
                 <span className="font-bebas text-lg text-secondary">₹499</span>
               </div>
               <div className="flex items-center gap-1 text-eventr-gray-500 text-sm mb-3">
@@ -111,7 +98,7 @@ function RouteComponent() {
             </div>
             <div className="p-4">
               <div className="flex justify-between items-start">
-                <h3 className="font-bold text-lg mb-1 line-clamp-2">Jazz Night Live</h3>
+              <h3 className="font-bold text-lg mb-1 line-clamp-2 text-black">Jazz Night Live</h3>
                 <span className="font-bebas text-lg text-secondary">₹799</span>
               </div>
               <div className="flex items-center gap-1 text-eventr-gray-500 text-sm mb-3">
@@ -146,7 +133,8 @@ function RouteComponent() {
             </div>
             <div className="p-4">
               <div className="flex justify-between items-start">
-                <h3 className="font-bold text-lg mb-1 line-clamp-2">Comedy Night Special</h3>
+              <h3 className="font-bold text-lg mb-1 line-clamp-2 text-black">Comedy Night Special</h3>
+
                 <span className="font-bebas text-lg text-secondary">₹299</span>
               </div>
               <div className="flex items-center gap-1 text-eventr-gray-500 text-sm mb-3">
@@ -177,78 +165,11 @@ function RouteComponent() {
             <div className="p-6 flex flex-col items-center gap-6 z-10 text-white">
               <h3 className="font-bold text-2xl text-center">Discover More Events</h3>
               <p className="text-center text-sm text-eventr-gray-200">Explore hundreds of events happening near you</p>
-              <Link
-                to="/explore"
-                className="bg-white text-primary hover:bg-eventr-gray-100 px-6 py-3 rounded-full font-medium flex items-center gap-2 transition-colors"
-              >
-                Explore All
-                <ArrowRight size={18} />
-              </Link>
             </div>
           </div>
         </div>
       </div>
-
-      {/* Banner Section */}
-      <div className="bg-eventr-gray-100 py-10">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-xl font-bold mb-6">Featured Collections</h2>
-          <div className="px-0 md:px-3">
-            <Carousel />
-          </div>
-        </div>
-      </div>
-
-      {/* Footer */}
-      <footer className="bg-eventr-gray-900 text-eventr-gray-400 py-8 md:py-10">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-white text-lg font-bold mb-4">eventr</h3>
-              <p className="text-sm mb-4">Your one-stop destination for all entertainment needs.</p>
-              <div className="flex space-x-4">
-                <span className="cursor-pointer">FB</span>
-                <span className="cursor-pointer">TW</span>
-                <span className="cursor-pointer">IG</span>
-                <span className="cursor-pointer">YT</span>
-              </div>
-            </div>
-
-            <div>
-              <h4 className="text-white font-medium mb-4">Discover</h4>
-              <ul className="space-y-2 text-sm">
-                <li>Events</li>
-                <li>Movies</li>
-                <li>Plays</li>
-                <li>Sports</li>
-                <li>Activities</li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-white font-medium mb-4">Help & Support</h4>
-              <ul className="space-y-2 text-sm">
-                <li>Contact Us</li>
-                <li>FAQs</li>
-                <li>Terms & Conditions</li>
-                <li>Privacy Policy</li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-white font-medium mb-4">Download Our App</h4>
-              <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
-                <div className="border border-eventr-gray-700 rounded p-2 cursor-pointer text-center">Google Play</div>
-                <div className="border border-eventr-gray-700 rounded p-2 cursor-pointer text-center">App Store</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-eventr-gray-800 mt-8 pt-8 text-xs text-center">
-            © 2025 eventr. All rights reserved.
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

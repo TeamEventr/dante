@@ -21,7 +21,7 @@ function RouteComponent() {
 
     const loading = useAuthStore(state => state.loading)
     const user = useAuthStore(state => state.user)
-    const error = useAuthStore(state => state.error)
+    //const error = useAuthStore(state => state.error)
 
     const [password, setPassword ] = useState('')
     const [email, setEmail ] = useState('')
