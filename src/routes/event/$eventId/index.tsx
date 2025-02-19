@@ -1,200 +1,199 @@
-import { createFileRoute } from '@tanstack/react-router'
-import Icon from '@/ui/icon-wrapper'
-import { FavouritesIcon, ShareIcon } from '@/ui/icons'
-import { motion, AnimatePresence } from 'motion/react'
-import { useState } from 'react'
-import { Link } from '@tanstack/react-router'
+"use client"
 
-const animationParams = {
-  hidden: {
-    y: '10%',
-    opacity: 0,
-    transition: {
-      duration: 0.15,
-      ease: 'easeOut',
-    },
-  },
-  visible: {
-    y: '0%',
-    opacity: 1,
-    transition: {
-      type: 'spring',
-      stiffness: 200,
-      damping: 20,
-    },
-  },
-}
+import { createFileRoute } from "@tanstack/react-router"
+import Icon from "@/ui/icon-wrapper"
+import { ShareIcon } from "@/ui/icons"
+import { useState } from "react"
+import { Link } from "@tanstack/react-router"
 
-export const Route = createFileRoute('/event/$eventId/')({
+export const Route = createFileRoute("/event/$eventId/")({
   component: RouteComponent,
 })
 
 function RouteComponent() {
   const [isBookingMenuOpen, setBookingMenuOpen] = useState(false)
 
+  const performers = [
+    { name: "Rohit Sharma", role: "Vada Pav Expert" },
+    { name: "Virat Kohli", role: "Cover Drive Specialist" },
+    { name: "MS Dhoni", role: "Helicopter Pilot" },
+    { name: "Jasprit Bumrah", role: "Yorker King" },
+    { name: "Ravindra Jadeja", role: "Sir Jadeja" },
+    { name: "KL Rahul", role: "Stylish Opener" },
+    { name: "Hardik Pandya", role: "All-Rounder" },
+    { name: "Rishabh Pant", role: "Babysitter" },
+  ]
+
   return (
-    <div>
-      {/* Considering this section done with UI and animation */}
-      <div
-        aria-label="Booking and Favorites Bottom Bar"
-        className="fixed inset-x-0 bottom-2 px-2 z-40"
-      >
-        <motion.div
-          className="p-3 flex items-center gap-2 bg-eventr-gray-700 h-20"
-          initial={{ y: 100, borderRadius: '1em' }}
-          animate={{ y: 0, borderRadius: '16em' }}
-          transition={{
-            y: { type: 'spring', stiffness: 120, damping: 15 },
-            borderRadius: { duration: 0.8, delay: 0.2, ease: 'easeInOut' },
-          }}
-        >
-          <div className="flex flex-col flex-grow">
-            <p id="tier-info" className="text-sm text-eventr-gray-200">
-              General
-            </p>
-            <p
-              id="tier-price"
-              className="text-xl font-semibold text-eventr-gray-50 -mt-1"
-            >
-              ₹499 <span className="text-sm text-eventr-gray-200">Onwards</span>
-            </p>
+    <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="lg:flex lg:gap-8 relative">
+        {/* Left column */}
+        <div className="lg:w-2/3">
+          <div className="relative">
+            <img src="/concert.jpg" alt="event" className="w-full aspect-video object-cover rounded-lg" />
+            <button className="absolute right-4 bottom-4 p-2 bg-eventr-gray-100/20 rounded-full">
+              <ShareIcon />
+            </button>
           </div>
-          <button
-            aria-label="Add to Favorites"
-            className="bg-eventr-gray-200/20 h-full aspect-1 flex items-center justify-center rounded-full"
-          >
-            <FavouritesIcon size={28} color="white" />
-          </button>
-          <button
-            aria-label="Open Booking Menu"
-            onClick={() => setBookingMenuOpen(true)}
-            className="text-lg font-semibold bg-eventr-gray-50 text-eventr-gray-700 px-6 py-3 h-full rounded-full"
-          >
-            Book Now
-          </button>
-        </motion.div>
-      </div>
 
-      <div className="relative">
-        <img
-          src="/concert.jpg"
-          alt="event"
-          className="w-full -mt-2 z-0 aspect-h-9 object-cover"
-        />
-        <button className="absolute right-2 bottom-6 p-2 bg-eventr-gray-100/20 rounded-full">
-          <ShareIcon />
-        </button>
-      </div>
-      <div className="relative flex flex-col items-center h-screen w-full px-4 -mt-4 z-30 text-eventr-gray-900 bg-eventr-gray-50 rounded-t-3xl">
-        <div className="mt-1 mb-4 bg-eventr-gray-100 rounded-full w-12 h-1.5" />
-        <h1 className="font-bold text-2xl w-full">Big brown fox jumped</h1>
-        <p className="flex items-center text w-full">
-          <Icon icon="location_on" size="18px" />
-          Really long concert location
-        </p>
-        <div className="w-full my-3 flex items-center gap-1.5">
-          <span className="bg-primary px-2 py-1 rounded-md text-white text-sm">
-            Concerts
-          </span>
-          {['tag1', 'tag2', 'tag3'].map((tag, index) => (
-            <span
-              key={index}
-              className="px-2 py-1 rounded-md border border-eventr-gray-500 text-sm"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-        <div className="flex items-center justify-between px-2 my-1.5 gap-1.5 border-2 border-eventr-gray-100 rounded-xl h-12 w-full">
-          <div className="flex gap-0.5">
-            <Icon icon="calendar_today" size="24px" />
-            <p>28th Nov</p>
-          </div>
-          <div className="h-8 border-r-2 border-eventr-gray-100" />
-          <div className="flex gap-0.5">
-            <Icon icon="door_front" size="24px" />
-            <p>18+</p>
-          </div>
-          <div className="h-8 border-r-2 border-eventr-gray-100" />
-          <div className="flex gap-0.5">
-            <Icon icon="currency_rupee" size="24px" />
-            <p>
-              <b>499</b> onwards
-            </p>
-          </div>
-        </div>
-        <div className="flex items-center w-full pl-4 my-1.5">
-          {[...Array(5)].map((_, index) => (
-            <div
-              key={index}
-              className="w-12 -ml-4 h-12 border-4 border-eventr-gray-50 bg-eventr-gray-500 my-1 rounded-full"
-            />
-          ))}
-          <p className="text-sm">+543</p>
-          <p className="flex-grow underline text-sm text-right pr-0.5">
-            View All
-          </p>
-        </div>
-        <p className="border-y-2 p-2 border-eventr-gray-100 w-full my-3">
-          Lorem Ipsum has been the industry's standard dummy text ever since the
-          1500s, when an unknown printer took a galley of type and scrambled it
-          to make a type specimen book.
-        </p>
-        <p className="mt-2">Performers</p>
+          <div className="mt-6">
+            <h1 className="font-bold text-3xl text-white">Big brown fox jumped</h1>
+            <p className="flex items-center text-white mt-2">
+            <Icon icon="location_on" size="18px" fill={1} />
 
-        <div className="flex items-center justify-between px-2 my-1.5 gap-1.5 border-2 border-eventr-gray-100 rounded-xl h-36 w-full">
-          <div className="flex flex-col items-center">
-            <div className="w-20 h-20 rounded-full bg-eventr-gray-500" />
-            <p className="text-center text-sm font-bold mt-2">Rohit Sharma</p>
-            <p className="text-xs">Vada Pav Expert</p>
-          </div>
-        </div>
-        <p className="mt-1">Hosted By</p>
-        <div className="border-y-2 p-2 border-eventr-gray-100 w-full my-3">
-          <Link to="/u/$uId" params={{ uId: 'virat' }}>
-            <div className="w-16 h-16 bg-eventr-gray-500 rounded-full" />
-            <p>
-              <span className="text-xl font-bold">Virat Kohli</span>
-              <br />
-              <span>Indian Cricket Bench</span>
+              Really long concert location
             </p>
-          </Link>
+            <div className="my-4 flex flex-wrap items-center gap-2">
+              <span className="bg-primary px-3 py-1 rounded-md text-white text-sm">Concerts</span>
+              {["tag1", "tag2", "tag3"].map((tag, index) => (
+                <span key={index} className="px-3 py-1 rounded-md border border-eventr-gray-500 text-sm">
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <p className="border-y-2 py-4 border-eventr-gray-100 w-full my-6">
+              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took
+              a galley of type and scrambled it to make a type specimen book.
+            </p>
+            <div className="w-full my-6 bg-eventr-gray-100/20 rounded-xl p-6">
+              <h2 className="text-xl font-semibold mb-4">Instructions</h2>
+              <ul className="list-disc pl-5">
+                <li>No outside food allowed</li>
+                <li>No smoking</li>
+              </ul>
+            </div>
+          </div>
         </div>
 
-        <div className="w-full my-1.5 bg-eventr-gray-100/20 rounded-xl p-2.5">
-          <p className="font-bold mb-2.5">Instructions</p>
-          <p>
-            - No outside food allowed
-            <br />
-            - No smoking
-            <br />
-          </p>
+        {/* Right column - Now with gradient */}
+        <div className="lg:w-1/3 lg:sticky lg:top-8 h-fit">
+
+          <div className="bg-gradient-to-b from-amber-400 via-amber-300 to-amber-100 rounded-lg shadow-lg">
+            <div className="p-6 space-y-6">
+              {/* Event Details */}
+              <div>
+                <h2 className="text-lg font-semibold mb-3 text-gray-900">Event Details</h2>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <Icon icon="calendar_today" size="20px" fill={1} className="text-black"/>
+                    <p className="text-sm text-gray-800">28th Nov, 2025</p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Icon icon="schedule" size="20px" fill={1} className="text-black"/>
+                    <p className="text-sm text-gray-800">7:00 PM - 10:00 PM</p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Icon icon="location_on" size="20px" fill={1} className="text-black"/>
+                    <p className="text-sm text-gray-800">Really long concert location</p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Icon icon="door_front" size="20px" fill={1} className="text-black"/>
+                    <p className="text-sm text-gray-800">18+</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Hosted By */}
+              <div>
+                <h2 className="text-lg font-semibold mb-3 text-gray-900">Hosted By</h2>
+                <Link
+                  to="/u/$uId"
+                  params={{ uId: "virat" }}
+                  className="flex items-center gap-3 hover:bg-amber-200/50 p-2 rounded-lg transition-colors"
+                >
+                  <div className="w-12 h-12 bg-eventr-gray-500 rounded-full" />
+                  <div>
+                    <p className="text-base font-bold text-gray-900">Virat Kohli</p>
+                    <p className="text-sm text-gray-700">Indian Cricket Bench</p>
+                  </div>
+                </Link>
+              </div>
+
+              {/* Performers */}
+              <div>
+                <h2 className="text-lg font-semibold mb-3 text-gray-900">Performers</h2>
+                <div className="grid grid-cols-4 gap-3">
+                  {performers.map((performer, index) => (
+                    <div key={index} className="flex flex-col items-center">
+                      <div className="w-12 h-12 rounded-full bg-eventr-gray-500" />
+                      <p className="text-xs font-bold mt-2 text-center text-gray-900">{performer.name}</p>
+                      <p className="text-xs text-center leading-tight text-gray-700">{performer.role}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Google Calendar Button */}
+              <a
+  href={`https://www.google.com/calendar/render?action=TEMPLATE&text=Big Brown Fox Jumped&dates=20251128T190000Z/20251128T220000Z&details=Live concert event&location=Really long concert location`}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="flex items-center justify-center gap-2 w-full text-sm font-medium text-gray-900 bg-amber-500 hover:bg-amber-600 px-6 py-4 rounded-full transition-colors shadow-md"
+>
+  <div className="flex items-center justify-center w-5 h-5">
+    <Icon icon="calendar_today" size="20px" fill={1}/>
+  </div>
+  <span>Add to Google Calendar</span>
+</a>
+
+              {/* Pricing and Booking */}
+              <div className="pt-2">
+                <p className="text-sm text-gray-700">General</p>
+                <p className="text-2xl font-semibold mb-3 text-gray-900">
+                  ₹499 <span className="text-sm text-gray-700">Onwards</span>
+                </p>
+                <button
+  onClick={() => setBookingMenuOpen(true)}
+  className="w-full text-base font-semibold bg-purple-600 text-white px-6 py-4 rounded-full hover:bg-purple-700 transition-colors shadow-md"
+>
+  Book Now
+</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Ticket Booking Menu */}
-      <AnimatePresence>
-        {isBookingMenuOpen && (
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            variants={animationParams}
-            className="absolute top-[56px] z-40 h-screen w-full text-eventr-gray-900 bg-eventr-gray-50 p-4 shadow-xl"
-          >
-            <div className="flex justify-between mb-4 items-center">
-              <h2 className="text-2xl font-bold">Book Your Ticket</h2>
-              <button onClick={() => setBookingMenuOpen(false)}>
-                <Icon icon="close" size="32px" />
+      {/* Booking Menu Modal */}
+      {isBookingMenuOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-gradient-to-b from-amber-300 to-amber-100 p-8 rounded-2xl w-full max-w-md shadow-xl">
+            <div className="flex justify-between mb-6 items-center">
+              <h2 className="text-2xl font-bold text-gray-900">Book Your Ticket</h2>
+              <button
+                onClick={() => setBookingMenuOpen(false)}
+                className="hover:bg-amber-200/50 p-2 rounded-full transition-colors"
+              >
+                <Icon icon="close" size="32px" fill={1}/>
               </button>
             </div>
             <div>
-              {/* Ticket booking form or details can go here */}
-              <p>Select your ticket details and proceed to payment.</p>
+              <p className="text-gray-700">Select your ticket details and proceed to payment.</p>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+        </div>
+      )}
+
+      {/* Mobile bottom bar */}
+      <div aria-label="Booking Bottom Bar" className="fixed inset-x-0 bottom-4 px-4 z-40 lg:hidden">
+        <div className="p-4 flex items-center gap-4 bg-gradient-to-r from-amber-400 to-amber-200 rounded-full shadow-lg">
+          <div className="flex flex-col flex-grow">
+            <p id="tier-info" className="text-sm text-gray-700">
+              General
+            </p>
+            <p id="tier-price" className="text-xl font-semibold text-gray-900 -mt-1">
+              ₹499 <span className="text-sm text-gray-700">Onwards</span>
+            </p>
+          </div>
+          <button
+  onClick={() => setBookingMenuOpen(true)}
+  className="w-full text-base font-semibold bg-purple-600 text-white px-6 py-4 rounded-full hover:bg-purple-700 transition-colors shadow-md"
+>
+  Book Now
+</button>
+        </div>
+      </div>
     </div>
   )
 }
+
