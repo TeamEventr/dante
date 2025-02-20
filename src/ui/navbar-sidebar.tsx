@@ -73,9 +73,6 @@ export default function NavbarSidebar() {
                         <div className="p-4 flex flex-col gap-6">
                             {/* Header with Menu text and close button */}
                             <div className="flex justify-between items-center">
-                                <span className="text-[#FFA500] font-gothic tracking-wider text-lg">
-                                    MENU
-                                </span>
                                 <button 
                                     onClick={() => setIsSidebarOpen(false)}
                                     className="text-gray-400 hover:text-white transition-colors duration-200"
