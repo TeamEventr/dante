@@ -87,3 +87,29 @@ export const dummyEvent =
     }
   }
   
+  export const dummyEvent2 = {
+    categories: ["Party", "Concert", "Fest", "Comedy", "Technology", "Workshop"],
+    event: {
+      id: "550e8400-e29b-41d4-a716-446655440000",
+      title: "Tech Conference 2025",
+      host_id: "5d5b5f16-3f9e-4b5a-9016-6f2d8d9caa22",
+      blurb: "Join us for an insightful event on emerging tech trends!",
+      description:
+        "A full-day event featuring keynotes, networking sessions, and workshops. Lorem ipsum dolor sit amet.",
+      category: "Technology",
+      cover_picture_url: "https://images.unsplash.com/photo-1540575467063-178a50c2df87",
+      banner_url: "https://example.com/banner.jpg",
+      thumbnail_url: "https://example.com/thumbnail.jpg",
+      visibility: "public",
+      tags: ["Tech", "New York", "2025"],
+      venue: "Convention Center, New York",
+      schedule: "multiple_days",
+      start_time: "2025-03-03T08:00:00Z",
+      end_time: "2025-03-04T18:00:00Z",
+      age_limit: 18,
+      created_at: "2025-02-10T12:00:00Z",
+      updated_at: "2025-02-11T10:30:00Z",
+      deleted_at: null,
+    },
+  };
+  

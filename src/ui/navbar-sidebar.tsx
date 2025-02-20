@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import Icon from "./icon-wrapper";
-import { HomeIcon } from "./icons";
+import { Home, HelpCircle, UserPlus, X, Menu } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
 const animationParams = {
@@ -25,69 +24,100 @@ const animationParams = {
         x: "-100%",
         opacity: 0,
         transition: {
-            duration: 0.2,  
+            duration: 0.2,
             ease: "easeInOut",
         },
     },
 };
 
 export default function NavbarSidebar() {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);  
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const sidebarRef = useRef<HTMLDivElement>(null);
     const menuButtonRef = useRef<HTMLButtonElement>(null);
 
     const handleClickOutside = (event: MouseEvent) => {
         if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
-        setIsSidebarOpen(false);
+            setIsSidebarOpen(false);
         } else if (event.target === menuButtonRef.current) {
-        setIsSidebarOpen(!isSidebarOpen);
+            setIsSidebarOpen(!isSidebarOpen);
         }
     };
 
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
 
     return (
-    <div>
-        <button className=" active:scale-90 bg-eventr-gray-800 rounded-full p-1 duration-200">
-            <span
+        <div>
+            <button
                 ref={menuButtonRef}
-                className="flex items-center material-symbols-rounded"
-                style={{fontSize: "32px", fontVariationSettings: `'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24`,}}
+                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                className="p-2 hover:bg-gray-800 rounded-full transition-colors duration-200 active:scale-95"
             >
-                menu
-            </span>
-        </button>
-        <AnimatePresence>
-          {isSidebarOpen && (
-              <motion.div
-                  initial="hidden" animate="visible" exit="exit" variants={animationParams} ref={sidebarRef}
-                  className="absolute top-0 z-50 left-0 w-52 md:w-64 h-screen p-2 flex flex-col gap-1.5 shadow-xl bg-eventr-gray-900 border-r-2 border-eventr-gray-800"
-              >
-                    <button className="mb-4 ml-2" onClick={() => setIsSidebarOpen(false)}>
-                        <Icon icon="close" size="32px" />
-                    </button>
-                <Link to="/" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
-                    <HomeIcon size={26}/> Home
-                  </Link>
-                  {/* <Link to="/explore" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
-                      <SearchIcon size={26}/> Explore
-                  </Link> */}
+                <Menu size={24} className="text-gray-300" />
+            </button>
 
-                  <Link to="/about" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
-                      <Icon icon="info" size="26px" /> About
-                  </Link>
-                  <Link to="/host/join" onClick={() => setIsSidebarOpen(false)} className="flex gap-2 text-lg p-2 rounded-md duration-200 hover:bg-eventr-gray-800">
-                      <Icon icon="settings" size="26px" /> Become a Host
-                  </Link>
-                  <div className="h-0.5 bg-eventr-gray-800 rounded-full m-4"/>
-              </motion.div>
-          )}
-        </AnimatePresence>
-    </div>
-  );
+            <AnimatePresence>
+                {isSidebarOpen && (
+                    <motion.div
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        variants={animationParams}
+                        ref={sidebarRef}
+                        className="fixed top-0 left-0 w-64 h-screen bg-black flex flex-col shadow-xl"
+                    >
+                        <div className="p-4 flex flex-col gap-6">
+                            {/* Header with Menu text and close button */}
+                            <div className="flex justify-between items-center">
+                                <span className="text-[#FFA500] font-gothic tracking-wider text-lg">
+                                    MENU
+                                </span>
+                                <button 
+                                    onClick={() => setIsSidebarOpen(false)}
+                                    className="text-gray-400 hover:text-white transition-colors duration-200"
+                                >
+                                    <X size={24} />
+                                </button>
+                            </div>
+
+                            {/* Navigation Links */}
+                            <div className="flex flex-col gap-4">
+                                <Link
+                                    to="/"
+                                    onClick={() => setIsSidebarOpen(false)}
+                                    className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors duration-200"
+                                >
+                                    <Home size={20} />
+                                    <span>Home</span>
+                                </Link>
+                                <Link
+                                    to="/host/join"
+                                    onClick={() => setIsSidebarOpen(false)}
+                                    className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors duration-200"
+                                >
+                                    <UserPlus size={20} />
+                                    <span>Become a Host</span>
+                                </Link>
+                                <Link
+                                    to="/about"
+                                    onClick={() => setIsSidebarOpen(false)}
+                                    className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors duration-200"
+                                >
+                                    <HelpCircle size={20} />
+                                    <span>About</span>
+                                </Link>
+                            </div>
+
+                            {/* Divider */}
+                            <div className="h-px bg-gray-800 w-full" />
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
+    );
 }

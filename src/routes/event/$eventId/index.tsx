@@ -65,66 +65,66 @@ function RouteComponent() {
           </div>
         </div>
 
-        {/* Right column - Now with gradient */}
-        <div className="lg:w-1/3 lg:sticky lg:top-8 h-fit">
+{/* Right column - Compact height */}
+<div className="lg:w-[28%] lg:fixed lg:right-8 lg:top-20 max-h-[90vh]">
 
-          <div className="bg-gradient-to-b from-amber-400 via-amber-300 to-amber-100 rounded-lg shadow-lg">
-            <div className="p-6 space-y-6">
-              {/* Event Details */}
-              <div>
-                <h2 className="text-lg font-semibold mb-3 text-gray-900">Event Details</h2>
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <Icon icon="calendar_today" size="20px" fill={1} className="text-black"/>
-                    <p className="text-sm text-gray-800">28th Nov, 2025</p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Icon icon="schedule" size="20px" fill={1} className="text-black"/>
-                    <p className="text-sm text-gray-800">7:00 PM - 10:00 PM</p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Icon icon="location_on" size="20px" fill={1} className="text-black"/>
-                    <p className="text-sm text-gray-800">Really long concert location</p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Icon icon="door_front" size="20px" fill={1} className="text-black"/>
-                    <p className="text-sm text-gray-800">18+</p>
-                  </div>
-                </div>
-              </div>
+  <div className="bg-white rounded-lg shadow-lg p-3">
+    <div className="space-y-4">
+      {/* Event Details */}
+      <div>
+        <h2 className="text-lg font-semibold mb-2 text-gray-900">Event Details</h2>
+        <div className="space-y-2">
+          <div className="flex items-center gap-3">
+            <Icon icon="calendar_today" size="20px" fill={1} className="text-black"/>
+            <p className="text-sm text-gray-800">28th Nov, 2025</p>
+          </div>
+          <div className="flex items-center gap-3">
+            <Icon icon="schedule" size="20px" fill={1} className="text-black"/>
+            <p className="text-sm text-gray-800">7:00 PM - 10:00 PM</p>
+          </div>
+          <div className="flex items-center gap-3">
+            <Icon icon="location_on" size="20px" fill={1} className="text-black"/>
+            <p className="text-sm text-gray-800">Really long concert location</p>
+          </div>
+          <div className="flex items-center gap-3">
+            <Icon icon="door_front" size="20px" fill={1} className="text-black"/>
+            <p className="text-sm text-gray-800">18+</p>
+          </div>
+        </div>
+      </div>
 
-              {/* Hosted By */}
-              <div>
-                <h2 className="text-lg font-semibold mb-3 text-gray-900">Hosted By</h2>
-                <Link
-                  to="/u/$uId"
-                  params={{ uId: "virat" }}
-                  className="flex items-center gap-3 hover:bg-amber-200/50 p-2 rounded-lg transition-colors"
-                >
-                  <div className="w-12 h-12 bg-eventr-gray-500 rounded-full" />
-                  <div>
-                    <p className="text-base font-bold text-gray-900">Virat Kohli</p>
-                    <p className="text-sm text-gray-700">Indian Cricket Bench</p>
-                  </div>
-                </Link>
-              </div>
+      {/* Hosted By */}
+      <div>
+        <h2 className="text-lg font-semibold mb-2 text-gray-900">Hosted By</h2>
+        <Link
+          to="/u/$uId"
+          params={{ uId: "virat" }}
+          className="flex items-center gap-3 hover:bg-gray-100 p-2 rounded-lg transition-colors"
+        >
+          <div className="w-10 h-10 bg-eventr-gray-500 rounded-full" />
+          <div>
+            <p className="text-sm font-bold text-gray-900">Virat Kohli</p>
+            <p className="text-xs text-gray-700">Indian Cricket Bench</p>
+          </div>
+        </Link>
+      </div>
 
-              {/* Performers */}
-              <div>
-                <h2 className="text-lg font-semibold mb-3 text-gray-900">Performers</h2>
-                <div className="grid grid-cols-4 gap-3">
-                  {performers.map((performer, index) => (
-                    <div key={index} className="flex flex-col items-center">
-                      <div className="w-12 h-12 rounded-full bg-eventr-gray-500" />
-                      <p className="text-xs font-bold mt-2 text-center text-gray-900">{performer.name}</p>
-                      <p className="text-xs text-center leading-tight text-gray-700">{performer.role}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+      {/* Performers */}
+      <div>
+        <h2 className="text-lg font-semibold mb-2 text-gray-900">Performers</h2>
+        <div className="grid grid-cols-4 gap-2">
+          {performers.map((performer, index) => (
+            <div key={index} className="flex flex-col items-center">
+              <div className="w-10 h-10 rounded-full bg-eventr-gray-500" />
+              <p className="text-xs font-bold mt-1 text-center text-gray-900">{performer.name}</p>
+              <p className="text-xs text-center leading-tight text-gray-700">{performer.role}</p>
+            </div>
+          ))}
+        </div>
+      </div>
 
-              {/* Google Calendar Button */}
-              <a
+      {/* Google Calendar Button */}
+      <a
   href={`https://www.google.com/calendar/render?action=TEMPLATE&text=Big Brown Fox Jumped&dates=20251128T190000Z/20251128T220000Z&details=Live concert event&location=Really long concert location`}
   target="_blank"
   rel="noopener noreferrer"
@@ -136,22 +136,22 @@ function RouteComponent() {
   <span>Add to Google Calendar</span>
 </a>
 
-              {/* Pricing and Booking */}
-              <div className="pt-2">
-                <p className="text-sm text-gray-700">General</p>
-                <p className="text-2xl font-semibold mb-3 text-gray-900">
-                  ₹499 <span className="text-sm text-gray-700">Onwards</span>
-                </p>
-                <button
-  onClick={() => setBookingMenuOpen(true)}
-  className="w-full text-base font-semibold bg-purple-600 text-white px-6 py-4 rounded-full hover:bg-purple-700 transition-colors shadow-md"
->
-  Book Now
-</button>
-              </div>
-            </div>
-          </div>
-        </div>
+      {/* Pricing and Booking */}
+      <div>
+        <p className="text-sm text-gray-700">General</p>
+        <p className="text-xl font-semibold mb-2 text-gray-900">
+          ₹499 <span className="text-sm text-gray-700">Onwards</span>
+        </p>
+        <button
+          onClick={() => setBookingMenuOpen(true)}
+          className="w-full text-base font-semibold bg-purple-600 text-white px-4 py-3 rounded-full hover:bg-purple-700 transition-colors shadow-md"
+        >
+          Book Now
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
       </div>
 
       {/* Booking Menu Modal */}
