@@ -30,16 +30,9 @@ export default function BookTicket() {
 
     return (
         <div className='fixed top-0 w-full h-svh p-2 z-50 bg-black/20'>
-            <div className="absolute w-[380px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl flex items-center p-8 h-max rounded-lg bg-white text-black flex-col gap-6">        
+            <div className="absolute w-[380px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl flex items-center p-6 h-max rounded-lg bg-white text-black flex-col gap-6">        
                 <button className='absolute top-4 right-4'><Icon icon='close' /></button>
-                <div>
-                    <h1 className='text-2xl font-semibold w-full text-center'>Book your Tickets</h1>
-                    <p className='text-sm text-eventr-gray-300 mt-4'>Eventr is not responsible for blah blah. Lorem Impsum 
-                    is simply dummy text of the printing and typesetting industry.
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                    </p>
-                </div>
-                {/* Time Slot Selection */}
+                <h1 className='text-2xl font-semibold w-full text-center'>Book your Tickets</h1>
                 <div className="w-full flex flex-col gap-4">
                     <h2 className="text-lg font-semibold">Select Time Slot</h2>
                     <div className="flex gap-2 flex-wrap">
@@ -98,7 +91,10 @@ export default function BookTicket() {
                         </div>
                     </div>
                 </div>
-
+                <p className='text-sm text-eventr-gray-300'>Eventr is <u>not responsible</u> for blah blah. Lorem Impsum 
+                    is simply dummy text of the printing and typesetting industry.
+                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                </p>
                 <div className="w-full flex flex-col gap-4">
                     <p className="w-full text-right"><span className='font-semibold text-lg'>Total: ₹{totalPrice}</span> <span className='text-xs text-eventr-gray-300'>(Incl. of taxes)</span></p>
                     <button className="bg-eventr-gray-800 active:scale-95 duration-200 text-white py-2 px-4 rounded-md">Proceed to Checkout</button>

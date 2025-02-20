@@ -20,8 +20,8 @@
     background-repeat: no-repeat;
     background-position: top left, bottom left; /* Positions gradients on top and bottom, aligned left */
     background-image: 
-      radial-gradient(circle at 40% 0, rgba(255,255,224,0) 0.6em, #fff 0.61em),
-      radial-gradient(circle at 40% 100%, rgba(255,255,224,0) 0.6em, #fff 0.61em);
+      radial-gradient(circle at 38% 0, rgba(255,255,224,0) 0.6em, #fff 0.61em),
+      radial-gradient(circle at 38% 100%, rgba(255,255,224,0) 0.6em, #fff 0.61em);
 }
 
 .ticket-horizontal {

@@ -23,7 +23,6 @@ import { Route as LoginIndexImport } from './routes/login/index'
 import { Route as FavouritesIndexImport } from './routes/favourites/index'
 import { Route as ExploreIndexImport } from './routes/explore/index'
 import { Route as UUIdImport } from './routes/u/$uId'
-import { Route as TicketsTIdImport } from './routes/tickets/$tId'
 import { Route as PurchasesPIdImport } from './routes/purchases/$pId'
 import { Route as HostJoinImport } from './routes/host/join'
 import { Route as HostDashboardImport } from './routes/host/dashboard'
@@ -102,12 +101,6 @@ const ExploreIndexRoute = ExploreIndexImport.update({
 const UUIdRoute = UUIdImport.update({
   id: '/u/$uId',
   path: '/u/$uId',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const TicketsTIdRoute = TicketsTIdImport.update({
-  id: '/tickets/$tId',
-  path: '/tickets/$tId',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -207,13 +200,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PurchasesPIdImport
       parentRoute: typeof rootRoute
     }
-    '/tickets/$tId': {
-      id: '/tickets/$tId'
-      path: '/tickets/$tId'
-      fullPath: '/tickets/$tId'
-      preLoaderRoute: typeof TicketsTIdImport
-      parentRoute: typeof rootRoute
-    }
     '/u/$uId': {
       id: '/u/$uId'
       path: '/u/$uId'
@@ -298,7 +284,6 @@ export interface FileRoutesByFullPath {
   '/host/dashboard': typeof HostDashboardRoute
   '/host/join': typeof HostJoinRoute
   '/purchases/$pId': typeof PurchasesPIdRoute
-  '/tickets/$tId': typeof TicketsTIdRoute
   '/u/$uId': typeof UUIdRoute
   '/explore': typeof ExploreIndexRoute
   '/favourites': typeof FavouritesIndexRoute
@@ -320,7 +305,6 @@ export interface FileRoutesByTo {
   '/host/dashboard': typeof HostDashboardRoute
   '/host/join': typeof HostJoinRoute
   '/purchases/$pId': typeof PurchasesPIdRoute
-  '/tickets/$tId': typeof TicketsTIdRoute
   '/u/$uId': typeof UUIdRoute
   '/explore': typeof ExploreIndexRoute
   '/favourites': typeof FavouritesIndexRoute
@@ -343,7 +327,6 @@ export interface FileRoutesById {
   '/host/dashboard': typeof HostDashboardRoute
   '/host/join': typeof HostJoinRoute
   '/purchases/$pId': typeof PurchasesPIdRoute
-  '/tickets/$tId': typeof TicketsTIdRoute
   '/u/$uId': typeof UUIdRoute
   '/explore/': typeof ExploreIndexRoute
   '/favourites/': typeof FavouritesIndexRoute
@@ -367,7 +350,6 @@ export interface FileRouteTypes {
     | '/host/dashboard'
     | '/host/join'
     | '/purchases/$pId'
-    | '/tickets/$tId'
     | '/u/$uId'
     | '/explore'
     | '/favourites'
@@ -388,7 +370,6 @@ export interface FileRouteTypes {
     | '/host/dashboard'
     | '/host/join'
     | '/purchases/$pId'
-    | '/tickets/$tId'
     | '/u/$uId'
     | '/explore'
     | '/favourites'
@@ -409,7 +390,6 @@ export interface FileRouteTypes {
     | '/host/dashboard'
     | '/host/join'
     | '/purchases/$pId'
-    | '/tickets/$tId'
     | '/u/$uId'
     | '/explore/'
     | '/favourites/'
@@ -432,7 +412,6 @@ export interface RootRouteChildren {
   HostDashboardRoute: typeof HostDashboardRoute
   HostJoinRoute: typeof HostJoinRoute
   PurchasesPIdRoute: typeof PurchasesPIdRoute
-  TicketsTIdRoute: typeof TicketsTIdRoute
   UUIdRoute: typeof UUIdRoute
   ExploreIndexRoute: typeof ExploreIndexRoute
   FavouritesIndexRoute: typeof FavouritesIndexRoute
@@ -454,7 +433,6 @@ const rootRouteChildren: RootRouteChildren = {
   HostDashboardRoute: HostDashboardRoute,
   HostJoinRoute: HostJoinRoute,
   PurchasesPIdRoute: PurchasesPIdRoute,
-  TicketsTIdRoute: TicketsTIdRoute,
   UUIdRoute: UUIdRoute,
   ExploreIndexRoute: ExploreIndexRoute,
   FavouritesIndexRoute: FavouritesIndexRoute,
@@ -485,7 +463,6 @@ export const routeTree = rootRoute
         "/host/dashboard",
         "/host/join",
         "/purchases/$pId",
-        "/tickets/$tId",
         "/u/$uId",
         "/explore/",
         "/favourites/",
@@ -521,9 +498,6 @@ export const routeTree = rootRoute
     },
     "/purchases/$pId": {
       "filePath": "purchases/$pId.tsx"
-    },
-    "/tickets/$tId": {
-      "filePath": "tickets/$tId.tsx"
     },
     "/u/$uId": {
       "filePath": "u/$uId.tsx"
