@@ -118,12 +118,13 @@ function RouteComponent() {
             <img className='w-full aspect-[16/9] object-cover rounded-xl border border-eventr-gray-500' src={dummyEvent.event.cover_picture_url} alt={dummyEvent.event.title}/>
             <div className='flex flex-col gap-2 bg-eventr-gray-800 border border-eventr-gray-500 rounded-xl p-4'>
                 <h1 className='text-xl font-semibold pl-2 pb-2 w-full border-b border-eventr-gray-500'>Description</h1>
-                <p>
+                <p className='pb-2 border-b border-eventr-gray-500'>
                     {dummyEvent.event.description}
                 </p>
-                <div className='flex flex-wrap gap-2'>
+                <div className='flex flex-wrap gap-2 w-full justify-end'>
+                    <span className='border border-eventr-gray-500 text-black bg-secondary font-semibold py-1 px-3 rounded-lg'>{dummyEvent.event.category}</span>
                     {dummyEvent.event.tags.map((tag, index) => (
-                        <span key={index} className='bg-eventr-gray-700 text-white py-1 px-3 rounded-lg'>
+                        <span key={index} className='bg-eventr-gray-700 border border-eventr-gray-500 text-white py-1 px-3 rounded-lg'>
                             {tag}
                         </span>
                     ))}
