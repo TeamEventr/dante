@@ -138,7 +138,7 @@ function RouteComponent() {
 
       {/* Pricing and Booking */}
       <div>
-        <p className="text-sm text-gray-700">General</p>
+        <p className="text-sm text-gray-700 ">General</p>
         <p className="text-xl font-semibold mb-2 text-gray-900">
           ₹499 <span className="text-sm text-gray-700">Onwards</span>
         </p>
@@ -173,26 +173,6 @@ function RouteComponent() {
           </div>
         </div>
       )}
-
-      {/* Mobile bottom bar */}
-      <div aria-label="Booking Bottom Bar" className="fixed inset-x-0 bottom-4 px-4 z-40 lg:hidden">
-        <div className="p-4 flex items-center gap-4 bg-gradient-to-r from-amber-400 to-amber-200 rounded-full shadow-lg">
-          <div className="flex flex-col flex-grow">
-            <p id="tier-info" className="text-sm text-gray-700">
-              General
-            </p>
-            <p id="tier-price" className="text-xl font-semibold text-gray-900 -mt-1">
-              ₹499 <span className="text-sm text-gray-700">Onwards</span>
-            </p>
-          </div>
-          <button
-  onClick={() => setBookingMenuOpen(true)}
-  className="w-full text-base font-semibold bg-purple-600 text-white px-6 py-4 rounded-full hover:bg-purple-700 transition-colors shadow-md"
->
-  Book Now
-</button>
-        </div>
-      </div>
     </div>
   )
 }
