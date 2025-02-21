@@ -4,6 +4,7 @@ import { motion } from "motion/react"
 import { ArrowRight, LocationIcon, Calendar, Clock } from "../ui/icons"
 import Footer from "../ui/footer"
 
+
 export const Route = createFileRoute("/")({
   component: RouteComponent,
   notFoundComponent: NotFound,
@@ -57,107 +58,153 @@ function RouteComponent() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {/* Event Card 1 */}
           <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
-            <div className="relative">
-              <img src="/concert.jpg" alt="Concert" className="w-full aspect-[16/9] object-cover" />
-              <div className="absolute top-3 left-3 bg-secondary text-white px-2 py-1 rounded-full text-xs">
-                Recommended
-              </div>
-            </div>
-            <div className="p-4">
-              <div className="flex justify-between items-start">
-              <h3 className="font-bold text-lg mb-1 line-clamp-2 text-black">Really Long Name</h3>
-                <span className="font-bebas text-lg text-secondary">₹499</span>
-              </div>
-              <div className="flex items-center gap-1 text-eventr-gray-500 text-sm mb-3">
-                <LocationIcon size={14} />
-                <span className="line-clamp-1">DY Patel Stadium, Mumbai</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <div className="flex items-center gap-1 text-eventr-gray-500 text-sm">
-                  <Calendar size={14} />
-                  <span>24th Jan</span>
-                  <Clock size={14} className="ml-2" />
-                  <span>8PM</span>
-                </div>
-                <Link
-                  params={{ eventId: "eventid" }}
-                  to={`/event/$eventId`}
-                  className="text-primary hover:text-secondary"
-                >
-                  <ArrowRight size={18} />
-                </Link>
-              </div>
-            </div>
-          </div>
+  <Link
+    params={{ eventId: "eventid" }}
+    to={`/event/$eventId`}
+    className="group cursor-pointer"
+  >
+    <div className="relative">
+      <img src="/concert.jpg" alt="Concert" className="w-full aspect-[16/9] object-cover" />
+      <div className="absolute top-3 left-3 bg-secondary text-white px-2 py-1 rounded-full text-xs">
+        Recommended
+      </div>
+    </div>
+  </Link>
+  <div className="p-4">
+    <div className="flex justify-between items-start">
+      <Link
+        params={{ eventId: "eventid" }}
+        to={`/event/$eventId`}
+        className="group cursor-pointer"
+      >
+        <h3 className="font-bold text-lg mb-1 line-clamp-2 text-black group-hover:text-primary transition-colors">
+          Really Long Name
+        </h3>
+      </Link>
+      <span className="font-bebas text-lg text-secondary">₹499</span>
+    </div>
+    <div className="flex items-center gap-1 text-eventr-gray-500 text-sm mb-3">
+      <LocationIcon size={14} />
+      <span className="line-clamp-1">DY Patel Stadium, Mumbai</span>
+    </div>
+    <div className="flex justify-between items-center">
+      <div className="flex items-center gap-1 text-eventr-gray-500 text-sm">
+        <Calendar size={14} />
+        <span>24th Jan</span>
+        <Clock size={14} className="ml-2" />
+        <span>8PM</span>
+      </div>
+      <Link
+        params={{ eventId: "eventid" }}
+        to={`/event/$eventId`}
+        className="p-2 -mr-2 text-primary hover:text-secondary transition-colors group"
+      >
+        <ArrowRight size={20} className="transform group-hover:translate-x-1 transition-transform" />
+      </Link>
+    </div>
+  </div>
+</div>
+
 
           {/* Event Card 2 */}
           <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
-            <div className="relative">
-              <img src="/concert.jpg" alt="Concert" className="w-full aspect-[16/9] object-cover" />
-              <div className="absolute top-3 left-3 bg-primary text-white px-2 py-1 rounded-full text-xs">Trending</div>
-            </div>
-            <div className="p-4">
-              <div className="flex justify-between items-start">
-              <h3 className="font-bold text-lg mb-1 line-clamp-2 text-black">Jazz Night Live</h3>
-                <span className="font-bebas text-lg text-secondary">₹799</span>
-              </div>
-              <div className="flex items-center gap-1 text-eventr-gray-500 text-sm mb-3">
-                <LocationIcon size={14} />
-                <span className="line-clamp-1">Phoenix Marketcity, Bengaluru</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <div className="flex items-center gap-1 text-eventr-gray-500 text-sm">
-                  <Calendar size={14} />
-                  <span>30th Jan</span>
-                  <Clock size={14} className="ml-2" />
-                  <span>7PM</span>
-                </div>
-                <Link
-                  params={{ eventId: "eventid2" }}
-                  to={`/event/$eventId`}
-                  className="text-primary hover:text-secondary"
-                >
-                  <ArrowRight size={18} />
-                </Link>
-              </div>
-            </div>
-          </div>
+  <Link
+    params={{ eventId: "eventid" }}
+    to={`/event/$eventId`}
+    className="group cursor-pointer"
+  >
+    <div className="relative">
+      <img src="/concert.jpg" alt="Concert" className="w-full aspect-[16/9] object-cover" />
+      <div className="absolute top-3 left-3 bg-primary text-white px-2 py-1 rounded-full text-xs">
+        Trending
+      </div>
+    </div>
+  </Link>
+  <div className="p-4">
+    <div className="flex justify-between items-start">
+      <Link
+        params={{ eventId: "eventid" }}
+        to={`/event/$eventId`}
+        className="group cursor-pointer"
+      >
+        <h3 className="font-bold text-lg mb-1 line-clamp-2 text-black group-hover:text-primary transition-colors">
+          Jazz Night Live
+        </h3>
+      </Link>
+      <span className="font-bebas text-lg text-secondary">₹499</span>
+    </div>
+    <div className="flex items-center gap-1 text-eventr-gray-500 text-sm mb-3">
+      <LocationIcon size={14} />
+      <span className="line-clamp-1">Phoenix Marketcity, Bengaluru</span>
+    </div>
+    <div className="flex justify-between items-center">
+      <div className="flex items-center gap-1 text-eventr-gray-500 text-sm">
+        <Calendar size={14} />
+        <span>30th Jan</span>
+        <Clock size={14} className="ml-2" />
+        <span>7PM</span>
+      </div>
+      <Link
+        params={{ eventId: "eventid" }}
+        to={`/event/$eventId`}
+        className="p-2 -mr-2 text-primary hover:text-secondary transition-colors group"
+      >
+        <ArrowRight size={20} className="transform group-hover:translate-x-1 transition-transform" />
+      </Link>
+    </div>
+  </div>
+</div>
+
 
           {/* Event Card 3 */}
           <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
-            <div className="relative">
-              <img src="/concert.jpg" alt="Concert" className="w-full aspect-[16/9] object-cover" />
-              <div className="absolute top-3 left-3 bg-eventr-gray-800 text-white px-2 py-1 rounded-full text-xs">
-                Selling Fast
-              </div>
-            </div>
-            <div className="p-4">
-              <div className="flex justify-between items-start">
-              <h3 className="font-bold text-lg mb-1 line-clamp-2 text-black">Comedy Night Special</h3>
+  <Link
+    params={{ eventId: "eventid" }}
+    to={`/event/$eventId`}
+    className="group cursor-pointer"
+  >
+    <div className="relative">
+      <img src="/concert.jpg" alt="Concert" className="w-full aspect-[16/9] object-cover" />
+      <div className="absolute top-3 left-3 bg-eventr-gray-800 text-white px-2 py-1 rounded-full text-xs">
+        Selling Fast
+      </div>
+    </div>
+  </Link>
+  <div className="p-4">
+    <div className="flex justify-between items-start">
+      <Link
+        params={{ eventId: "eventid" }}
+        to={`/event/$eventId`}
+        className="group cursor-pointer"
+      >
+        <h3 className="font-bold text-lg mb-1 line-clamp-2 text-black group-hover:text-primary transition-colors">
+          Comedy Night Special
+        </h3>
+      </Link>
+      <span className="font-bebas text-lg text-secondary">₹299</span>
+    </div>
+    <div className="flex items-center gap-1 text-eventr-gray-500 text-sm mb-3">
+      <LocationIcon size={14} />
+      <span className="line-clamp-1">Canvas Laugh Club, Bengaluru</span>
+    </div>
+    <div className="flex justify-between items-center">
+      <div className="flex items-center gap-1 text-eventr-gray-500 text-sm">
+        <Calendar size={14} />
+        <span>28th Jan</span>
+        <Clock size={14} className="ml-2" />
+        <span>8:30PM</span>
+      </div>
+      <Link
+        params={{ eventId: "eventid" }}
+        to={`/event/$eventId`}
+        className="p-2 -mr-2 text-primary hover:text-secondary transition-colors group"
+      >
+        <ArrowRight size={20} className="transform group-hover:translate-x-1 transition-transform" />
+      </Link>
+    </div>
+  </div>
+</div>
 
-                <span className="font-bebas text-lg text-secondary">₹299</span>
-              </div>
-              <div className="flex items-center gap-1 text-eventr-gray-500 text-sm mb-3">
-                <LocationIcon size={14} />
-                <span className="line-clamp-1">Canvas Laugh Club, Bengaluru</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <div className="flex items-center gap-1 text-eventr-gray-500 text-sm">
-                  <Calendar size={14} />
-                  <span>28th Jan</span>
-                  <Clock size={14} className="ml-2" />
-                  <span>8:30PM</span>
-                </div>
-                <Link
-                  params={{ eventId: "eventid3" }}
-                  to={`/event/$eventId`}
-                  className="text-primary hover:text-secondary"
-                >
-                  <ArrowRight size={18} />
-                </Link>
-              </div>
-            </div>
-          </div>
 
           {/* Explore Card */}
           <div className="relative bg-gradient-to-br from-primary to-primary-dark rounded-2xl overflow-hidden flex items-center justify-center shadow-md hover:shadow-xl transition-shadow duration-300 aspect-[4/5]">
