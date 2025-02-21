@@ -12,6 +12,7 @@ export default function Register() {
     const register = useAuthStore(state => state.register)
     const registerModal = useAuthStore(state => state.registerModal)
     const setRegisterModal = useAuthStore(state => state.setRegisterModal)
+    const setLoginModal = useAuthStore(state => state.setLoginModal)
     // const OTP = useAuthStore(state => state.OTP)
     const [count, setCount] = useState(5)
     const navigate = useNavigate()
@@ -25,6 +26,11 @@ export default function Register() {
     const [email, setEmail ] = useState('')
     const [confirmPassword, setConfirmPassword ] = useState('')
     
+    const handleLoginButton = (): void => {
+        setRegisterModal(false);
+        setLoginModal(true);
+    }
+
     const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault()
         if (password !== confirmPassword) {
@@ -86,7 +92,7 @@ export default function Register() {
                                 <input type="checkbox" className="opacity-75z" id="terms" name="terms" />
                                 <label htmlFor="terms" className='text-xs text-eventr-gray-500'>I agree to the <u>Terms of Service</u> and <u>Privacy Policy</u></label>
                             </div>
-                            <button disabled={loading} type='submit' className='bg-eventr-gray-800 active:scale-90 duration-200 flex items-center justify-center font-semibold text-white rounded-lg px-6 py-3'>
+                            <button typeof='subnmit' disabled={loading} type='submit' className='bg-eventr-gray-800 active:scale-90 duration-200 flex items-center justify-center font-semibold text-white rounded-lg px-6 py-3'>
                                 {!loading ?
                                     'Continue' :
                                     <Icon icon='progress_activity' spin/>
@@ -96,7 +102,7 @@ export default function Register() {
                                 <Google/>
                                 Continue with Google
                             </button>
-                            <Link to='/login' className='text-center mt-2 text-sm text-eventr-gray-500'>Already have an account? <u>Log In</u></Link>
+                            <button onClick={handleLoginButton} type='button' className='text-center mt-2 text-sm text-eventr-gray-500'>Already have an account? <u>Log In</u></button>
                         </div>
                     </motion.form>
                 }
