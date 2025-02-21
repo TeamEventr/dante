@@ -29,8 +29,8 @@ const Footer = () => {
             <li><Link to="/" className="hover:text-white">Home</Link></li>
             <li><Link to="/about" className="hover:text-white">About</Link></li>
             <li><Link to="/login" className="hover:text-white">Login</Link></li>
-            {/* <li><Link to="/signup" className="hover:text-white">Sign Up</Link></li>
-            <li><Link to="/host/login" className="hover:text-white">Become a Host</Link></li> */}
+            {/* <li><Link to="/register" className="hover:text-white">Sign Up</Link></li> */}
+            <li><Link to="/host/join" className="hover:text-white">Become a Host</Link></li>
           </ul>
         </div>
 
@@ -39,7 +39,7 @@ const Footer = () => {
           <h3 className="text-lg font-semibold mb-2">Contact</h3>
           <div className="flex items-center gap-2 text-gray-400 text-sm mb-2">
             <Mail className="w-4 h-4" />
-            <span>Hello.eventr@gmail.com</span>
+            <a href="mailto:Hello.eventr@gmail.com" className="hover:text-white">Hello.eventr@gmail.com</a>
           </div>
           <div className="flex items-center gap-2 text-gray-400 text-sm mb-2">
             <Phone className="w-4 h-4" />

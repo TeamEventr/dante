@@ -16,32 +16,34 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 z-50 bg-black w-full">
       <div className="flex items-center justify-between p-4">
-        {/* Left section - Menu Icon */}
-        <div className="lg:hidden">
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="text-gray-300 hover:text-white p-2"
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          >
-            <Menu size={24} />
-          </button>
-        </div>
-
-        {/* Left section - Desktop */}
-        <div className="hidden lg:flex items-center">
-          <NavbarSidebar />
+        {/* Left section - Menu Icon (Mobile) / Sidebar (Desktop) */}
+        <div className="w-1/3">
+          <div className="lg:hidden">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="text-gray-300 hover:text-white p-2"
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            >
+              <Menu size={24} />
+            </button>
+          </div>
+          <div className="hidden lg:flex items-center">
+            <NavbarSidebar />
+          </div>
         </div>
 
         {/* Center logo */}
-        <Link
-          to="/"
-          className="text-[#FFA500] font-gothic text-3xl md:text-4xl tracking-widest hover:text-[#FFA500]/90 transition-colors duration-200"
-        >
-          EVENTR
-        </Link>
+        <div className="w-1/3 flex justify-center">
+          <Link
+            to="/"
+            className="text-[#FFA500] font-gothic text-3xl md:text-4xl tracking-widest hover:text-[#FFA500]/90 transition-colors duration-200"
+          >
+            EVENTR
+          </Link>
+        </div>
 
         {/* Right section - Auth buttons */}
-        <div className="flex items-center gap-2 md:gap-3">
+        <div className="w-1/3 flex justify-end items-center gap-2 md:gap-3">
           {!isAuthenticated ? (
             <>
               <button
