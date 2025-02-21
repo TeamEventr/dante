@@ -39,15 +39,15 @@ const Footer = () => {
           <h3 className="text-lg font-semibold mb-2">Contact</h3>
           <div className="flex items-center gap-2 text-gray-400 text-sm mb-2">
             <Mail className="w-4 h-4" />
-            <span>support@example.com</span>
+            <span>Hello.eventr@gmail.com</span>
           </div>
           <div className="flex items-center gap-2 text-gray-400 text-sm mb-2">
             <Phone className="w-4 h-4" />
-            <span>+123 456 7890</span>
+            <span>+91 6363345104</span>
           </div>
           <div className="flex items-center gap-2 text-gray-400 text-sm">
             <MapPin className="w-4 h-4" />
-            <span>123 Street, City, Country</span>
+            <span>Jp nagar, Bangalore</span>
           </div>
         </div>
 
