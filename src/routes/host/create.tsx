@@ -451,7 +451,7 @@ function TicketSection() {
           />
           <Input
             responsive
-            type="number"
+            type="text"
             name="price"
             value={ticketInput.price}
             onChange={handleTierChange}
@@ -460,7 +460,7 @@ function TicketSection() {
           />
           <Input
             responsive
-            type="number"
+            type="text"
             name="totalSeats"
             value={ticketInput.totalSeats}
             onChange={handleTierChange}
@@ -539,16 +539,102 @@ function TicketSection() {
   )
 }
 
-// // Placeholder components for remaining steps
-// function PerformersSection() {
-//   return (
-//     <div className="flex flex-col gap-6">
-//       <h2 className="text-2xl font-semibold">Add Performers</h2>
-//       {/* Performers section implementation */}
-//     </div>
-//   );
-// }
-
+function PerformersSection() {
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchResult, setSearchResult] = useState<{ username: string; fullName: string; profilePicture: string } | null>(null);
+    const [performers, setPerformers] = useState<{ username: string; fullName: string; profilePicture: string; role: string }[]>([]);
+    const [selectedRole, setSelectedRole] = useState('');
+  
+    const handleSearch = async () => {
+      // Simulate an API search request
+      const mockResult = {
+        username: searchTerm,
+        fullName: 'John Doe',
+        profilePicture: 'https://images.unsplash.com/photo-1516873240891-4bf014598ab4',
+      };
+      setSearchResult(mockResult);
+    };
+  
+    const addPerformer = () => {
+      if (searchResult) {
+        setPerformers([...performers, { ...searchResult, role: selectedRole }]);
+        setSearchResult(null);
+        setSearchTerm('');
+      }
+    };
+  
+    const removePerformer = (username: string) => {
+      setPerformers(performers.filter((p) => p.username !== username));
+    };
+  
+    return (
+      <div className=" mb-8 flex py-2 flex-col gap-4">
+        <div className="flex flex-wrap gap-4 items-center">
+            <Input
+                responsive
+                type="text"
+                placeholder="Role"
+                value={selectedRole}
+                name='role'
+                onChange={(e) => setSelectedRole(e.target.value)}
+                width="w-full"
+            />
+            <Input
+                name='search'
+                responsive
+                type="text"
+                placeholder="Enter performer's username"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                width="w-48 md:w-64"
+            />
+            
+            <button onClick={handleSearch} className="text-white flex items-center">
+                <Icon icon="search" size="24px" />
+            </button>
+        </div>
+        
+        <div className='flex font-semibold text-lg'>
+            <h2 className='w-40 p-2'>Preview</h2>
+            <h2 className='p-2'>Your Performers</h2>
+        </div>
+        {/* Added performers section */}
+        <div className='flex gap-4 -mt-2'>
+            <div className='flex flex-col items-center border border-dashed h-64 w-36 border-eventr-gray-500 p-2 rounded-lg'>
+            {searchResult && (
+                <div className="flex flex-col gap-1 items-center justify-center bg-eventr-gray-800 p-2 rounded-lg">
+                    <img src={searchResult.profilePicture} alt="Profile" className="w-28 h-28 rounded-full" />
+                    <div className='text-center'>
+                        <p className="text-white text-lg">{searchResult.fullName}</p>
+                        <p className="text-eventr-gray-100 text-sm">@{searchResult.username}</p>
+                        <p className="text-eventr-gray-100 text-sm">{selectedRole}</p>   
+                    </div>
+                    <button onClick={addPerformer}  className="w-full  mt-2 text-sm border-t border-eventr-gray-500">
+                        Add
+                    </button>
+                </div> 
+            )}
+        </div>
+        <div className="border flex gap-4 items-center border-dashed border-eventr-gray-500 rounded-md p-2 overflow-y-auto flex-grow">
+            {performers.map((performer, index) => (
+                <div key={index}  className="flex h-min flex-col items-center gap-1 justify-center rounded-lg bg-eventr-gray-800 p-2" >
+                    <img src={performer.profilePicture} alt="Profile" className="w-28 h-28 rounded-full" />
+                    <div className='text-center'>
+                        <p className="text-white text-lg">{performer.fullName}</p>
+                        <p className="text-eventr-gray-100 text-sm">@{performer.username}</p>
+                        <p className="text-eventr-gray-100 text-sm">{performer.role}</p>
+                    </div>
+                    <button onClick={() => removePerformer(performer.username)} className="w-full mt-2 text-red-400 text-sm border-t border-eventr-gray-500">
+                        Remove
+                    </button>
+                </div>
+            ))}
+            </div>
+        </div>
+      </div>
+    );
+  }
+  
 // function ConfirmationSection() {
 //   return (
 //     <div className="flex flex-col gap-6">
@@ -581,6 +667,7 @@ function Page() {
           <div className="bg-eventr-gray-900 border-2 border-eventr-gray-800 px-4 md:px-6 lg:px-10 flex flex-col gap-2 py-4 lg:py-6 -translate-y-12 w-full lg:w-[880px] h-[640px] md:h-[560px] rounded-md">
               {step === 1 && <MetadataSection />}
               {step === 2 && <TicketSection />}
+              {step === 3 && <PerformersSection />}
               <div className="w-full flex justify-end gap-4">
                   <button 
                       onClick={() => setStep(Math.max(1, step - 1))} 
@@ -588,10 +675,7 @@ function Page() {
                   >
                       <Icon icon="arrow_back" />Back
                   </button>
-                  <button 
-                      onClick={() => setStep(Math.min(5, step + 1))} 
-                      className="w-24 py-1 gap-1 flex items-center justify-center text-lg duration-100 font-bold bg-eventr-main rounded-md"
-                  >
+                  <button onClick={() => setStep(Math.min(5, step + 1))} className="w-24 text-black font-semibold bg-gradient-to-r from-amber-400 to-secondary py-1 gap-1 flex items-center justify-center text-lg duration-100 rounded-md">
                       Next
                   </button>
               </div>

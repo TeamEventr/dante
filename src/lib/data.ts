@@ -20,6 +20,22 @@ export const dummyEvent =
       "start_time": "2025-03-03T08:00:00Z",
       "end_time": "2025-03-04T18:00:00Z",
       "age_limit": 18,
+      "performers": [
+        {
+          "id": "performer-001",
+          "username": "John Doe",
+        "fullName": "John Doe", 
+          "profilePicture": "https://images.unsplash.com/photo-1540575467063-178a50c2df87",
+          "role": "Keynote Speaker",
+        },
+        {
+          "id": "performer-002",
+          "username": "janedoe",
+          "fullName": "Jane Doe",
+          "profilePicture": "https://images.unsplash.com/photo-1540575467063-178a50c2df87",
+          "role": "Keynote Speaker",
+        }
+      ],
       "created_at": "2025-02-10T12:00:00Z",
       "updated_at": "2025-02-11T10:30:00Z",
       "deleted_at": null
